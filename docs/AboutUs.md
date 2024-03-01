@@ -13,7 +13,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [[github](https://github.com/YuZizhen)]
 
-- Role: Developer
+* Role: Developer
+* Responsibilities: Deliverables and deadlines
 
 ### Koh Guan Zeh
 
