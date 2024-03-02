@@ -227,6 +227,9 @@ Clears all entries from the contact list of FINDvisor.
 
 Format: `clear`
 
+Examples:
+* `clear` command will return an output message: `Address book has been cleared!`
+
 ### Exiting the program : `exit`
 
 Exits the program.
