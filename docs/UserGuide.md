@@ -132,9 +132,12 @@ Specifications:
 
 ### Listing all persons : `list`
 
-Shows a list of all persons in the contact list of FINDvisor.
+Shows a list of all contacts in the FINDvisor.
 
 Format: `list`
+
+Examples:
+* Displays the information of each contact row by row. i.e.`Listed all persons: Bobby Tay; Phone:91234567; Email: bobbytay@u.nus.edu; Address: 18 College Ave E, National University of Singapore, Singapore 138593; Tags: [PRUActiveSaverIII, PRUActiveCash]`
 
 ### Editing a person : `edit`
 
