@@ -22,8 +22,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [[github](https://github.com/KohGuanZeh)]
 
-- Role: Developer
-- Responsibilities: Testing
+* Role: Developer
+* Responsibilities: Testing
 
 ### Javier Yong
 
@@ -31,8 +31,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [[github](https://github.com/Javiery3889)]
 
-- Role: Developer
-- Responsibilities: Scheduling and Tracking
+* Role: Developer
+* Responsibilities: Scheduling and Tracking
 
 ### Lim Yong En, Dominic
 
@@ -40,8 +40,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [[github](http://github.com/Arixeyeion)]
 
-- Role: Developer
-- Responsibilities: Documentation
+* Role: Developer
+* Responsibilities: Documentation
 
 ### David Zhu
 
@@ -49,5 +49,5 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [[github](http://github.com/Dethada)]
 
-- Role: Developer
-- Responsibilities: Code quality
+* Role: Developer
+* Responsibilities: Code quality
