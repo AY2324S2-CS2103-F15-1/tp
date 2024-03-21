@@ -2,6 +2,7 @@ package seedu.findvisor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.findvisor.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +23,8 @@ import seedu.findvisor.model.person.Phone;
 import seedu.findvisor.model.tag.Tag;
 
 /**
- * Deletes a tag of a person identified using it's displayed index from the
+ * Deletes an existing tag of a person identified using it's displayed index
+ * from the
  * address book.
  */
 public class DeleteTagCommand extends Command {
@@ -33,8 +35,8 @@ public class DeleteTagCommand extends Command {
             + ": Deletes the tag associated with a particular person "
             + "identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "[" + PREFIX_TAG + "TAG]...\n"
-            + "Example: " + COMMAND_WORD + " 1";
+            + "[" + PREFIX_TAG + "TAG]\n"
+            + "Example: " + COMMAND_WORD + " 1 t\\tag";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %1$s for Person: %2$s";
     public static final String MESSAGE_CANNOT_FIND_TAG = "There is no tag %1$s for Person: %2$s";
@@ -42,6 +44,10 @@ public class DeleteTagCommand extends Command {
     private final Index targetIndex;
     private final Tag targetTag;
 
+    /**
+     * Creates an DeleteTagCommand to delete an existing tag with the person at the
+     * specified {@code Index}
+     */
     public DeleteTagCommand(Index targetIndex, Tag targetTag) {
         this.targetIndex = targetIndex;
         this.targetTag = targetTag;
@@ -67,11 +73,16 @@ public class DeleteTagCommand extends Command {
 
         if (isPresent) {
             Person editedPerson = createEditedPerson(personToEdit, targetTag);
+            model.setPerson(personToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
             return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag, editedPerson.getName()));
         }
         return new CommandResult(String.format(MESSAGE_CANNOT_FIND_TAG, targetTag, personToEdit.getName()));
     }
 
+    /**
+     * Creates and returns a copy of {@code personToEdit} without {@code targetTag}.
+     */
     private static Person createEditedPerson(Person personToEdit, Tag targetTag) {
         assert personToEdit != null;
 
