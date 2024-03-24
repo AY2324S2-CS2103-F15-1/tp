@@ -110,12 +110,13 @@ public class DeleteTagCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand)) {
+        if (!(other instanceof DeleteTagCommand)) {
             return false;
         }
 
-        DeleteTagCommand otherDeleteCommand = (DeleteTagCommand) other;
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
+        DeleteTagCommand otherDeleteTagCommand = (DeleteTagCommand) other;
+        return targetIndex.equals(otherDeleteTagCommand.targetIndex)
+                && targetTag.equals(otherDeleteTagCommand.targetTag);
     }
 
     @Override

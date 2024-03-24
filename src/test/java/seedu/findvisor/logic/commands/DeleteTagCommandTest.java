@@ -7,6 +7,7 @@ import static seedu.findvisor.logic.commands.CommandTestUtil.assertCommandSucces
 import static seedu.findvisor.logic.commands.CommandTestUtil.showPersonAtIndex;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.findvisor.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.findvisor.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -48,6 +49,20 @@ public class DeleteTagCommandTest {
     }
 
     @Test
+    public void execute_validIndexUnfilteredList_invalidTag() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
+
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_THIRD_PERSON, targetTag);
+
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_CANNOT_FIND_TAG, targetTag,
+                personToEdit.getName());
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+
+        assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(outOfBoundIndex, targetTag);
@@ -55,25 +70,24 @@ public class DeleteTagCommandTest {
         assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
-    // @Test
-    // public void execute_validIndexFilteredList_success() {
-    //     showPersonAtIndex(model, INDEX_FIRST_PERSON);
+    @Test
+    public void execute_validIndexFilteredList_success() {
+        showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
-    //     Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-    //     DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
 
-    //     String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, targetTag,
-    //             personToEdit.getName());
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, targetTag,
+                personToEdit.getName());
 
-    //     PersonBuilder personBuilder = new PersonBuilder(personToEdit).withTags();
-    //     Person editedPerson = personBuilder.build();
+        PersonBuilder personBuilder = new PersonBuilder(personToEdit).withTags();
+        Person editedPerson = personBuilder.build();
 
-    //     ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-    //     expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
-    //     showNoPerson(expectedModel);
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
 
-    //     assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
-    // }
+        assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
+    }
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
@@ -97,9 +111,8 @@ public class DeleteTagCommandTest {
         assertTrue(deleteFirstCommand.equals(deleteFirstCommand));
 
         // same values -> returns true
-        // DeleteTagCommand deleteFirstCommandCopy = new
-        // DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
-        // assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
+        DeleteTagCommand deleteFirstCommandCopy = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
+        assertTrue(deleteFirstCommand.equals(deleteFirstCommandCopy));
 
         // different types -> returns false
         assertFalse(deleteFirstCommand.equals(1));
@@ -110,13 +123,4 @@ public class DeleteTagCommandTest {
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
-
-    // /**
-    //  * Updates {@code model}'s filtered list to show no one.
-    //  */
-    // private void showNoPerson(Model model) {
-    //     model.updateFilteredPersonList(p -> false);
-
-    //     assertTrue(model.getFilteredPersonList().isEmpty());
-    // }
 }
