@@ -41,13 +41,13 @@ public class SampleDataUtil {
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("DavidGirlfriend", "PRUgain365"),
                 convertToMeeting(new String[] {"16-04-2024T13:00", "16-04-2024T15:00",
-                "Physical meeting at Serangoon Gardens"}),
+                    "Physical meeting at Serangoon Gardens"}),
                 Optional.of(new Remark("Working as SWE, wants to BTO with David"))),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@hotmail.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("BerniceBoyfriend", "PRUgain365"),
                 convertToMeeting(new String[] {"16-04-2024T13:00", "16-04-2024T15:00",
-                "Physical meeting at Serangoon Gardens"}),
+                    "Physical meeting at Serangoon Gardens"}),
                 Optional.of(new Remark("Still schooling, wants to BTO with Bernice"))),
         };
     }
