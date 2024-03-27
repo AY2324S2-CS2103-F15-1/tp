@@ -80,5 +80,4 @@ public class SampleDataUtil {
         return Optional.of(new Meeting(startDateTime, endDateTime, meetingRemark));
     }
 
-
 }
