@@ -60,7 +60,6 @@ destroy DeleteTagCommandParser
 LogicManager -> DeleteTagCommand : execute(m)
 activate DeleteTagCommand
 
-
 DeleteTagCommand -> Model : getFilteredPersonList()
 activate Model
 

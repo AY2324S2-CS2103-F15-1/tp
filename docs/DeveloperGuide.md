@@ -183,6 +183,10 @@ The current allowed formats for required fields are as follows:
 - `Index` : an `Integer` within the range greater than 0, smaller than the size of the currently displayed contact list.
 - `Tag` : one alphanumeric characters with no spaces between them.
 
+The following sequence diagram shows how `DeleteTagCommand` interacts with `Logic`.
+
+![DeleteTagSequenceDiagram](images/DeleteTagSequenceDiagram.png)
+
 1. The user keys in `deltetag 1 t/validTag` to delete 1 validtag that associated with the `person` at the first `index`.
 2. The `DeleteTagCommandParser` checks that the `index` and `tag` are valid, then returns a new `DeleteTagCommand` with the corresponding index and the target tag.
 3. The `LogicManager` then executes the `DeleteTagCommand`.
