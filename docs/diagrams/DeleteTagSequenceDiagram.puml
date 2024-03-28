@@ -1,0 +1,90 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Logic LOGIC_COLOR_T1
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
+participant ":DeleteTagCommandParser" as DeleteTagCommandParser LOGIC_COLOR
+participant ":ParseUtil" as ParseUtil LOGIC_COLOR
+participant "d:DeleteTagCommand" as DeleteTagCommand LOGIC_COLOR
+end box
+
+box Model MODEL_COLOR_T1
+participant "m:Model" as Model MODEL_COLOR
+end box
+
+[-> LogicManager : execute("deletetag 1 t/validTag")
+activate LogicManager
+
+LogicManager -> AddressBookParser : parseCommand("deleteTag 1 t/validTag")
+activate AddressBookParser
+
+create DeleteTagCommandParser
+AddressBookParser -> DeleteTagCommandParser
+activate DeleteTagCommandParser
+
+DeleteTagCommandParser --> AddressBookParser
+deactivate DeleteTagCommandParser
+
+AddressBookParser -> DeleteTagCommandParser : parse("deleteTag 1 t/validTag")
+activate DeleteTagCommandParser
+
+DeleteTagCommandParser -> ParseUtil : parseIndex("1")
+activate ParseUtil
+
+ParseUtil --> DeleteTagCommandParser : index
+deactivate ParseUtil
+
+DeleteTagCommandParser -> ParseUtil : parseTags("t/validTag")
+
+activate ParseUtil
+
+ParseUtil --> DeleteTagCommandParser : targetTag
+deactivate ParseUtil
+
+create DeleteTagCommand
+DeleteTagCommandParser -> DeleteTagCommand : DeleteTagCommand(index, targetTag)
+activate DeleteTagCommand
+
+DeleteTagCommand --> DeleteTagCommandParser : d
+deactivate DeleteTagCommand
+
+DeleteTagCommandParser --> AddressBookParser : d
+deactivate DeleteTagCommandParser
+
+AddressBookParser --> LogicManager : d
+deactivate AddressBookParser
+destroy DeleteTagCommandParser
+
+LogicManager -> DeleteTagCommand : execute(m)
+activate DeleteTagCommand
+
+
+DeleteTagCommand -> Model : getFilteredPersonList()
+activate Model
+
+Model --> DeleteTagCommand
+deactivate Model
+
+DeleteTagCommand -> DeleteTagCommand : deleteTagFromPerson(personFilteredByIndex, targetTag)
+activate DeleteTagCommand
+
+DeleteTagCommand --> DeleteTagCommand : editedPerson
+deactivate DeleteTagCommand
+
+DeleteTagCommand -> Model : setPerson(personFilteredByIndex, editedPerson)
+activate Model
+
+Model --> DeleteTagCommand
+deactivate Model
+
+DeleteTagCommand -> Model: updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)
+activate Model
+
+Model --> DeleteTagCommand
+deactivate Model
+
+DeleteTagCommand --> LogicManager: commandResult(successMessage)
+deactivate DeleteTagCommand
+@enduml
