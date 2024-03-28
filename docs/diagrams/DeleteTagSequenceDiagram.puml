@@ -86,4 +86,5 @@ deactivate Model
 
 DeleteTagCommand --> LogicManager: commandResult(successMessage)
 deactivate DeleteTagCommand
+
 @enduml
