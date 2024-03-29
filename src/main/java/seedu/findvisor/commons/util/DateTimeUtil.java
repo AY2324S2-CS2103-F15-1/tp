@@ -20,7 +20,7 @@ public class DateTimeUtil {
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     /**
-     * Converts a String into a LocalDateTime object. The expected format is yyyy-MM-dd'T'HH:mm. For
+     * Converts a String into a LocalDateTime object. The expected format is dd-MM-yyyy'T'HH:mm. For
      * example, 2023-01-29T14:00.
      *
      * @param input The string to be converted to a LocalDateTime object.
@@ -44,7 +44,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a LocalDateTime object into a String in input format. The format is yyyy-MM-dd'T'HH:mm. For
+     * Converts a LocalDateTime object into a String in input format. The format is dd-MM-yyyy'T'HH:mm. For
      * example, 2023-01-29T14:00.
      *
      * @param dateTime The LocalDateTime object to be converted.
@@ -66,7 +66,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a LocalDateTime object into a String in output format. The format is yyyy-MM-dd HH:mm. For
+     * Converts a LocalDateTime object into a String in output format. The format is dd-MM-yyyy HH:mm. For
      * example, 2023-01-29 14:00.
      *
      * @param dateTime The LocalDateTime object to be converted.
