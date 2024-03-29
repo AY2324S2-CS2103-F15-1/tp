@@ -29,4 +29,9 @@ public class DeleteTagCommandParserTest {
         DeleteTagCommand expectedDeleteTagCommand = new DeleteTagCommand(targetIndex, targetTag);
         assertParseSuccess(parser, targetIndex.getOneBased() + " " + PREFIX_TAG + "friends", expectedDeleteTagCommand);
     }
+
+    @Test
+    public void parse_invalidArgs_returnsError() {
+        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
+    }
 }

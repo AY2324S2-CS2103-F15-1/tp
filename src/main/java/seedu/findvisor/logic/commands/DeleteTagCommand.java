@@ -20,6 +20,7 @@ import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Name;
 import seedu.findvisor.model.person.Person;
 import seedu.findvisor.model.person.Phone;
+import seedu.findvisor.model.person.Remark;
 import seedu.findvisor.model.tag.Tag;
 
 /**
@@ -92,6 +93,7 @@ public class DeleteTagCommand extends Command {
         Address address = personToEdit.getAddress();
         Set<Tag> tags = personToEdit.getTags();
         Optional<Meeting> meeting = personToEdit.getMeeting();
+        Optional<Remark> remark = personToEdit.getRemark();
 
         Set<Tag> updatedTags = new HashSet<>();
         for (Tag tag : tags) {
@@ -100,7 +102,7 @@ public class DeleteTagCommand extends Command {
             }
         }
 
-        return new Person(name, phone, email, address, updatedTags, meeting);
+        return new Person(name, phone, email, address, updatedTags, meeting, remark);
     }
 
     @Override
