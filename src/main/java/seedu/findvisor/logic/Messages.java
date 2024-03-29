@@ -21,6 +21,8 @@ public class Messages {
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_EMPTY_FIELD = "Empty value for field: %1$s!";
+    public static final String MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST = "Cannot schedule meeting that"
+            + " starts before the current time!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.

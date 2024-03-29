@@ -54,6 +54,18 @@ public class Meeting {
         return remark.length() <= MAX_REMARK_LENGTH;
     }
 
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
     public String getStartString() {
         return DateTimeUtil.dateTimeToString(start);
     }

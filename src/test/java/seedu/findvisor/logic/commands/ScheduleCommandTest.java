@@ -71,7 +71,7 @@ public class ScheduleCommandTest {
         Meeting meeting = createOldMeeting();
         ScheduleCommand scheduleCommand = new ScheduleCommand(INDEX_FIRST_PERSON, meeting);
 
-        assertCommandFailure(scheduleCommand, model, ScheduleCommand.MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST);
+        assertCommandFailure(scheduleCommand, model, Messages.MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST);
     }
 
     @Test
