@@ -13,6 +13,9 @@ import seedu.findvisor.logic.commands.DeleteTagCommand;
 import seedu.findvisor.model.tag.Tag;
 
 public class DeleteTagCommandParserTest {
+    private static final String TAGNAME = "friends";
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE);
     private DeleteTagCommandParser parser = new DeleteTagCommandParser();
 
     @Test
@@ -25,13 +28,18 @@ public class DeleteTagCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteTagCommand() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        Tag targetTag = new Tag("friends");
+        Tag targetTag = new Tag(TAGNAME);
         DeleteTagCommand expectedDeleteTagCommand = new DeleteTagCommand(targetIndex, targetTag);
-        assertParseSuccess(parser, targetIndex.getOneBased() + " " + PREFIX_TAG + "friends", expectedDeleteTagCommand);
+        assertParseSuccess(parser, targetIndex.getOneBased() + " " + PREFIX_TAG + TAGNAME, expectedDeleteTagCommand);
     }
 
     @Test
-    public void parse_invalidArgs_returnsError() {
-        assertParseFailure(parser, "a", String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
+    public void parse_invalidArgs_returnsIndexError() {
+        assertParseFailure(parser, "-1", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidArgs_returnsTagError() {
+        assertParseFailure(parser, "1 something", MESSAGE_INVALID_FORMAT);
     }
 }
