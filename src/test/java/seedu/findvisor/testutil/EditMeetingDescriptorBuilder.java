@@ -5,6 +5,9 @@ import java.time.LocalDateTime;
 import seedu.findvisor.logic.commands.RescheduleCommand.EditMeetingDescriptor;
 import seedu.findvisor.model.person.Meeting;
 
+/**
+ * A utility class to help with building EditMeetingDescriptor objects.
+ */
 public class EditMeetingDescriptorBuilder {
     private EditMeetingDescriptor descriptor;
 
@@ -12,6 +15,9 @@ public class EditMeetingDescriptorBuilder {
         descriptor = new EditMeetingDescriptor();
     }
 
+    /**
+     * Initializes the EditMeetingDescriptorBuilder with the data of {@code descriptor}.
+     */
     public EditMeetingDescriptorBuilder(EditMeetingDescriptor descriptor) {
         this.descriptor = new EditMeetingDescriptor(descriptor);
     }

@@ -16,9 +16,12 @@ public class MeetingUtil {
      */
     public static String getEditMeetingDescriptorDetails(EditMeetingDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
-        descriptor.getStart().ifPresent(start -> sb.append(PREFIX_START_DATETIME).append(dateTimeToInputString(start)).append(" "));
-        descriptor.getEnd().ifPresent(end -> sb.append(PREFIX_END_DATETIME).append(dateTimeToInputString(end)).append(" "));
-        descriptor.getRemark().ifPresent(remark -> sb.append(PREFIX_MEETING_REMARK).append(remark).append(" "));
+        descriptor.getStart().ifPresent(start -> sb.append(PREFIX_START_DATETIME)
+                    .append(dateTimeToInputString(start)).append(" "));
+        descriptor.getEnd().ifPresent(end -> sb.append(PREFIX_END_DATETIME)
+                    .append(dateTimeToInputString(end)).append(" "));
+        descriptor.getRemark().ifPresent(remark -> sb.append(PREFIX_MEETING_REMARK)
+                    .append(remark).append(" "));
         return sb.toString();
     }
 }

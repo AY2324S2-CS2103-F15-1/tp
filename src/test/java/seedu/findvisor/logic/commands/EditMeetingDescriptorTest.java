@@ -31,11 +31,13 @@ public class EditMeetingDescriptorTest {
         assertFalse(descriptor.equals(editedDescriptor));
 
         // different start -> returns false
-        editedDescriptor = new EditMeetingDescriptorBuilder(descriptor).withStart(meeting.getStart().plusDays(1)).build();
+        editedDescriptor = new EditMeetingDescriptorBuilder(descriptor)
+                .withStart(meeting.getStart().plusDays(1)).build();
         assertFalse(descriptor.equals(editedDescriptor));
 
         // different end -> returns false
-        editedDescriptor = new EditMeetingDescriptorBuilder(descriptor).withEnd(meeting.getEnd().plusDays(1)).build();
+        editedDescriptor = new EditMeetingDescriptorBuilder(descriptor)
+                .withEnd(meeting.getEnd().plusDays(1)).build();
         assertFalse(descriptor.equals(editedDescriptor));
     }
 

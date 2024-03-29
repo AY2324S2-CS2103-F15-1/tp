@@ -22,12 +22,12 @@ import seedu.findvisor.testutil.EditMeetingDescriptorBuilder;
 import seedu.findvisor.testutil.MeetingUtil;
 
 public class RescheduleCommandParserTest {
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
+
     private RescheduleCommandParser parser = new RescheduleCommandParser();
     private Meeting meetingNoRemark = createValidMeeting();
     private Meeting meetingWithRemark = createValidMeetingNonEmptyRemark();
-
-    private static final String MESSAGE_INVALID_FORMAT =
-            String.format(MESSAGE_INVALID_COMMAND_FORMAT, RescheduleCommand.MESSAGE_USAGE);
 
     @Test
     public void parse_missingParts_failure() {
@@ -105,7 +105,8 @@ public class RescheduleCommandParserTest {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder(meetingWithRemark).build();
         String userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor)
                 + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
-        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_MEETING_REMARK));
+        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(
+                    PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_MEETING_REMARK));
 
         // multiple start datetime
         descriptor = new EditMeetingDescriptorBuilder().withStart(meetingNoRemark.start).build();
