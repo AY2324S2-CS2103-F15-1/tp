@@ -20,6 +20,20 @@ public class DateTimeUtil {
     public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     /**
+     * Returns true if {@code date} can be converted into a {@code LocalDate} via {@link LocalDate#parse(CharSequence)},
+     * otherwise returns false.
+     * @param date A string representing the date.
+     */
+    public static boolean isValidDate(String date) {
+        try {
+            LocalDate.parse(date, DATE_FORMAT);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Converts a String into a LocalDateTime object. The expected format is dd-MM-yyyy'T'HH:mm. For
      * example, 2023-01-29T14:00.
      *
@@ -39,7 +53,7 @@ public class DateTimeUtil {
      * @return The resulting LocalDate object after the conversion.
      * @throws DateTimeParseException If the String is not in the expected format.
      */
-    public static LocalDate parseDateString(String input) throws DateTimeParseException {
+    public static LocalDate parseDateString(String input) {
         return LocalDate.parse(input, DATE_FORMAT);
     }
 

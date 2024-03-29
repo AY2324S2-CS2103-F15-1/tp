@@ -18,8 +18,18 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void parseDateTimeString_invalidString_throwsDateTimeParseException() {
-        assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateTimeString("INVALID STRING"));
+    public void isValidDate_invalidString_returnsFalse() {
+        // Invalid string
+        assertFalse(DateTimeUtil.isValidDate("Invalid String"));
+
+        // Invalid date format
+        assertFalse(DateTimeUtil.isValidDate("2024/10/12"));
+    }
+
+    @Test
+    public void isValidDate_validString_returnsTrue() {
+        assertTrue(DateTimeUtil.isValidDate("10-12-2024"));
+        assertTrue(DateTimeUtil.isValidDate("01-01-2024"));
     }
 
     @Test

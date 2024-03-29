@@ -1,7 +1,6 @@
 package seedu.findvisor.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.findvisor.commons.util.DateTimeUtil.DATE_PATTERN;
 import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -11,11 +10,9 @@ import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.stream.Stream;
 
-import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.logic.commands.FindCommand;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
 import seedu.findvisor.model.person.PersonAddressPredicate;
@@ -67,7 +64,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         if (argMultimap.getValue(PREFIX_MEETING).isPresent()) {
             userInput = getUserInput(argMultimap, PREFIX_MEETING);
-            LocalDate meetingDate = verifyMeetingDateFormat(userInput);
+            LocalDate meetingDate = ParserUtil.parseMeetingDate(userInput);
             return new FindCommand(new PersonMeetingPredicate(meetingDate));
         }
         argMultimap.verifyNoBlankPrefixValueFor(PREFIX_TAG);
@@ -100,21 +97,5 @@ public class FindCommandParser implements Parser<FindCommand> {
     private String getUserInput(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
         argMultimap.verifyNoBlankPrefixValueFor(prefix);
         return argMultimap.getValue(prefix).get();
-    }
-
-    /**
-     * Validates and parses the meeting date string to a {@code LocalDate} object.
-     *
-     * @param userInput The date string to parse.
-     * @return Parsed {@code LocalDate} object.
-     * @throws ParseException If the date string does not conform to the expected pattern {@code DATE_PATTERN}.
-     */
-    private LocalDate verifyMeetingDateFormat(String userInput) throws ParseException {
-        try {
-            LocalDate meetingDate = DateTimeUtil.parseDateString(userInput);
-            return meetingDate;
-        } catch (DateTimeParseException e) {
-            throw new ParseException(String.format(FindCommand.MESSAGE_INVALID_DATE_FORMAT, userInput, DATE_PATTERN));
-        }
     }
 }

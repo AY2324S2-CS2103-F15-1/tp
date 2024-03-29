@@ -8,8 +8,6 @@ import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_NAME_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_PHONE_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_TAG_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.INCOMPLETE_TAG_DESC;
-import static seedu.findvisor.logic.commands.CommandTestUtil.INVALID_DATE_DESC;
-import static seedu.findvisor.logic.commands.CommandTestUtil.INVALID_DATE_STR;
 import static seedu.findvisor.logic.commands.CommandTestUtil.MEETING_DATE_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.NAME_DESC_BOB;
@@ -31,7 +29,6 @@ import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.logic.Messages;
 import seedu.findvisor.logic.commands.FindCommand;
 import seedu.findvisor.model.person.PersonAddressPredicate;
@@ -108,14 +105,6 @@ public class FindCommandParserTest {
 
         // Multiple valid prefixes
         assertParseFailure(parser, VALID_NAME_AMY + " " + VALID_EMAIL_AMY, expectedMessage);
-    }
-
-    @Test
-    public void parse_invalidDate_failure() {
-        // Invalid Date Format
-        String expectedMessage = String.format(FindCommand.MESSAGE_INVALID_DATE_FORMAT,
-                INVALID_DATE_STR, DateTimeUtil.DATE_PATTERN);
-        assertParseFailure(parser, INVALID_DATE_DESC, expectedMessage);
     }
 
     @Test

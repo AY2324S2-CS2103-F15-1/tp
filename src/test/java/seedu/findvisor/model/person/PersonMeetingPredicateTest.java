@@ -12,7 +12,7 @@ import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.findvisor.testutil.DateTestUtil;
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.testutil.PersonBuilder;
 
 public class PersonMeetingPredicateTest {
@@ -71,7 +71,7 @@ public class PersonMeetingPredicateTest {
         LocalDate date = LocalDate.of(2024, 12, 24);
         PersonMeetingPredicate predicate = new PersonMeetingPredicate(date);
 
-        String expected = String.format("Meeting on \"%1$s\"", DateTestUtil.formatDateToString(date));
+        String expected = String.format("Meeting on \"%1$s\"", date.format(DateTimeUtil.DATE_FORMAT));
         assertEquals(expected, predicate.getPredicateDescription());
     }
 
