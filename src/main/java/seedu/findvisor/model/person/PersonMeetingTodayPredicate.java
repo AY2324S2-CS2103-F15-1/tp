@@ -26,7 +26,7 @@ public class PersonMeetingTodayPredicate implements PersonPredicate {
      */
     // TODO: DateTimeUtils.toDateString
     public String getPredicateDescription() {
-        return String.format("meeting today = \"%1$s\"", todaysDate);
+        return String.format("Date = \"%1$s\"", todaysDate);
     }
 
     @Override
@@ -53,6 +53,6 @@ public class PersonMeetingTodayPredicate implements PersonPredicate {
     // TODO: DateTimeUtils.toDateString
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("meeting today", todaysDate).toString();
+        return new ToStringBuilder(this).add("date", todaysDate).toString();
     }
 }
