@@ -11,7 +11,7 @@ public class PersonEmailPredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code EmailContainsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonEmailPredicate} with the specified keyword.
      *
      * @param keyword The keyword to be matched against the person's email. The match is case-insensitive.
      */

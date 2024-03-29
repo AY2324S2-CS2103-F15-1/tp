@@ -11,7 +11,7 @@ public class PersonNamePredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code NameContainsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonNamePredicate} with the specified keyword.
      *
      * @param keyword The keyword to be used to lookup against the person's name. The match is case-insensitive.
      */

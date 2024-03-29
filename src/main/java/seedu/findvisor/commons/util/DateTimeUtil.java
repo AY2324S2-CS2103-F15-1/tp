@@ -1,5 +1,6 @@
 package seedu.findvisor.commons.util;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -8,11 +9,15 @@ import java.time.format.DateTimeParseException;
  * Handles DateTime parsing and formatting.
  */
 public class DateTimeUtil {
+    public static final String DATE_PATTERN = "dd-MM-yyyy";
+    
     public static final DateTimeFormatter DATE_TIME_INPUT_FORMAT =
             DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm");
 
     public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMAT =
             DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_PATTERN);
 
     /**
      * Converts a String into a LocalDateTime object. The expected format is yyyy-MM-dd'T'HH:mm. For
@@ -26,6 +31,10 @@ public class DateTimeUtil {
         return LocalDateTime.parse(input, DATE_TIME_INPUT_FORMAT);
     }
 
+    public static LocalDate parseDateString(String input) throws DateTimeParseException {
+        return LocalDate.parse(input, DATE_FORMAT);
+    }
+
     /**
      * Converts a LocalDateTime object into a String in input format. The format is yyyy-MM-dd'T'HH:mm. For
      * example, 2023-01-29T14:00.
@@ -35,6 +44,10 @@ public class DateTimeUtil {
      */
     public static String dateTimeToInputString(LocalDateTime dateTime) {
         return dateTime.format(DATE_TIME_INPUT_FORMAT);
+    }
+
+    public static String dateToString(LocalDate date) {
+        return date.format(DATE_FORMAT);
     }
 
     /**
@@ -56,6 +69,10 @@ public class DateTimeUtil {
      */
     public static boolean isAfterCurrentDateTime(LocalDateTime dateTime) {
         return dateTime.isAfter(LocalDateTime.now());
+    }
+
+    public static boolean isSameDate(LocalDate date, LocalDate otherDate) {
+        return date.equals(otherDate);
     }
 
 }

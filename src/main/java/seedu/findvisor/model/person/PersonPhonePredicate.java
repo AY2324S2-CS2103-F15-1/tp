@@ -10,7 +10,7 @@ public class PersonPhonePredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code PhoneEqualsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonPhonePredicate} with the specified keyword.
      *
      * @param keyword The keyword to be used to lookup against the person's phone.
      */
