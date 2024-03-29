@@ -24,6 +24,16 @@ import seedu.findvisor.model.tag.Tag;
 public class SampleDataUtil {
     public static Person[] getSamplePersons() {
         return new Person[] {
+            new Person(new Name("Bernard Tan"), new Phone("88812457"), new Email("BerTan@gmail.com"),
+                new Address("124 Bukit Merah Lane 1, #01-13"), getTagSet( "PRUInsure"),
+                Optional.of(new Meeting(LocalDateTime.now().plusHours(1), LocalDateTime.now().plusHours(2),
+                        "Online Meeting")),
+                Optional.of(new Remark("Wants to fund his new business"))),
+            new Person(new Name("Holly Low"), new Phone("93232689"), new Email("LowHolly122@gmail.com"),
+                new Address("211 Hougang Street 21, #01-28"), getTagSet( "PRUHealth"),
+                Optional.of(new Meeting(LocalDateTime.now().plusHours(4), LocalDateTime.now().plusHours(5),
+                        "Physical meeting at a cafe in Nex")),
+                Optional.of(new Remark("Wants to find out how much she can claim for her recent hospitalization"))),
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@gmail.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("LimFamily", "Father", "PRUGrowth",
                     "PRUtravelsafe"),
@@ -32,7 +42,7 @@ public class SampleDataUtil {
             new Person(new Name("Elizabeth Yeoh"), new Phone("89334567"), new Email("elyyeoh@gmail.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("Mother", "LimFamily", "PRUGrowth"),
-        Optional.empty(), Optional.of(new Remark("Also wants to move to the new house by next January"))),
+        Optional.empty(), Optional.empty()),
             new Person(new Name("Don Yeoh"), new Phone("99126297"), new Email("donyeoh@gmail.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
                 getTagSet("LimFamily", "Child", "PRUGrowth"),
@@ -48,7 +58,7 @@ public class SampleDataUtil {
                 getTagSet("BerniceBoyfriend", "PRUgain365"),
                 convertToMeeting(new String[] {"16-04-2024T13:00", "16-04-2024T15:00",
                     "Physical meeting at Serangoon Gardens"}),
-                Optional.of(new Remark("Still schooling, wants to BTO with Bernice"))),
+                Optional.empty())
         };
     }
 
