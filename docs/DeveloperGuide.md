@@ -58,7 +58,7 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
@@ -170,6 +170,60 @@ sequence diagram shows the interactions within `Model` when editing a person.
 
 ![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.png)
 
+### Meeting Scheduling
+
+`Person` class has an `Optional<Meeting>` field which will hold a `Meeting` object that contains the meeting details if a meeting is scheduled with the person. Otherwise, it will hold an `Optional.empty()` to represent no meeting is scheduled with the person.
+
+The supported meeting details are:
+- Start date time
+- End date time
+- Remarks
+
+#### Schedule Command
+
+The `schedule` command is implemented to allow users to schedule meetings within the application. The command follows a sequence of interactions similar to the other commands. The part to highlight is `ScheduleCommandParser#parse(String)`  creates a `Meeting` object containing the parsed meeting details and it is then passed to `ScheduleCommand`.
+
+The following sequence diagram shows how a schedule meeting operation goes through the `Logic` component:
+![Schedule Meeting Sequence Diagram](images/ScheduleMeetingSequenceDiagram.svg)
+
+#### Unschedule Command
+The `unschedule` command is designed to provide users with the capability to remove previously scheduled meetings. The primary action is the removal of the Meeting object from the specified person's record in the Model.
+
+The execution flow of the `unschedule` command is similar to the one shown for `schedule` command (refer to the sequence diagram for `ScheduleCommand` shown above), with the main difference being the `personToEdit` will have their meeting field set to `Optional.empty()`.
+
+#### Design Choice
+The implementation of the `schedule` and `unschedule` command are in this manner to maintain consistency with the existing command structure.
+
+For the schedule command, in the case where a person already has a meeting scheduled, the schedule command will result in an error, instead of overwriting the existing meeting details. This behavior is chosen over the alternative of overwriting the existing meeting details to guard against accidental data loss.
+
+### Remark Feature
+
+Users are able to add a `Remark` to a `Person` in FINDvisor to note down some information about a `Person`.
+
+The remark feature is implemented through creating a `RemarkCommand`, which updates the `Remark` of a `Person`.
+A separate command is used to support the remark feature to separate the logic of the personal particulars of a `Person` from the `Remark`.
+
+`Remark` is implemented with the use of the `Optional` generic class (i.e. `Optional<Remark>`) as it is an optional attribute of a `Person`.
+While it is possible to determine an empty `Remark` through its value, the `Optional` generic class provides a better abstraction for when a `Remark` is empty.
+
+When a user passes a parameter that is either empty or consists exclusively of whitespace, the `Remark` attribute of a `Person` would be updated to `Optional.empty()`.
+This is equivalent to a user removing the previous `Remark` of a `Person`.
+
+The following sequence diagram shows how the remark value is parsed through the `Logic` component:
+
+![RemarkSequenceDiagram-Logic](images/RemarkSequenceDiagram-Logic.svg)
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `RemarkCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
+</div>
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The activation bar for `LogicManager` does not end after the `RemarkCommand` is returned. The above diagram is only meant to highlight the parsing for `Remark` which is why the sequence diagram ends here.
+</div>
+
+#### Proposed Changes
+
+A proposed change to the current remark feature is to allow users to have remarks added as an optional field for `AddCommand` and `EditCommand` for the convenience of users.
+The `RemarkCommand` can remain for users  to only update the `Remark` of a `Person`.
+
 ### Find Persons by field feature
 This feature allows users to search for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
 
@@ -197,6 +251,50 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 
 #### Proposed Changes
 Include `Person` meetings as a search field. A user can supply a given date and will return all `Person` that have a meeting starting or ending on the specified date.
+
+### AddTag Feature
+This feature allows users to add `tags` to a `person` within the contact list, without the need to use the `edit` command.
+
+This feature is implemented through the `AddTagCommand` and the `AddTagCommandParser` which extends `Command` and `Parser` respectively.
+
+The `AddTagCommandParser` takes in an `index` and the `tags` to add to a person. If both are supplied and valid, they are passed into the `AddTagCommand`, if not it will throw an exception according to the error.
+
+The following sequence diagram shows how `AddTag` interacts with `Logic`.
+
+![AddTagSequenceDiagram](images/AddTagSequenceDiagram.svg)
+
+1. The user keys in `addtags 1 t/validTag1 t/validTag2` to add 2 valid tags to the `person` at the first `index`.
+2. The `AddTagCommandParser` validates `index` and `tags`, then returns a new `AddTagCommand` with the corresponding index and set of tags.
+3. The `LogicManager` then executes the `AddTagCommand`.
+4. The `AddTagCommand` finds the `Person` to add tags to using `Index` and creates a new `Person` with the added tags.
+5. `AddTagCommand` then calls the `setPerson(person, personWithAddedTags)` method to set the old `Person` to the newly created `Person`.
+6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the person with the newly added `Tags`.
+7. `CommandResult` is then returned to `LogicManager`.
+
+#### Proposed future improvement
+Allow users to add tags to multiple people at once.
+
+### DeleteTag Feature
+
+This section aims to show the logic behind delete tag command and the consideration behind the scene.
+
+Delete Tag Command is a new featured added for user to delete one specific tag associated with a specific person located by index of the current list. This command is called by `deletetag` followed by the index of the targeted person, then by one target tag `tag` object. In case of the targeting tag is not associated with the person, an error message suggesting missing targeted tag will be returned.
+
+The delete tag mechanism is facilitated by `DeleteTagCommand` and `DeleteTagCommandParser` that extends `Command` and `Parser` respectively. The `DeleteTagCommandParser` takes in an `index` and the `tag` to delete from a person. If both are supplied and valid, they are passed into the `DeleteTagCommand`.
+
+The following sequence diagram shows how `DeleteTagCommand` interacts with `Logic`.
+
+![DeleteTagSequenceDiagram](images/DeleteTagSequenceDiagram.svg)
+
+1. The user keys in `deletetag 1 t/validTag` to delete `validTag` associated with the `person` at the first `index`.
+2. The `DeleteTagCommandParser` checks that the `index` and `tag` are valid, then returns a new `DeleteTagCommand` with the corresponding index and the target tag.
+3. The `LogicManager` then executes the `DeleteTagCommand`.
+4. The `DeleteTagCommand` finds the `Person` using `Index` and check whether the target tag exists for the `Person`.
+5. If targeted `tag` is found with the targeted `Person`, then the command creates a new `Person` with the all other tags except the targeted tag.
+6. If targeted `tag` is not found with the targeted `Person`, then the command will return an error message indicating the `Person` does not have the targeted `validTag`.
+7. `DeleteTagCommand` then calls the `setPerson(person, editedPerson)` method to set the old `Person` to the newly created `Person`.
+8. `DeleteTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the newly updated person list in Findvisor.
+9. `CommandResult` is then returned to `LogicManager`.
 
 ### \[Proposed\] Undo/redo feature
 

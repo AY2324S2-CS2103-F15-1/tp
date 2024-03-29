@@ -22,7 +22,7 @@ import seedu.findvisor.model.AddressBook;
 import seedu.findvisor.model.Model;
 import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Person;
-import seedu.findvisor.model.person.PhoneContainsKeywordPredicate;
+import seedu.findvisor.model.person.PersonPhonePredicate;
 import seedu.findvisor.model.tag.Tag;
 import seedu.findvisor.model.util.SampleDataUtil;
 import seedu.findvisor.testutil.EditPersonDescriptorBuilder;
@@ -62,6 +62,13 @@ public class CommandTestUtil {
     public static final String TAG_DESC_SET = " " + PREFIX_TAG + VALID_TAG_FRIEND + " "
             + PREFIX_TAG + VALID_TAG_FINANCIAL_PLAN;
     public static final String REMARK_DESC = " " + PREFIX_REMARK + REMARK;
+
+    public static final String EMPTY_NAME_DESC = " " + PREFIX_NAME;
+    public static final String EMPTY_PHONE_DESC = " " + PREFIX_PHONE;
+    public static final String EMPTY_EMAIL_DESC = " " + PREFIX_EMAIL;
+    public static final String EMPTY_ADDRESS_DESC = " " + PREFIX_ADDRESS;
+    public static final String EMPTY_TAG_DESC = " " + PREFIX_TAG;
+    public static final String INCOMPLETE_TAG_DESC = " " + PREFIX_TAG + " " + PREFIX_TAG + "friends";
 
     public static final String INVALID_NAME_DESC = " " + PREFIX_NAME + "James&"; // '&' not allowed in names
     public static final String INVALID_PHONE_DESC = " " + PREFIX_PHONE + "911a"; // 'a' not allowed in phones
@@ -174,7 +181,7 @@ public class CommandTestUtil {
         Person person = model.getFilteredPersonList().get(targetIndex.getZeroBased());
         // Use person's phone to identify
         String phone = person.getPhone().value;
-        model.updateFilteredPersonList(new PhoneContainsKeywordPredicate(phone));
+        model.updateFilteredPersonList(new PersonPhonePredicate(phone));
 
         assertEquals(1, model.getFilteredPersonList().size());
     }
