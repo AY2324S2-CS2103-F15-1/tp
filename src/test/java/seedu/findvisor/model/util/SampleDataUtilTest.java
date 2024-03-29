@@ -17,8 +17,8 @@ public class SampleDataUtilTest {
     @Test
     public void convertToMeeting_returnsOptionalMeeting() {
         Optional<Meeting> validMeetingWithRemark = Optional.of(VALID_MEETING_WITH_REMARK);
-        Optional<Meeting> convertedStringArrayToMeeting = SampleDataUtil.convertToMeeting(new String[]
-            {VALID_MEETING_START_STR, VALID_MEETING_END_STR, VALID_MEETING_REMARK});
+        Optional<Meeting> convertedStringArrayToMeeting = SampleDataUtil.convertToMeeting(
+            VALID_MEETING_START_STR, VALID_MEETING_END_STR, VALID_MEETING_REMARK);
         assertTrue(validMeetingWithRemark.equals(convertedStringArrayToMeeting));
     }
 }

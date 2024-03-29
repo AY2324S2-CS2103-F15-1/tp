@@ -37,7 +37,7 @@ public class SampleDataUtil {
             new Person(new Name("Alex Yeoh"), new Phone("87438807"), new Email("alexyeoh@gmail.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"), getTagSet("LimFamily", "Father", "PRUGrowth",
                     "PRUtravelsafe"),
-                convertToMeeting(new String[] {"23-05-2024T16:00", "23-05-2024T18:00", "Online Meeting"}),
+                convertToMeeting("23-05-2024T16:00", "23-05-2024T18:00", "Online Meeting"),
                 Optional.of(new Remark("Wants to move to the new house by next January"))),
             new Person(new Name("Elizabeth Yeoh"), new Phone("89334567"), new Email("elyyeoh@gmail.com"),
                 new Address("Blk 30 Geylang Street 29, #06-40"),
@@ -50,15 +50,14 @@ public class SampleDataUtil {
             new Person(new Name("Bernice Yu"), new Phone("99272758"), new Email("berniceyu@hotmail.com"),
                 new Address("Blk 30 Lorong 3 Serangoon Gardens, #07-18"),
                 getTagSet("DavidGirlfriend", "PRUgain365"),
-                convertToMeeting(new String[] {"16-04-2024T13:00", "16-04-2024T15:00",
-                    "Physical meeting at Serangoon Gardens"}),
+                convertToMeeting("16-04-2024T13:00", "16-04-2024T15:00",
+                    "Physical meeting at Serangoon Gardens"),
                 Optional.of(new Remark("Working as SWE, wants to BTO with David"))),
             new Person(new Name("David Li"), new Phone("91031282"), new Email("lidavid@hotmail.com"),
                 new Address("Blk 436 Serangoon Gardens Street 26, #16-43"),
                 getTagSet("BerniceBoyfriend", "PRUgain365"),
-                convertToMeeting(new String[] {"16-04-2024T13:00", "16-04-2024T15:00",
-                    "Physical meeting at Serangoon Gardens"}),
-                Optional.empty())
+                convertToMeeting("16-04-2024T13:00", "16-04-2024T15:00",
+                    "Physical meeting at Serangoon Gardens"), Optional.empty())
         };
     }
 
@@ -82,10 +81,12 @@ public class SampleDataUtil {
     /**
      * Returns a meeting object based on strings given.
      */
-    public static Optional<Meeting> convertToMeeting(String[] meetingParameters) {
-        LocalDateTime startDateTime = DateTimeUtil.parseDateTimeString(meetingParameters[0]);
-        LocalDateTime endDateTime = DateTimeUtil.parseDateTimeString(meetingParameters[1]);
-        String meetingRemark = meetingParameters[2];
+    public static Optional<Meeting> convertToMeeting(String startDateTimeString, String endDateTimeString,
+        String meetingRemarkString) {
+
+        LocalDateTime startDateTime = DateTimeUtil.parseDateTimeString(startDateTimeString);
+        LocalDateTime endDateTime = DateTimeUtil.parseDateTimeString(endDateTimeString);
+        String meetingRemark = meetingRemarkString;
 
         return Optional.of(new Meeting(startDateTime, endDateTime, meetingRemark));
     }
