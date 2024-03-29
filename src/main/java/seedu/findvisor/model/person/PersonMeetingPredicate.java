@@ -38,11 +38,7 @@ public class PersonMeetingPredicate implements PersonPredicate {
         LocalDate meetingStartDate = meeting.start.toLocalDate();
         LocalDate meetingEndDate = meeting.end.toLocalDate();
 
-        if (DateTimeUtil.isSameDate(date, meetingStartDate) || DateTimeUtil.isSameDate(date, meetingEndDate)) {
-            return true;
-        }
-
-        return false;
+        return DateTimeUtil.isSameDate(date, meetingStartDate) || DateTimeUtil.isSameDate(date, meetingEndDate);
     }
 
     @Override
