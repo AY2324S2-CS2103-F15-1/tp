@@ -37,11 +37,13 @@ import seedu.findvisor.logic.commands.ClearCommand;
 import seedu.findvisor.logic.commands.DeleteCommand;
 import seedu.findvisor.logic.commands.EditCommand;
 import seedu.findvisor.logic.commands.EditCommand.EditPersonDescriptor;
+import seedu.findvisor.logic.commands.RescheduleCommand.EditMeetingDescriptor;
 import seedu.findvisor.logic.commands.ExitCommand;
 import seedu.findvisor.logic.commands.FindCommand;
 import seedu.findvisor.logic.commands.HelpCommand;
 import seedu.findvisor.logic.commands.ListCommand;
 import seedu.findvisor.logic.commands.RemarkCommand;
+import seedu.findvisor.logic.commands.RescheduleCommand;
 import seedu.findvisor.logic.commands.ScheduleCommand;
 import seedu.findvisor.logic.commands.UnscheduleCommand;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
@@ -51,7 +53,9 @@ import seedu.findvisor.model.person.PersonEmailPredicate;
 import seedu.findvisor.model.person.PersonNamePredicate;
 import seedu.findvisor.model.person.PersonPhonePredicate;
 import seedu.findvisor.model.tag.PersonTagsPredicate;
+import seedu.findvisor.testutil.EditMeetingDescriptorBuilder;
 import seedu.findvisor.testutil.EditPersonDescriptorBuilder;
+import seedu.findvisor.testutil.MeetingUtil;
 import seedu.findvisor.testutil.PersonBuilder;
 import seedu.findvisor.testutil.PersonUtil;
 
@@ -142,6 +146,16 @@ public class AddressBookParserTest {
                 + PREFIX_END_DATETIME + dateTimeToInputString(meeting.end) + " "
                 + PREFIX_MEETING_REMARK + VALID_MEETING_REMARK);
         assertEquals(new ScheduleCommand(INDEX_FIRST_PERSON, meeting), command);
+    }
+
+    @Test
+    public void parseCommand_reschedule() throws Exception {
+        Meeting meeting = createValidMeeting();
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder(meeting).build();
+        RescheduleCommand command = (RescheduleCommand) parser.parseCommand(
+                RescheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                + MeetingUtil.getEditMeetingDescriptorDetails(descriptor));
+        assertEquals(new RescheduleCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 
     @Test
