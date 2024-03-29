@@ -25,7 +25,7 @@ public class PersonAddressPredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Address = \"%1$s\"", keyword);
+        return String.format("Address containing \"%1$s\"", keyword);
     }
 
     @Override

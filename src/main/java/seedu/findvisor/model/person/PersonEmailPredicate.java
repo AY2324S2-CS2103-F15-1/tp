@@ -25,7 +25,7 @@ public class PersonEmailPredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Email = \"%1$s\"", keyword);
+        return String.format("Email containing \"%1$s\"", keyword);
     }
 
     @Override

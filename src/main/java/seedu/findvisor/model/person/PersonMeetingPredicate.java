@@ -26,7 +26,7 @@ public class PersonMeetingPredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Meeting Date = \"%1$s\"", DateTimeUtil.dateToString(date));
+        return String.format("Meeting on \"%1$s\"", DateTimeUtil.dateToString(date));
     }
 
     @Override

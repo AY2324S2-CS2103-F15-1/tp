@@ -34,7 +34,7 @@ public class PersonTagsPredicate implements PersonPredicate {
                 .map(tag -> "\"" + tag + "\"")
                 .collect(Collectors.joining(", "));
 
-        return String.format("Tags = %1$s", tagsString);
+        return String.format("Tags containing %1$s", tagsString);
     }
 
     @Override

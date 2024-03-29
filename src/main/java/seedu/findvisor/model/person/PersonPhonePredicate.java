@@ -24,7 +24,7 @@ public class PersonPhonePredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Phone = \"%1$s\"", keyword);
+        return String.format("Phone containing \"%1$s\"", keyword);
     }
 
     @Override

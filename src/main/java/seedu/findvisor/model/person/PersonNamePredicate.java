@@ -25,7 +25,7 @@ public class PersonNamePredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Name = \"%1$s\"", keyword);
+        return String.format("Name containing \"%1$s\"", keyword);
     }
 
     @Override
