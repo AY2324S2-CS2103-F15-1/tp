@@ -8,6 +8,7 @@ import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import static seedu.findvisor.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -206,8 +207,18 @@ public class RescheduleCommand extends Command {
             }
 
             EditMeetingDescriptor otherEditMeetingDescriptor = (EditMeetingDescriptor) other;
-            return Objects.equals(start, otherEditMeetingDescriptor.start)
-                    && Objects.equals(end, otherEditMeetingDescriptor.end)
+
+            boolean startEquals = true;
+            if (start != null && otherEditMeetingDescriptor.start != null) {
+                startEquals = DateTimeUtil.isEqualsDateTimeMinutes(start, otherEditMeetingDescriptor.start);
+            }
+
+            boolean endEquals = true;
+            if (end != null && otherEditMeetingDescriptor.end != null) {
+                endEquals = DateTimeUtil.isEqualsDateTimeMinutes(end, otherEditMeetingDescriptor.end);
+            }
+
+            return startEquals && endEquals
                     && Objects.equals(remark, otherEditMeetingDescriptor.remark);
         }
 

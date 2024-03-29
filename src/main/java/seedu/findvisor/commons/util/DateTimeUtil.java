@@ -3,6 +3,7 @@ package seedu.findvisor.commons.util;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Handles DateTime parsing and formatting.
@@ -56,6 +57,17 @@ public class DateTimeUtil {
      */
     public static boolean isAfterCurrentDateTime(LocalDateTime dateTime) {
         return dateTime.isAfter(LocalDateTime.now());
+    }
+
+    /**
+     * Checks if 2 LocalDateTime objects are equal to each other, with precision up to minutes.
+     *
+     * @param dateTime1 The first LocalDateTime object to be compared.
+     * @param dateTime2 The second LocalDateTime object to be compared.
+     * @return True if the 2 LocalDateTime objects are equal up to minutes.
+     */
+    public static boolean isEqualsDateTimeMinutes(LocalDateTime dateTime1, LocalDateTime dateTime2) {
+        return dateTime1.truncatedTo(ChronoUnit.MINUTES).equals(dateTime2.truncatedTo(ChronoUnit.MINUTES));
     }
 
 }
