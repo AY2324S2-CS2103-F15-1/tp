@@ -274,6 +274,28 @@ The following sequence diagram shows how `AddTag` interacts with `Logic`.
 #### Proposed future improvement
 Allow users to add tags to multiple people at once.
 
+### DeleteTag Feature
+
+This section aims to show the logic behind delete tag command and the consideration behind the scene.
+
+Delete Tag Command is a new featured added for user to delete one specific tag associated with a specific person located by index of the current list. This command is called by `deletetag` followed by the index of the targeted person, then by one target tag `tag` object. In case of the targeting tag is not associated with the person, an error message suggesting missing targeted tag will be returned.
+
+The delete tag mechanism is facilitated by `DeleteTagCommand` and `DeleteTagCommandParser` that extends `Command` and `Parser` respectively. The `DeleteTagCommandParser` takes in an `index` and the `tag` to delete from a person. If both are supplied and valid, they are passed into the `DeleteTagCommand`.
+
+The following sequence diagram shows how `DeleteTagCommand` interacts with `Logic`.
+
+![DeleteTagSequenceDiagram](images/DeleteTagSequenceDiagram.svg)
+
+1. The user keys in `deletetag 1 t/validTag` to delete `validTag` associated with the `person` at the first `index`.
+2. The `DeleteTagCommandParser` checks that the `index` and `tag` are valid, then returns a new `DeleteTagCommand` with the corresponding index and the target tag.
+3. The `LogicManager` then executes the `DeleteTagCommand`.
+4. The `DeleteTagCommand` finds the `Person` using `Index` and check whether the target tag exists for the `Person`.
+5. If targeted `tag` is found with the targeted `Person`, then the command creates a new `Person` with the all other tags except the targeted tag.
+6. If targeted `tag` is not found with the targeted `Person`, then the command will return an error message indicating the `Person` does not have the targeted `validTag`.
+7. `DeleteTagCommand` then calls the `setPerson(person, editedPerson)` method to set the old `Person` to the newly created `Person`.
+8. `DeleteTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the newly updated person list in Findvisor.
+9. `CommandResult` is then returned to `LogicManager`.
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
