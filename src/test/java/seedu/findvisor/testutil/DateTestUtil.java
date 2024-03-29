@@ -9,10 +9,16 @@ import java.time.format.DateTimeFormatter;
 public class DateTestUtil {
     private static final DateTimeFormatter DATE_FORMATTER = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
+    /**
+     * Returns the String representation of the {@code LocalDate} object.
+     */
     public static String formatDateToString(LocalDate date) {
         return date.format(DATE_FORMATTER);
     }
 
+    /**
+     * Returns the {@code LocalDate} object given a date String.
+     */
     public static LocalDate parseDate(String dateString) {
         return LocalDate.parse(dateString, DATE_FORMATTER);
     }
