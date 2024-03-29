@@ -1,5 +1,6 @@
 package seedu.findvisor.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.findvisor.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -123,4 +124,14 @@ public class DeleteTagCommandTest {
         // different person -> returns false
         assertFalse(deleteFirstCommand.equals(deleteSecondCommand));
     }
+
+    @Test
+    public void toStringMethod() {
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
+        System.out.println(deleteTagCommand.toString());
+        String expected = DeleteTagCommand.class.getCanonicalName() + "{toDeleteTag=" + INDEX_FIRST_PERSON
+                + ", tag=" + targetTag + "}";
+        assertEquals(expected, deleteTagCommand.toString());
+    }
+
 }

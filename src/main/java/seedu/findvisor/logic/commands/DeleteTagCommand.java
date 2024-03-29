@@ -37,7 +37,7 @@ public class DeleteTagCommand extends Command {
             + "identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "[" + PREFIX_TAG + "TAG]\n"
-            + "Example: " + COMMAND_WORD + " 1 t\\tag";
+            + "Example: " + COMMAND_WORD + " 1 t/tag";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %1$s for Person: %2$s";
     public static final String MESSAGE_CANNOT_FIND_TAG = "There is no tag %1$s for Person: %2$s";
