@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.findvisor.logic.commands.CommandTestUtil.createOldMeeting;
+import static seedu.findvisor.logic.commands.CommandTestUtil.createValidLongMeeting;
 import static seedu.findvisor.logic.commands.CommandTestUtil.createValidMeeting;
 
 import java.time.LocalDate;
@@ -44,9 +45,17 @@ public class PersonMeetingPredicateTest {
     @Test
     public void test_meetingDateOnSpecifiedDate_returnsTrue() {
         LocalDate date = LocalDate.now().plusDays(1);
-        // Specified date falls between meeting start and end date
+        // Specified date is equal to start and end date
         PersonMeetingPredicate predicate = new PersonMeetingPredicate(date);
         assertTrue(predicate.test(new PersonBuilder().withMeeting(Optional.of(createValidMeeting())).build()));
+
+        // Specified date is equal to start date
+        assertTrue(predicate.test(new PersonBuilder().withMeeting(Optional.of(createValidLongMeeting())).build()));
+
+        // Specified date is equal to end date
+        date = LocalDate.now().plusDays(2);
+        predicate = new PersonMeetingPredicate(date);
+        assertTrue(predicate.test(new PersonBuilder().withMeeting(Optional.of(createValidLongMeeting())).build()));
     }
 
     @Test
