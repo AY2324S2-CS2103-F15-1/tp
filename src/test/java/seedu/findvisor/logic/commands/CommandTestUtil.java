@@ -2,15 +2,18 @@ package seedu.findvisor.logic.commands;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.findvisor.commons.util.DateTimeUtil.parseDateString;
 import static seedu.findvisor.commons.util.DateTimeUtil.parseDateTimeString;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.findvisor.testutil.Assert.assertThrows;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +51,8 @@ public class CommandTestUtil {
     public static final String VALID_MEETING_START_STR = "12-02-2024T12:00";
     public static final String VALID_MEETING_END_STR = "12-02-2024T13:00";
     public static final String REMARK = "Wants to migrate to England";
+    public static final String VALID_DATE_STRING = "05-10-2024";
+    public static final LocalDate VALID_DATE = parseDateString(VALID_DATE_STRING);
 
     public static final String NAME_DESC_AMY = " " + PREFIX_NAME + VALID_NAME_AMY;
     public static final String NAME_DESC_BOB = " " + PREFIX_NAME + VALID_NAME_BOB;
@@ -62,6 +67,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_SET = " " + PREFIX_TAG + VALID_TAG_FRIEND + " "
             + PREFIX_TAG + VALID_TAG_FINANCIAL_PLAN;
     public static final String REMARK_DESC = " " + PREFIX_REMARK + REMARK;
+    public static final String MEETING_DATE_DESC = " " + PREFIX_MEETING + VALID_DATE_STRING;
 
     public static final String EMPTY_NAME_DESC = " " + PREFIX_NAME;
     public static final String EMPTY_PHONE_DESC = " " + PREFIX_PHONE;
@@ -80,6 +86,9 @@ public class CommandTestUtil {
     public static final String INVALID_MEETING_REMARK = "INVALID MEETING REMARK".repeat(100);
     public static final String INVALID_MEETING_START_STR = "INVALID MEETING START";
     public static final String INVALID_MEETING_END_STR = "INVALID MEETING END";
+    public static final String INVALID_DATE_STR = "2024/10/22";
+    public static final String INVALID_DATE_DESC = " " + PREFIX_MEETING
+            + INVALID_DATE_STR; // correct format is dd-MM-yyyy
 
     public static final Meeting VALID_MEETING_NO_REMARK = new Meeting(parseDateTimeString(VALID_MEETING_START_STR),
                 parseDateTimeString(VALID_MEETING_END_STR), "");
@@ -111,6 +120,14 @@ public class CommandTestUtil {
     public static Meeting createValidMeeting() {
         return new Meeting(LocalDateTime.now().plusDays(1),
                 LocalDateTime.now().plusDays(1).plusHours(1), "");
+    }
+
+    /**
+     * Creates a valid meeting that is in the future that is between two days
+     */
+    public static Meeting createValidLongMeeting() {
+        return new Meeting(LocalDateTime.now().plusDays(1),
+                LocalDateTime.now().plusDays(2).plusHours(1), "");
     }
 
     /**

@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  */
 public class DateTimeUtil {
     public static final String DATE_PATTERN = "dd-MM-yyyy";
-    
+
     public static final DateTimeFormatter DATE_TIME_INPUT_FORMAT =
             DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm");
 
@@ -31,6 +31,14 @@ public class DateTimeUtil {
         return LocalDateTime.parse(input, DATE_TIME_INPUT_FORMAT);
     }
 
+    /**
+     * Converts a String into a LocalDate object. The expected format is dd-MM-yyyy. For
+     * example, 29-12-2024.
+     *
+     * @param input The string to be converted to a LocalDate object.
+     * @return The resulting LocalDate object after the conversion.
+     * @throws DateTimeParseException If the String is not in the expected format.
+     */
     public static LocalDate parseDateString(String input) throws DateTimeParseException {
         return LocalDate.parse(input, DATE_FORMAT);
     }
@@ -46,6 +54,13 @@ public class DateTimeUtil {
         return dateTime.format(DATE_TIME_INPUT_FORMAT);
     }
 
+    /**
+     * Converts a LocalDate object into a String in input format. The format is dd-MM-yyyy. For
+     * example, 29-12-2024.
+     *
+     * @param date The LocalDate object to be converted.
+     * @return The resulting string after the conversion.
+     */
     public static String dateToString(LocalDate date) {
         return date.format(DATE_FORMAT);
     }
@@ -71,6 +86,13 @@ public class DateTimeUtil {
         return dateTime.isAfter(LocalDateTime.now());
     }
 
+    /**
+     * Checks if the two given LocalDate object have the same date.
+     *
+     * @param date The LocalDate object to be checked.
+     * @param otherDate The other LocalDate object to be checked against.
+     * @return True if the given LocalDate objects have the same date, false otherwise.
+     */
     public static boolean isSameDate(LocalDate date, LocalDate otherDate) {
         return date.equals(otherDate);
     }

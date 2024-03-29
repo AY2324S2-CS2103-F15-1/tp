@@ -35,8 +35,8 @@ public class FindCommand extends Command {
             + "Example: " + COMMAND_WORD + " t/PRUActiveCash t/friends";
 
     public static final String MESSAGE_FIND_COMMAND_RESULT = "%1$d persons listed with %2$s!";
-    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format supplied: \"%1$s\"\n" 
-            + "Please use %2$s format.\n" 
+    public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format supplied: \"%1$s\"\n"
+            + "Please use %2$s format.\n"
             + MESSAGE_USAGE;
 
     private final PersonPredicate predicate;
@@ -49,7 +49,7 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(String.format(MESSAGE_FIND_COMMAND_RESULT, 
+        return new CommandResult(String.format(MESSAGE_FIND_COMMAND_RESULT,
                 model.getFilteredPersonList().size(), predicate.getPredicateDescription()));
     }
 

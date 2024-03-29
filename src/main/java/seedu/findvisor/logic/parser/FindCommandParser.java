@@ -10,10 +10,10 @@ import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.List;
-import java.util.stream.Stream;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.List;
+import java.util.stream.Stream;
 
 import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.logic.commands.FindCommand;
@@ -29,8 +29,8 @@ import seedu.findvisor.model.tag.PersonTagsPredicate;
  * Parses input arguments and creates a new FindCommand object
  */
 public class FindCommandParser implements Parser<FindCommand> {
-    private final Prefix[] searchPrefixes = {PREFIX_NAME, PREFIX_PHONE, 
-            PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEETING, PREFIX_TAG};
+    private final Prefix[] searchPrefixes = {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+        PREFIX_ADDRESS, PREFIX_MEETING, PREFIX_TAG};
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -41,7 +41,8 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, searchPrefixes);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEETING);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEETING);
 
         if (!isSinglePrefixTypePresent(argMultimap, searchPrefixes)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
@@ -90,7 +91,7 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Retrieves the user input associated with a specific prefix. If specified prefix has a blank value,
      * then a ParseException is thrown.
-     * 
+     *
      * @param argMultimap The {@link ArgumentMultimap} to get the specified prefix value.
      * @param prefix The {@link Prefix} specified by the user.
      * @return The user input string associated with the prefix.
@@ -103,7 +104,7 @@ public class FindCommandParser implements Parser<FindCommand> {
 
     /**
      * Validates and parses the meeting date string to a {@code LocalDate} object.
-     * 
+     *
      * @param userInput The date string to parse.
      * @return Parsed {@code LocalDate} object.
      * @throws ParseException If the date string does not conform to the expected pattern {@code DATE_PATTERN}.
