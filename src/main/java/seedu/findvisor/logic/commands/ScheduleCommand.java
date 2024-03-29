@@ -2,6 +2,7 @@ package seedu.findvisor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import static seedu.findvisor.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
@@ -21,6 +22,7 @@ import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Name;
 import seedu.findvisor.model.person.Person;
 import seedu.findvisor.model.person.Phone;
+import seedu.findvisor.model.person.Remark;
 import seedu.findvisor.model.tag.Tag;
 
 /**
@@ -34,6 +36,7 @@ public class ScheduleCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + PREFIX_START_DATETIME + "START DATETIME "
             + PREFIX_END_DATETIME + "END DATETIME "
+            + "[" + PREFIX_MEETING_REMARK + "REMARK" + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START_DATETIME + "22-02-2024T14:00 "
             + PREFIX_END_DATETIME + "22-02-2024T15:00 ";
@@ -96,8 +99,9 @@ public class ScheduleCommand extends Command {
         Email email = personToEdit.getEmail();
         Address address = personToEdit.getAddress();
         Set<Tag> tags = personToEdit.getTags();
+        Optional<Remark> remark = personToEdit.getRemark();
 
-        return new Person(name, phone, email, address, tags, Optional.of(meeting));
+        return new Person(name, phone, email, address, tags, Optional.of(meeting), remark);
     }
 
     @Override

@@ -4,6 +4,7 @@ import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_ADDRESS_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_MEETING_REMARK;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_NAME_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
+import seedu.findvisor.logic.parser.ParserUtil;
 import seedu.findvisor.model.AddressBook;
 import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Person;
@@ -28,30 +30,31 @@ public class TypicalPersons {
 
     public static final Person ALICE = new PersonBuilder().withName("Alice Pauline")
             .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
-            .withPhone("94351253")
-            .withTags("friends").build();
+            .withPhone("94351253").withTags("friends").build();
     public static final Person BENSON = new PersonBuilder().withName("Benson Meier")
             .withAddress("311, Clementi Ave 2, #02-25")
             .withEmail("johnd@example.com").withPhone("98765432")
+            .withRemark(ParserUtil.parseRemark("Plans to retire by age of 45"))
             .withTags("owesMoney", "friends").build();
     public static final Person CARL = new PersonBuilder().withName("Carl Kurz").withPhone("95352563")
             .withEmail("heinz@example.com").withAddress("wall street")
             .withMeeting(Optional.of(new Meeting(
                         LocalDateTime.of(2024, 3, 12, 14, 0, 0),
-                        LocalDateTime.of(2024, 3, 12, 15, 0, 0)))).build();
+                        LocalDateTime.of(2024, 3, 12, 15, 0, 0),
+                        VALID_MEETING_REMARK))).build();
     public static final Person DANIEL = new PersonBuilder().withName("Daniel Meier").withPhone("87652533")
             .withEmail("cornelia@example.com").withAddress("10th street").withTags("friends").build();
-    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("9482224")
+    public static final Person ELLE = new PersonBuilder().withName("Elle Meyer").withPhone("94822247")
             .withEmail("werner@example.com").withAddress("michegan ave").build();
-    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("9482427")
+    public static final Person FIONA = new PersonBuilder().withName("Fiona Kunz").withPhone("94824276")
             .withEmail("lydia@example.com").withAddress("little tokyo").build();
-    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("9482442")
+    public static final Person GEORGE = new PersonBuilder().withName("George Best").withPhone("94824428")
             .withEmail("anna@example.com").withAddress("4th street").build();
 
     // Manually added
-    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("8482424")
+    public static final Person HOON = new PersonBuilder().withName("Hoon Meier").withPhone("84824247")
             .withEmail("stefan@example.com").withAddress("little india").build();
-    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("8482131")
+    public static final Person IDA = new PersonBuilder().withName("Ida Mueller").withPhone("84821318")
             .withEmail("hans@example.com").withAddress("chicago ave").build();
 
     // Manually added - Person's details found in {@code CommandTestUtil}

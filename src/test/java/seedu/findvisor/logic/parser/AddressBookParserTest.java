@@ -5,16 +5,23 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.findvisor.commons.util.DateTimeUtil.dateTimeToInputString;
 import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.findvisor.logic.commands.CommandTestUtil.REMARK;
+import static seedu.findvisor.logic.commands.CommandTestUtil.SET_OF_VALID_TAG;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_MEETING_REMARK;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_PHONE_AMY;
+import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_TAG_FINANCIAL_PLAN;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.createValidMeeting;
+import static seedu.findvisor.logic.commands.CommandTestUtil.createValidMeetingNonEmptyRemark;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
 import static seedu.findvisor.testutil.Assert.assertThrows;
@@ -25,6 +32,7 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.findvisor.logic.commands.AddCommand;
+import seedu.findvisor.logic.commands.AddTagCommand;
 import seedu.findvisor.logic.commands.ClearCommand;
 import seedu.findvisor.logic.commands.DeleteCommand;
 import seedu.findvisor.logic.commands.EditCommand;
@@ -33,15 +41,16 @@ import seedu.findvisor.logic.commands.ExitCommand;
 import seedu.findvisor.logic.commands.FindCommand;
 import seedu.findvisor.logic.commands.HelpCommand;
 import seedu.findvisor.logic.commands.ListCommand;
+import seedu.findvisor.logic.commands.RemarkCommand;
 import seedu.findvisor.logic.commands.ScheduleCommand;
 import seedu.findvisor.logic.commands.UnscheduleCommand;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
-import seedu.findvisor.model.person.EmailContainsKeywordPredicate;
 import seedu.findvisor.model.person.Meeting;
-import seedu.findvisor.model.person.NameContainsKeywordPredicate;
 import seedu.findvisor.model.person.Person;
-import seedu.findvisor.model.person.PhoneContainsKeywordPredicate;
-import seedu.findvisor.model.tag.TagsContainsKeywordsPredicate;
+import seedu.findvisor.model.person.PersonEmailPredicate;
+import seedu.findvisor.model.person.PersonNamePredicate;
+import seedu.findvisor.model.person.PersonPhonePredicate;
+import seedu.findvisor.model.tag.PersonTagsPredicate;
 import seedu.findvisor.testutil.EditPersonDescriptorBuilder;
 import seedu.findvisor.testutil.PersonBuilder;
 import seedu.findvisor.testutil.PersonUtil;
@@ -90,24 +99,24 @@ public class AddressBookParserTest {
         // Find using name
         FindCommand findNameCommand = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_NAME + VALID_NAME_AMY);
-        assertEquals(new FindCommand(new NameContainsKeywordPredicate(VALID_NAME_AMY)), findNameCommand);
+        assertEquals(new FindCommand(new PersonNamePredicate(VALID_NAME_AMY)), findNameCommand);
 
         // Find using email
         FindCommand findEmailCommand = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_EMAIL + VALID_EMAIL_AMY);
-        assertEquals(new FindCommand(new EmailContainsKeywordPredicate(VALID_EMAIL_AMY)), findEmailCommand);
+        assertEquals(new FindCommand(new PersonEmailPredicate(VALID_EMAIL_AMY)), findEmailCommand);
 
         // Find using phone
         FindCommand findPhoneCommand = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " " + PREFIX_PHONE + VALID_PHONE_AMY);
-        assertEquals(new FindCommand(new PhoneContainsKeywordPredicate(VALID_PHONE_AMY)), findPhoneCommand);
+        assertEquals(new FindCommand(new PersonPhonePredicate(VALID_PHONE_AMY)), findPhoneCommand);
 
         // Find using tags
         FindCommand findTagsCommand = (FindCommand) parser.parseCommand(
                 FindCommand.COMMAND_WORD + " "
                 + PREFIX_TAG + VALID_TAG_FRIEND + " "
                 + PREFIX_TAG + VALID_TAG_HUSBAND);
-        assertEquals(new FindCommand(new TagsContainsKeywordsPredicate(
+        assertEquals(new FindCommand(new PersonTagsPredicate(
                 Arrays.asList(new String[]{VALID_TAG_FRIEND, VALID_TAG_HUSBAND}))), findTagsCommand);
     }
 
@@ -125,6 +134,14 @@ public class AddressBookParserTest {
                 + PREFIX_START_DATETIME + dateTimeToInputString(meeting.start) + " "
                 + PREFIX_END_DATETIME + dateTimeToInputString(meeting.end));
         assertEquals(new ScheduleCommand(INDEX_FIRST_PERSON, meeting), command);
+
+        meeting = createValidMeetingNonEmptyRemark();
+        command = (ScheduleCommand) parser.parseCommand(
+                ScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                + PREFIX_START_DATETIME + dateTimeToInputString(meeting.start) + " "
+                + PREFIX_END_DATETIME + dateTimeToInputString(meeting.end) + " "
+                + PREFIX_MEETING_REMARK + VALID_MEETING_REMARK);
+        assertEquals(new ScheduleCommand(INDEX_FIRST_PERSON, meeting), command);
     }
 
     @Test
@@ -135,6 +152,20 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_remark() throws Exception {
+        RemarkCommand command = (RemarkCommand) parser.parseCommand(
+                RemarkCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PREFIX_REMARK + REMARK);
+        assertEquals(new RemarkCommand(INDEX_FIRST_PERSON, ParserUtil.parseRemark(REMARK)), command);
+    }
+
+    @Test
+    public void parseCommand_addTag() throws Exception {
+        AddTagCommand command = (AddTagCommand) parser.parseCommand(AddTagCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " " + PREFIX_TAG + VALID_TAG_FINANCIAL_PLAN);
+        assertEquals(new AddTagCommand(INDEX_FIRST_PERSON, SET_OF_VALID_TAG), command);
+    }
+    @Test
     public void parseCommand_unrecognisedInput_throwsParseException() {
         assertThrows(ParseException.class, String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE), ()
             -> parser.parseCommand(""));
@@ -144,4 +175,7 @@ public class AddressBookParserTest {
     public void parseCommand_unknownCommand_throwsParseException() {
         assertThrows(ParseException.class, MESSAGE_UNKNOWN_COMMAND, () -> parser.parseCommand("unknownCommand"));
     }
+
+
+
 }

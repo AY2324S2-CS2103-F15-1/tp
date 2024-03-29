@@ -7,6 +7,7 @@ import java.util.stream.Stream;
 import seedu.findvisor.logic.parser.Prefix;
 import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Person;
+import seedu.findvisor.model.person.Remark;
 
 /**
  * Container for user visible messages.
@@ -16,9 +17,10 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_PERSONS_LISTED_OVERVIEW = "%1$d persons listed!";
+    public static final String MESSAGE_FIND_PERSONS_LISTED_OVERVIEW = "Search result for: %1$s. \n%2$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_EMPTY_FIELD = "Empty value for field: %1$s!";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -58,7 +60,19 @@ public class Messages {
                 .append(meeting.getStartString())
                 .append("; End: ")
                 .append(meeting.getEndString());
+        if (!meeting.remark.equals("")) {
+            builder.append("\nMeeting Remark: ")
+                    .append(meeting.remark);
+        }
         return builder.toString();
     }
 
+    /**
+     * Formats the {@code remark} for display to the user
+     */
+    public static String format(Remark remark) {
+        final StringBuilder builder = new StringBuilder();
+        builder.append("Remark: ").append(remark.value);
+        return builder.toString();
+    }
 }

@@ -1,21 +1,20 @@
 package seedu.findvisor.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
 
-import java.util.function.Predicate;
-
 import seedu.findvisor.commons.util.ToStringBuilder;
 import seedu.findvisor.logic.Messages;
 import seedu.findvisor.model.Model;
-import seedu.findvisor.model.person.Person;
+import seedu.findvisor.model.person.PersonPredicate;
 
 /**
  * Finds persons based on search criteria of the specified category.
- * Only exactly one category of the following can be specified, either name, email, phone or tags.
+ * Only exactly one category of the following can be specified, either name, email, phone, address or tags.
  * Keyword matching is case insensitive.
  */
 public class FindCommand extends Command {
@@ -29,12 +28,13 @@ public class FindCommand extends Command {
             + PREFIX_NAME + "NAME | "
             + PREFIX_EMAIL + "EMAIL | "
             + PREFIX_PHONE + "PHONE | "
+            + PREFIX_ADDRESS + "ADDRESS | "
             + PREFIX_TAG + "TAG...\n"
             + "Example: " + COMMAND_WORD + " t/PRUActiveCash t/friends";
 
-    private final Predicate<Person> predicate;
+    private final PersonPredicate predicate;
 
-    public FindCommand(Predicate<Person> predicate) {
+    public FindCommand(PersonPredicate predicate) {
         this.predicate = predicate;
     }
 
@@ -42,8 +42,8 @@ public class FindCommand extends Command {
     public CommandResult execute(Model model) {
         requireNonNull(model);
         model.updateFilteredPersonList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+        return new CommandResult(String.format(Messages.MESSAGE_FIND_PERSONS_LISTED_OVERVIEW,
+                predicate.getPredicateDescription(), model.getFilteredPersonList().size()));
     }
 
     @Override
