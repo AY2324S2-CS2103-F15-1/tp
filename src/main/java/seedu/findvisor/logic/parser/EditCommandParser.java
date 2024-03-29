@@ -14,6 +14,7 @@ import java.util.Optional;
 import java.util.Set;
 
 import seedu.findvisor.commons.core.index.Index;
+import seedu.findvisor.logic.Messages;
 import seedu.findvisor.logic.commands.EditCommand;
 import seedu.findvisor.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
@@ -61,7 +62,7 @@ public class EditCommandParser implements Parser<EditCommand> {
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
+            throw new ParseException(Messages.MESSAGE_REQUIRE_AT_LEAST_ONE_FIELD);
         }
 
         return new EditCommand(index, editPersonDescriptor);

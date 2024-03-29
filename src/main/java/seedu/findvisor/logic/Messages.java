@@ -23,6 +23,7 @@ public class Messages {
     public static final String MESSAGE_EMPTY_FIELD = "Empty value for field: %1$s!";
     public static final String MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST = "Cannot schedule meeting that"
             + " starts before the current time!";
+    public static final String MESSAGE_REQUIRE_AT_LEAST_ONE_FIELD = "At least one field to edit must be provided.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
