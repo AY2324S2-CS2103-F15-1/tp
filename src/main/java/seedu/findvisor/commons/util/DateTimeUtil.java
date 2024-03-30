@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
 
 /**
  * Handles DateTime parsing and formatting.
@@ -98,6 +99,17 @@ public class DateTimeUtil {
      */
     public static boolean isAfterCurrentDateTime(LocalDateTime dateTime) {
         return dateTime.isAfter(LocalDateTime.now());
+    }
+
+    /**
+     * Checks if two LocalDateTime objects are equal to each other, with precision up to minutes.
+     *
+     * @param dateTime The first LocalDateTime object to be compared.
+     * @param otherDateTime The other LocalDateTime object to be compared.
+     * @return True if the two LocalDateTime objects are equal up to minutes.
+     */
+    public static boolean isEqualsDateTimeMinutes(LocalDateTime dateTime, LocalDateTime otherDateTime) {
+        return dateTime.truncatedTo(ChronoUnit.MINUTES).equals(otherDateTime.truncatedTo(ChronoUnit.MINUTES));
     }
 
     /**
