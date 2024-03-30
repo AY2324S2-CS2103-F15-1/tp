@@ -50,7 +50,7 @@ public class PersonMeetingTodayPredicateTest {
 
     @Test
     public void testGetPredicateDescription() {
-        String dateString = DateTimeUtil.dateTimeToString(LocalDateTime.now());
+        String dateString = DateTimeUtil.dateToString(LocalDate.now());
         PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
         String expected = String.format("Date = \"%1$s\"", dateString);
         assertEquals(expected, predicate.getPredicateDescription());
@@ -58,9 +58,9 @@ public class PersonMeetingTodayPredicateTest {
 
     @Test
     public void toStringMethod() {
-        String dateString = DateTimeUtil.dateTimeToString(LocalDateTime.now());
+        String dateString = DateTimeUtil.dateToString(LocalDate.now());
         PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
-        String expected = PersonPhonePredicate.class.getCanonicalName() + "{date=" + dateString + "}";
+        String expected = PersonMeetingTodayPredicate.class.getCanonicalName() + "{date=" + dateString + "}";
         assertEquals(expected, predicate.toString());
     }
 }

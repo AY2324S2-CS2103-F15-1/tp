@@ -3,6 +3,7 @@ package seedu.findvisor.model.person;
 import java.time.LocalDate;
 import java.util.Optional;
 
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.commons.util.ToStringBuilder;
 
 /**
@@ -24,9 +25,8 @@ public class PersonMeetingTodayPredicate implements PersonPredicate {
      *
      * @return A string describing the predicate
      */
-    // TODO: DateTimeUtils.toDateString
     public String getPredicateDescription() {
-        return String.format("Date = \"%1$s\"", todaysDate);
+        return String.format("Date = \"%1$s\"", DateTimeUtil.dateToString(todaysDate));
     }
 
     @Override
@@ -50,9 +50,8 @@ public class PersonMeetingTodayPredicate implements PersonPredicate {
         return todaysDate.equals(otherPersonMeetingTodayPredicate.todaysDate);
     }
 
-    // TODO: DateTimeUtils.toDateString
     @Override
     public String toString() {
-        return new ToStringBuilder(this).add("date", todaysDate).toString();
+        return new ToStringBuilder(this).add("date", DateTimeUtil.dateToString(todaysDate)).toString();
     }
 }
