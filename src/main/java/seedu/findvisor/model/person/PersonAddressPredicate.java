@@ -11,7 +11,7 @@ public class PersonAddressPredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code AddressContainsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonAddressPredicate} with the specified keyword.
      *
      * @param keyword The keyword to be matched against the person's address. The match is case-insensitive.
      */
@@ -25,7 +25,7 @@ public class PersonAddressPredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Address = \"%1$s\"", keyword);
+        return String.format("Address containing \"%1$s\"", keyword);
     }
 
     @Override

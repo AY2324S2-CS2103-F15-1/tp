@@ -8,12 +8,14 @@ import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_NAME_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_PHONE_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_TAG_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.INCOMPLETE_TAG_DESC;
+import static seedu.findvisor.logic.commands.CommandTestUtil.MEETING_DATE_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_DATE;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_NAME_AMY;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
@@ -31,6 +33,7 @@ import seedu.findvisor.logic.Messages;
 import seedu.findvisor.logic.commands.FindCommand;
 import seedu.findvisor.model.person.PersonAddressPredicate;
 import seedu.findvisor.model.person.PersonEmailPredicate;
+import seedu.findvisor.model.person.PersonMeetingPredicate;
 import seedu.findvisor.model.person.PersonNamePredicate;
 import seedu.findvisor.model.person.PersonPhonePredicate;
 import seedu.findvisor.model.tag.PersonTagsPredicate;
@@ -67,6 +70,10 @@ public class FindCommandParserTest {
         // parse address
         expectedFindCommand = new FindCommand(new PersonAddressPredicate("Block 123, Bobby Street 3"));
         assertParseSuccess(parser, ADDRESS_DESC_BOB, expectedFindCommand);
+
+        // parse meeting date
+        expectedFindCommand = new FindCommand(new PersonMeetingPredicate(VALID_DATE));
+        assertParseSuccess(parser, MEETING_DATE_DESC, expectedFindCommand);
 
         // parse multiple tags
         expectedFindCommand = new FindCommand(new PersonTagsPredicate(

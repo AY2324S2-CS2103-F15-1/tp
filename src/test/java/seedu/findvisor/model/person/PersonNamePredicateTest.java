@@ -86,7 +86,7 @@ public class PersonNamePredicateTest {
         String keyword = "Alice";
         PersonNamePredicate predicate = new PersonNamePredicate(keyword);
 
-        String expected = String.format("Name = \"%1$s\"", keyword);
+        String expected = String.format("Name containing \"%1$s\"", keyword);
         assertEquals(expected, predicate.getPredicateDescription());
     }
 

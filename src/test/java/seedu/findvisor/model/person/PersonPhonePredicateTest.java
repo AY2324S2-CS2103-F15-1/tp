@@ -57,7 +57,7 @@ public class PersonPhonePredicateTest {
         String keyword = "91234567";
         PersonPhonePredicate predicate = new PersonPhonePredicate(keyword);
 
-        String expected = String.format("Phone = \"%1$s\"", keyword);
+        String expected = String.format("Phone containing \"%1$s\"", keyword);
         assertEquals(expected, predicate.getPredicateDescription());
     }
 

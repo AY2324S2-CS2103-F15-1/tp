@@ -11,7 +11,7 @@ public class PersonEmailPredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code EmailContainsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonEmailPredicate} with the specified keyword.
      *
      * @param keyword The keyword to be matched against the person's email. The match is case-insensitive.
      */
@@ -25,7 +25,7 @@ public class PersonEmailPredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Email = \"%1$s\"", keyword);
+        return String.format("Email containing \"%1$s\"", keyword);
     }
 
     @Override

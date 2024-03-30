@@ -2,16 +2,19 @@ package seedu.findvisor.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 
+import java.time.LocalDate;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.findvisor.commons.core.index.Index;
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.commons.util.StringUtil;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
 import seedu.findvisor.model.person.Address;
 import seedu.findvisor.model.person.Email;
+import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Name;
 import seedu.findvisor.model.person.Phone;
 import seedu.findvisor.model.person.Remark;
@@ -122,6 +125,23 @@ public class ParserUtil {
             tagSet.add(parseTag(tagName));
         }
         return tagSet;
+    }
+
+    /**
+     * Validates and parses the meeting date string to a {@code LocalDate} object.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param meetingDate The date string to parse.
+     * @return Parsed {@code LocalDate} object.
+     * @throws ParseException If the given {@code meetingDate} is invalid.
+     */
+    public static LocalDate parseMeetingDate(String meetingDate) throws ParseException {
+        requireNonNull(meetingDate);
+        String trimmedMeetingDate = meetingDate.trim();
+        if (!DateTimeUtil.isValidDate(trimmedMeetingDate)) {
+            throw new ParseException(Meeting.MESSAGE_DATE_CONSTRAINT);
+        }
+        return DateTimeUtil.parseDateString(trimmedMeetingDate);
     }
 
     /**
