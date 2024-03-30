@@ -102,14 +102,14 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks if 2 LocalDateTime objects are equal to each other, with precision up to minutes.
+     * Checks if two LocalDateTime objects are equal to each other, with precision up to minutes.
      *
-     * @param dateTime1 The first LocalDateTime object to be compared.
-     * @param dateTime2 The second LocalDateTime object to be compared.
-     * @return True if the 2 LocalDateTime objects are equal up to minutes.
+     * @param dateTime The first LocalDateTime object to be compared.
+     * @param otherDateTime The other LocalDateTime object to be compared.
+     * @return True if the two LocalDateTime objects are equal up to minutes.
      */
-    public static boolean isEqualsDateTimeMinutes(LocalDateTime dateTime1, LocalDateTime dateTime2) {
-        return dateTime1.truncatedTo(ChronoUnit.MINUTES).equals(dateTime2.truncatedTo(ChronoUnit.MINUTES));
+    public static boolean isEqualsDateTimeMinutes(LocalDateTime dateTime, LocalDateTime otherDateTime) {
+        return dateTime.truncatedTo(ChronoUnit.MINUTES).equals(otherDateTime.truncatedTo(ChronoUnit.MINUTES));
     }
 
     /**
