@@ -41,17 +41,22 @@ public class DeleteTagCommand extends Command {
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %1$s for Person: %2$s";
     public static final String MESSAGE_CANNOT_FIND_TAG = "There is no tag %1$s for Person: %2$s";
+    public static final String MESSAGE_DELETE_PARTIAL_TAG = "Deleted tag %1$s for Person: %2$s\n"
+            + "There is no tag %3$s for Person: %2$s";
 
     private final Index targetIndex;
-    private final Tag targetTag;
+    private final Set<Tag> targetTags;
 
     /**
      * Creates an DeleteTagCommand to delete an existing tag with the person at the
      * specified {@code Index}
      */
-    public DeleteTagCommand(Index targetIndex, Tag targetTag) {
+    public DeleteTagCommand(Index targetIndex, Set<Tag> targetTags) {
+        requireNonNull(targetIndex);
+        requireNonNull(targetTags);
+
         this.targetIndex = targetIndex;
-        this.targetTag = targetTag;
+        this.targetTags = targetTags;
     }
 
     @Override
@@ -64,27 +69,37 @@ public class DeleteTagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
-        Set<Tag> tagToDelete = personToEdit.getTags();
-        boolean isPresent = false;
-        for (Tag tag : tagToDelete) {
-            if (tag.equals(targetTag)) {
-                isPresent = true;
+        Set<Tag> tagsOfPerson = personToEdit.getTags();
+        Set<Tag> tagsToDelete = new HashSet<>();
+        Set<Tag> tagsToReport = new HashSet<>();
+        for (Tag tag : targetTags) {
+            if (tagsOfPerson.contains(tag)) {
+                tagsToDelete.add(tag);
+            } else {
+                tagsToReport.add(tag);
             }
         }
 
-        if (isPresent) {
-            Person editedPerson = createEditedPerson(personToEdit, targetTag);
+        if (tagsToReport.size() == 0) {
+            Person editedPerson = createEditedPerson(personToEdit, targetTags);
             model.setPerson(personToEdit, editedPerson);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTag, editedPerson.getName()));
+            return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
+        } else if (tagsToDelete.size() == 0) {
+            return new CommandResult(String.format(MESSAGE_CANNOT_FIND_TAG, targetTags, personToEdit.getName()));
+        } else {
+            Person editedPerson = createEditedPerson(personToEdit, tagsToDelete);
+            model.setPerson(personToEdit, editedPerson);
+            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            return new CommandResult(String.format(MESSAGE_DELETE_PARTIAL_TAG, tagsToDelete,
+                    editedPerson.getName(), tagsToReport));
         }
-        return new CommandResult(String.format(MESSAGE_CANNOT_FIND_TAG, targetTag, personToEdit.getName()));
     }
 
     /**
-     * Creates and returns a copy of {@code personToEdit} without {@code targetTag}.
+     * Creates and returns a copy of {@code personToEdit} without {@code targetTags}.
      */
-    private static Person createEditedPerson(Person personToEdit, Tag targetTag) {
+    private static Person createEditedPerson(Person personToEdit, Set<Tag> targetTags) {
         assert personToEdit != null;
 
         Name name = personToEdit.getName();
@@ -97,7 +112,7 @@ public class DeleteTagCommand extends Command {
 
         Set<Tag> updatedTags = new HashSet<>();
         for (Tag tag : tags) {
-            if (!tag.equals(targetTag)) {
+            if (!targetTags.contains(tag)) {
                 updatedTags.add(tag);
             }
         }
@@ -118,14 +133,14 @@ public class DeleteTagCommand extends Command {
 
         DeleteTagCommand otherDeleteTagCommand = (DeleteTagCommand) other;
         return targetIndex.equals(otherDeleteTagCommand.targetIndex)
-                && targetTag.equals(otherDeleteTagCommand.targetTag);
+                && targetTags.equals(otherDeleteTagCommand.targetTags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("toDeleteTag", targetIndex)
-                .add("tag", targetTag)
+                .add("tag", targetTags)
                 .toString();
     }
 }

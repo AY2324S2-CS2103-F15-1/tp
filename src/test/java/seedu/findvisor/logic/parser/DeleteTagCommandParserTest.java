@@ -6,6 +6,9 @@ import static seedu.findvisor.logic.parser.CommandParserTestUtil.assertParseFail
 import static seedu.findvisor.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.findvisor.commons.core.index.Index;
@@ -28,7 +31,9 @@ public class DeleteTagCommandParserTest {
     @Test
     public void parse_validArgs_returnsDeleteTagCommand() {
         Index targetIndex = INDEX_FIRST_PERSON;
-        Tag targetTag = new Tag(TAGNAME);
+        Set<Tag> targetTag = new HashSet<>();
+        Tag tag = new Tag(TAGNAME);
+        targetTag.add(tag);
         DeleteTagCommand expectedDeleteTagCommand = new DeleteTagCommand(targetIndex, targetTag);
         assertParseSuccess(parser, targetIndex.getOneBased() + " " + PREFIX_TAG + TAGNAME, expectedDeleteTagCommand);
     }

@@ -11,6 +11,9 @@ import static seedu.findvisor.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.findvisor.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.findvisor.commons.core.index.Index;
@@ -29,11 +32,13 @@ import seedu.findvisor.testutil.PersonBuilder;
 public class DeleteTagCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
-    private Tag targetTag = new Tag("friends");
+    private Tag friendsTag = new Tag("friends");
+    private Set<Tag> targetTag = new HashSet<>();
 
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        targetTag.add(friendsTag);
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
 
@@ -52,6 +57,7 @@ public class DeleteTagCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_invalidTag() {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_THIRD_PERSON.getZeroBased());
+        targetTag.add(friendsTag);
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_THIRD_PERSON, targetTag);
 
@@ -66,6 +72,7 @@ public class DeleteTagCommandTest {
     @Test
     public void execute_invalidIndexUnfilteredList_throwsCommandException() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
+        targetTag.add(friendsTag);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(outOfBoundIndex, targetTag);
 
         assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -76,6 +83,7 @@ public class DeleteTagCommandTest {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
 
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        targetTag.add(friendsTag);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
 
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, targetTag,
@@ -93,6 +101,7 @@ public class DeleteTagCommandTest {
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
         showPersonAtIndex(model, INDEX_FIRST_PERSON);
+        targetTag.add(friendsTag);
 
         Index outOfBoundIndex = INDEX_SECOND_PERSON;
         // ensures that outOfBoundIndex is still in bounds of address book list
@@ -105,6 +114,7 @@ public class DeleteTagCommandTest {
 
     @Test
     public void equals() {
+        targetTag.add(friendsTag);
         DeleteTagCommand deleteFirstCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
         DeleteTagCommand deleteSecondCommand = new DeleteTagCommand(INDEX_SECOND_PERSON, targetTag);
 
@@ -127,6 +137,7 @@ public class DeleteTagCommandTest {
 
     @Test
     public void toStringMethod() {
+        targetTag.add(friendsTag);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
         System.out.println(deleteTagCommand.toString());
         String expected = DeleteTagCommand.class.getCanonicalName() + "{toDeleteTag=" + INDEX_FIRST_PERSON
