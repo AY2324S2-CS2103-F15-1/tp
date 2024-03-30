@@ -71,7 +71,7 @@ public class PersonEmailPredicateTest {
         String keyword = "example@example.com";
         PersonEmailPredicate predicate = new PersonEmailPredicate(keyword);
 
-        String expected = String.format("Email = \"%1$s\"", keyword);
+        String expected = String.format("Email containing \"%1$s\"", keyword);
         assertEquals(expected, predicate.getPredicateDescription());
     }
 
