@@ -47,4 +47,9 @@ public class DeleteTagCommandParserTest {
     public void parse_invalidArgs_returnsTagError() {
         assertParseFailure(parser, "1 something", MESSAGE_INVALID_FORMAT);
     }
+
+    @Test
+    public void parse_invalidArgs_returnsTagMissing() {
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+    }
 }
