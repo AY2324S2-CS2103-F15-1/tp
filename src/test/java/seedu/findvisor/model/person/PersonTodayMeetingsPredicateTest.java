@@ -13,12 +13,12 @@ import org.junit.jupiter.api.Test;
 import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.testutil.PersonBuilder;
 
-public class PersonMeetingTodayPredicateTest {
+public class PersonTodayMeetingsPredicateTest {
 
     @Test
     public void equals() {
-        PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
-        PersonMeetingTodayPredicate predicateCopy = new PersonMeetingTodayPredicate();
+        PersonTodayMeetingsPredicate predicate = new PersonTodayMeetingsPredicate();
+        PersonTodayMeetingsPredicate predicateCopy = new PersonTodayMeetingsPredicate();
 
         // same object -> returns true
         assertTrue(predicate.equals(predicate));
@@ -36,14 +36,14 @@ public class PersonMeetingTodayPredicateTest {
 
     @Test
     public void test_meetingStartDateIsToday_returnsTrue() {
-        PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
+        PersonTodayMeetingsPredicate predicate = new PersonTodayMeetingsPredicate();
         assertTrue(predicate.test(new PersonBuilder().withMeeting(
                 Optional.of(new Meeting(LocalDateTime.now(), LocalDateTime.now().plusHours(1), ""))).build()));
     }
 
     @Test
     public void test_meetingStartDateIsNotToday_returnsFalse() {
-        PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
+        PersonTodayMeetingsPredicate predicate = new PersonTodayMeetingsPredicate();
         assertFalse(predicate.test(new PersonBuilder().withMeeting(
                 Optional.of(new Meeting(LocalDateTime.now().minusDays(1), LocalDateTime.now(), ""))).build()));
     }
@@ -51,16 +51,16 @@ public class PersonMeetingTodayPredicateTest {
     @Test
     public void testGetPredicateDescription() {
         String dateString = DateTimeUtil.dateToString(LocalDate.now());
-        PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
-        String expected = String.format("Date = \"%1$s\"", dateString);
+        PersonTodayMeetingsPredicate predicate = new PersonTodayMeetingsPredicate();
+        String expected = String.format("Today's meeting on \"%1$s\"", dateString);
         assertEquals(expected, predicate.getPredicateDescription());
     }
 
     @Test
     public void toStringMethod() {
         String dateString = DateTimeUtil.dateToString(LocalDate.now());
-        PersonMeetingTodayPredicate predicate = new PersonMeetingTodayPredicate();
-        String expected = PersonMeetingTodayPredicate.class.getCanonicalName() + "{date=" + dateString + "}";
+        PersonTodayMeetingsPredicate predicate = new PersonTodayMeetingsPredicate();
+        String expected = PersonTodayMeetingsPredicate.class.getCanonicalName() + "{date=" + dateString + "}";
         assertEquals(expected, predicate.toString());
     }
 }

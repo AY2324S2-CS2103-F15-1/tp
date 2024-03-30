@@ -12,7 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.findvisor.commons.core.GuiSettings;
 import seedu.findvisor.commons.core.LogsCenter;
 import seedu.findvisor.model.person.Person;
-import seedu.findvisor.model.person.PersonMeetingTodayPredicate;
+import seedu.findvisor.model.person.PersonTodayMeetingsPredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -37,7 +37,7 @@ public class ModelManager implements Model {
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
         todaysMeetingPersons = new FilteredList<>(this.addressBook.getPersonList());
-        todaysMeetingPersons.setPredicate(new PersonMeetingTodayPredicate());
+        todaysMeetingPersons.setPredicate(new PersonTodayMeetingsPredicate());
     }
 
     public ModelManager() {

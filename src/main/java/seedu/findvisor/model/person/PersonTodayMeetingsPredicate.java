@@ -10,23 +10,23 @@ import seedu.findvisor.commons.util.ToStringBuilder;
  * A predicate for evaluating if a {@link Person}'s scheduled meeting at the current date.
  * This is used to filter for persons with meetings today.
  */
-public class PersonMeetingTodayPredicate implements PersonPredicate {
+public class PersonTodayMeetingsPredicate implements PersonPredicate {
     private final LocalDate todaysDate;
 
     /**
-     * Constructs an {@code PersonMeetingTodayPredicate} with the today's date.
+     * Constructs an {@code PersonTodayMeetingsPredicate} with the today's date.
      */
-    public PersonMeetingTodayPredicate() {
+    public PersonTodayMeetingsPredicate() {
         this.todaysDate = LocalDate.now();
     }
 
     /**
-     * Returns the description of this predicate, indicating the phone keyword criteria.
+     * Returns the description of this predicate, indicating the meetings occurring on the current system's date.
      *
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Date = \"%1$s\"", DateTimeUtil.dateToString(todaysDate));
+        return String.format("Today's meeting on \"%1$s\"", DateTimeUtil.dateToString(todaysDate));
     }
 
     @Override
@@ -42,12 +42,12 @@ public class PersonMeetingTodayPredicate implements PersonPredicate {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof PersonMeetingTodayPredicate)) {
+        if (!(other instanceof PersonTodayMeetingsPredicate)) {
             return false;
         }
 
-        PersonMeetingTodayPredicate otherPersonMeetingTodayPredicate = (PersonMeetingTodayPredicate) other;
-        return todaysDate.equals(otherPersonMeetingTodayPredicate.todaysDate);
+        PersonTodayMeetingsPredicate otherPersonTodayMeetingsPredicate = (PersonTodayMeetingsPredicate) other;
+        return todaysDate.equals(otherPersonTodayMeetingsPredicate.todaysDate);
     }
 
     @Override
