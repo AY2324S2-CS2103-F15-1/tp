@@ -1,5 +1,6 @@
 package seedu.findvisor.logic.commands;
 
+//@@author Dethada
 import static java.util.Objects.requireNonNull;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
@@ -128,3 +129,4 @@ public class ScheduleCommand extends Command {
                 .toString();
     }
 }
+//@@ author

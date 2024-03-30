@@ -1,5 +1,6 @@
 package seedu.findvisor.model.person;
 
+//@@author Dethada
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -82,3 +83,4 @@ public class MeetingTest {
         assertFalse(meeting.equals(new Meeting(START, END, "Different remark")));
     }
 }
+//@@author
