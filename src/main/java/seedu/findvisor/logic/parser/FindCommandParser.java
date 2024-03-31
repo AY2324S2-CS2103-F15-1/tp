@@ -38,64 +38,73 @@ public class FindCommandParser implements Parser<FindCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, searchPrefixes);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEETING);
-
-        if (!isSinglePrefixTypePresent(argMultimap, searchPrefixes)) {
+        // Check if there is any text preceding valid prefix
+        if (!argMultimap.getPreamble().equals("")) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
-        String userInput;
-        if (argMultimap.getValue(PREFIX_NAME).isPresent()) {
-            userInput = getUserInput(argMultimap, PREFIX_NAME);
-            return new FindCommand(new PersonNamePredicate(userInput));
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEETING);
+
+        Prefix presentPrefix = findSinglePresentPrefixType(argMultimap, searchPrefixes);
+        argMultimap.verifyNoBlankPrefixValueFor(presentPrefix);
+
+        return prepareFindCommand(argMultimap, presentPrefix);
+    }
+
+    /**
+     * Checks through the {@link ArgumentMultimap} to identify the single prefix type.
+     * It is expected that exactly one prefix is present based on the given prefixes;
+     * otherwise, a {@link ParseException} is thrown.
+     * @param argMultimap The {@link ArgumentMultimap} to check for the presence of prefixes types.
+     * @param prefixes The prefixes to search for.
+     * @return The single present {@link Prefix} type.
+     * @throws ParseException if none or more than one prefix is present.
+     */
+    private Prefix findSinglePresentPrefixType(ArgumentMultimap argMultimap, Prefix... prefixes) throws ParseException {
+        // both method parameters should not be false at this point
+        assert argMultimap != null && prefixes != null;
+
+        Prefix[] presentPrefixes = Stream.of(prefixes)
+                .filter(prefix -> argMultimap.getValue(prefix).isPresent())
+                .toArray(Prefix[]::new);
+
+        if (presentPrefixes.length != 1) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
-        if (argMultimap.getValue(PREFIX_EMAIL).isPresent()) {
-            userInput = getUserInput(argMultimap, PREFIX_EMAIL);
-            return new FindCommand(new PersonEmailPredicate(userInput));
+        return presentPrefixes[0];
+    }
+
+    /**
+     * Creates a {@link FindCommand} based on the given prefix and its value in {@link ArgumentMultimap}.
+     *
+     * @param argMultimap The {@link ArgumentMultimap} containing the prefixes and corresponding values.
+     * @param prefix The detected prefix to define the search type.
+     * @return The {@link FindCommand} created for the detected prefix.
+     */
+    private FindCommand prepareFindCommand(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
+        // both method parameters should not be false at this point
+        assert argMultimap != null && prefix != null;
+
+        if (prefix.equals(PREFIX_TAG)) {
+            List<String> tagsKeywords = argMultimap.getAllValues(PREFIX_TAG);
+            return new FindCommand(new PersonTagsPredicate(tagsKeywords));
         }
-        if (argMultimap.getValue(PREFIX_PHONE).isPresent()) {
-            userInput = getUserInput(argMultimap, PREFIX_PHONE);
-            return new FindCommand(new PersonPhonePredicate(userInput));
-        }
-        if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
-            userInput = getUserInput(argMultimap, PREFIX_ADDRESS);
-            return new FindCommand(new PersonAddressPredicate(userInput));
-        }
-        if (argMultimap.getValue(PREFIX_MEETING).isPresent()) {
-            userInput = getUserInput(argMultimap, PREFIX_MEETING);
-            LocalDate meetingDate = ParserUtil.parseMeetingDate(userInput);
+
+        String userKeyword = argMultimap.getValue(prefix).get();
+        if (prefix.equals(PREFIX_MEETING)) {
+            LocalDate meetingDate = ParserUtil.parseMeetingDate(userKeyword);
             return new FindCommand(new PersonMeetingPredicate(meetingDate));
         }
-        argMultimap.verifyNoBlankPrefixValueFor(PREFIX_TAG);
-        List<String> tagsKeywords = argMultimap.getAllValues(PREFIX_TAG);
-        return new FindCommand(new PersonTagsPredicate(tagsKeywords));
-    }
-
-    /**
-     * Returns true if exactly one prefix type is present in the given {@code ArgumentMultimap}.
-     * @param argMultimap The {@link ArgumentMultimap} to check for the presence of prefixes.
-     * @param prefixes A varargs array of {@link Prefix} objects to be checked in the {@code argMultimap}.
-     * @return {@code true} if exactly one of the specified prefixes is present in the {@code ArgumentMultimap}.
-     */
-    private boolean isSinglePrefixTypePresent(ArgumentMultimap argMultimap, Prefix... prefixes) {
-        long prefixCount = Stream.of(prefixes)
-                .filter(prefix -> argMultimap.getValue(prefix).isPresent())
-                .count();
-        return prefixCount == 1;
-    }
-
-    /**
-     * Retrieves the user input associated with a specific prefix. If specified prefix has a blank value,
-     * then a ParseException is thrown.
-     *
-     * @param argMultimap The {@link ArgumentMultimap} to get the specified prefix value.
-     * @param prefix The {@link Prefix} specified by the user.
-     * @return The user input string associated with the prefix.
-     * @throws ParseException If the prefix value is blank.
-     */
-    private String getUserInput(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
-        argMultimap.verifyNoBlankPrefixValueFor(prefix);
-        return argMultimap.getValue(prefix).get();
+        if (prefix.equals(PREFIX_NAME)) {
+            return new FindCommand(new PersonNamePredicate(userKeyword));
+        }
+        if (prefix.equals(PREFIX_PHONE)) {
+            return new FindCommand(new PersonPhonePredicate(userKeyword));
+        }
+        if (prefix.equals(PREFIX_EMAIL)) {
+            return new FindCommand(new PersonEmailPredicate(userKeyword));
+        }
+        return new FindCommand(new PersonAddressPredicate(userKeyword));
     }
 }
