@@ -51,8 +51,8 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * Items in square brackets are optional.<br>
   * e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  * e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used one or more times.<br>
+  * e.g. `t/TAG…​` can be used as `t/DoeFamily` or `t/PRUactiveCash t/DoeFamily` etc.
 
 * Items with separated with `|` requires exactly one item to be matched.
   * e.g. `n/NAME|p/PHONE_NUMBER` can only accept `n/John Doe` or `p/91234567` but not both.
