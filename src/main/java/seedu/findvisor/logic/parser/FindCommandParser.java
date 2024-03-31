@@ -62,7 +62,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @throws ParseException if none or more than one prefix is present.
      */
     private Prefix findSinglePresentPrefixType(ArgumentMultimap argMultimap, Prefix... prefixes) throws ParseException {
-        // both method parameters should not be false at this point
         assert argMultimap != null && prefixes != null;
 
         Prefix[] presentPrefixes = Stream.of(prefixes)
@@ -83,7 +82,6 @@ public class FindCommandParser implements Parser<FindCommand> {
      * @return The {@link FindCommand} created for the detected prefix.
      */
     private FindCommand prepareFindCommand(ArgumentMultimap argMultimap, Prefix prefix) throws ParseException {
-        // both method parameters should not be false at this point
         assert argMultimap != null && prefix != null;
 
         if (prefix.equals(PREFIX_TAG)) {
