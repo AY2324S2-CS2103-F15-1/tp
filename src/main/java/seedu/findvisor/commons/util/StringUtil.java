@@ -12,7 +12,7 @@ import java.util.Arrays;
  */
 public class StringUtil {
 
-    private static final String SAFE_STRING_REGEX = "[\\w !@#$%^&*()_+\\-{}\\[\\]:;'\"\\\\<>?.,|~`]*";
+    private static final String SAFE_STRING_REGEX = "[\\w\\s!@#$%^&*()+\\-{}\\[\\]:;'\"\\\\<>?.,|~`]*";
 
     /**
      * Returns true if the {@code sentence} contains the {@code word}.

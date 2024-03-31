@@ -37,6 +37,7 @@ public class StringUtilTest {
         assertTrue(StringUtil.isSafeString("  "));
 
         // Allowed special characters
+        assertTrue(StringUtil.isSafeString("_"));
         assertTrue(StringUtil.isSafeString("\\"));
         assertTrue(StringUtil.isSafeString("$()[]{}"));
         assertTrue(StringUtil.isSafeString("!-+_"));
