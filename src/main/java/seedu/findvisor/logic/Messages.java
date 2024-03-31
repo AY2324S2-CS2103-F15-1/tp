@@ -53,6 +53,7 @@ public class Messages {
         return builder.toString();
     }
 
+    //@@author Dethada
     /**
      * Formats the {@code meeting} for display to the user.
      */
@@ -68,6 +69,7 @@ public class Messages {
         }
         return builder.toString();
     }
+    //@@author
 
     /**
      * Formats the {@code remark} for display to the user

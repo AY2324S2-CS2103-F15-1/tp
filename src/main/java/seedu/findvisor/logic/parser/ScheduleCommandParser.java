@@ -1,5 +1,6 @@
 package seedu.findvisor.logic.parser;
 
+//@@author Dethada
 import static java.util.Objects.requireNonNull;
 import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
@@ -61,3 +62,4 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
         return new ScheduleCommand(index, meeting);
     }
 }
+//@@author

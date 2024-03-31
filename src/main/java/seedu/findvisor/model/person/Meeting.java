@@ -1,5 +1,6 @@
 package seedu.findvisor.model.person;
 
+//@@author Dethada
 import static seedu.findvisor.commons.util.AppUtil.checkArgument;
 import static seedu.findvisor.commons.util.CollectionUtil.requireAllNonNull;
 
@@ -108,4 +109,5 @@ public class Meeting {
     }
 
 }
+//@@author
 
