@@ -12,6 +12,8 @@ import java.util.Arrays;
  */
 public class StringUtil {
 
+    private static final String SAFE_STRING_REGEX = "[\\w\\s!@#$%^&*()+\\-{}\\[\\]:;'\"\\\\<>?.,|~`]*";
+
     /**
      * Returns true if the {@code sentence} contains the {@code word}.
      *   Ignores case, but a full word match is required.
@@ -81,4 +83,17 @@ public class StringUtil {
             return false;
         }
     }
+
+    /**
+     * Returns true if {@code s} is a safe string
+     * A safe string only consists of alphanumeric characters
+     * and the set of special characters: "!@#$%^&*()_+-{}[]:;'"<>?.,|~`\"
+     * @throws NullPointerException if {@code s} is null.
+     */
+    public static boolean isSafeString(String s) {
+        requireNonNull(s);
+
+        return s.matches(SAFE_STRING_REGEX);
+    }
+
 }
