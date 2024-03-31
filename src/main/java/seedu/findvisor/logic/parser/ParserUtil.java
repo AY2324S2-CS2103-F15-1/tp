@@ -147,12 +147,17 @@ public class ParserUtil {
     /**
      * Parses a {@code String remark} into a {@code Optional<Remark>}.
      * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
      */
-    public static Optional<Remark> parseRemark(String remark) {
+    public static Optional<Remark> parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         if (trimmedRemark.isBlank()) {
             return Optional.empty();
+        }
+        if (!Remark.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
         return Optional.of(new Remark(trimmedRemark));
     }
