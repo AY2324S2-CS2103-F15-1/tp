@@ -33,6 +33,7 @@ public class DeleteTagCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
     private Tag friendsTag = new Tag("friends");
+    private Tag validTag = new Tag("valid");
     private Set<Tag> targetTag = new HashSet<>();
 
     @Test
@@ -44,6 +45,31 @@ public class DeleteTagCommandTest {
 
         String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_TAG_SUCCESS, targetTag,
                 personToEdit.getName());
+
+        PersonBuilder personBuilder = new PersonBuilder(personToEdit).withTags();
+        Person editedPerson = personBuilder.build();
+
+        ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(model.getFilteredPersonList().get(0), editedPerson);
+
+        assertCommandSuccess(deleteTagCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_validIndexUnfilteredList_partialSuccess() {
+        Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        targetTag.add(friendsTag);
+        targetTag.add(validTag);
+
+        Set<Tag> friendsTagSet = new HashSet<>();
+        friendsTagSet.add(friendsTag);
+        Set<Tag> validTagSet = new HashSet<>();
+        validTagSet.add(validTag);
+
+        DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_FIRST_PERSON, targetTag);
+
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_DELETE_PARTIAL_TAG, friendsTagSet,
+                personToEdit.getName(), validTagSet);
 
         PersonBuilder personBuilder = new PersonBuilder(personToEdit).withTags();
         Person editedPerson = personBuilder.build();
