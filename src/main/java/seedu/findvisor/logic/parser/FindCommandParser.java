@@ -39,7 +39,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, searchPrefixes);
 
         // Check if there is any text preceding valid prefix
-        if (!argMultimap.getPreamble().equals("")) {
+        if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE));
         }
 
