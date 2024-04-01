@@ -165,9 +165,27 @@ public class ParserUtil {
     }
 
     /**
+     * Parses the given meeting date and time into a {@code LocalDateTime} object.
+     *
+     * @param dateTime The meeting date and time string to parse.
+     * @return Parsed {@code LocalDateTime} object.
+     * @throws ParseException
+     */
+    public static LocalDateTime parseMeetingDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!DateTimeUtil.isValidDateTime(trimmedDateTime)) {
+            throw new ParseException(Meeting.MESSAGE_DATETIME_CONSTRAINTS);
+        }
+        return DateTimeUtil.parseDateTimeString(trimmedDateTime);
+    }
+
+    /**
      * Parses the given meeting remark into a {@code String} object.
      * Leading and trailing whitespaces for meeting remark will be trimmed.
      *
+     * @param remark The meeting remark to parse.
+     * @return The parsed meeting remark.
      * @throws ParseException if the meeting remark is invalid.
      */
     public static String parseMeetingRemark(String remark) throws ParseException {
@@ -183,6 +201,7 @@ public class ParserUtil {
      * Parses the given start, end datetimes and remark into a {@code Meeting} object.
      * Leading and trailing whitespaces for meeting remark will be trimmed.
      *
+     * @return The parsed {@code Meeting} object.
      * @throws ParseException if the dateTime or remark is invalid.
      */
     public static Meeting parseMeeting(LocalDateTime startDateTime, LocalDateTime endDateTime, String remark)
