@@ -4,6 +4,7 @@ import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
+import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_ADDRESS_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_NAME_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_PHONE_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_TAG_DESC;
@@ -16,8 +17,7 @@ import static seedu.findvisor.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_DATE;
-import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_NAME_AMY;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -101,10 +101,10 @@ public class FindCommandParserTest {
         assertParseFailure(parser, "@/test", expectedMessage);
 
         // Invalid and valid prefix
-        assertParseFailure(parser, "@/test " + VALID_NAME_AMY, expectedMessage);
+        assertParseFailure(parser, "@/test " + NAME_DESC_AMY, expectedMessage);
 
         // Multiple valid prefixes
-        assertParseFailure(parser, VALID_NAME_AMY + " " + VALID_EMAIL_AMY, expectedMessage);
+        assertParseFailure(parser, EMAIL_DESC_AMY + " " + NAME_DESC_AMY, expectedMessage);
     }
 
     @Test
@@ -114,6 +114,9 @@ public class FindCommandParserTest {
 
         // Empty phone prefix
         assertParseFailure(parser, EMPTY_PHONE_DESC, String.format(Messages.MESSAGE_EMPTY_FIELD, PREFIX_PHONE));
+
+        // Empty address prefix
+        assertParseFailure(parser, EMPTY_ADDRESS_DESC, String.format(Messages.MESSAGE_EMPTY_FIELD, PREFIX_ADDRESS));
 
         // Empty tag prefix
         assertParseFailure(parser, EMPTY_TAG_DESC, String.format(Messages.MESSAGE_EMPTY_FIELD, PREFIX_TAG));
