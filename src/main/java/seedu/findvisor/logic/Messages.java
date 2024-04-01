@@ -24,7 +24,7 @@ public class Messages {
             + " starts before the current time!";
     public static final String MESSAGE_REQUIRE_AT_LEAST_ONE_FIELD = "At least one field to edit must be provided.";
 
-    public static final String MESSAGE_SAFE_STRING_INPUT_CHARACTERS = "alphanumeric, whitespace and the"
+    public static final String MESSAGE_SAFE_STRING_INPUT_CHARACTERS = "alphanumeric characters, whitespace and the"
             + " following set of characters: {!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\\}";
 
     /**
