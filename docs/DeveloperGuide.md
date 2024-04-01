@@ -566,6 +566,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+* 3c. Some of the given tag is not associated with the person.
+
+    * 3c1. FINDvisor shows an error message indicating the tags not found.
+
+      Use case resumes at step 2.
+
 * 4a. The targeted tag is not associated with the person.
 
     * 4a1. FINDvisor shows a message.
@@ -653,6 +659,9 @@ testers are expected to do more *exploratory* testing.
 
    1. Test case: `delete 1 t/invalidTag`<br>
       Expected: No tag is deleted as the tag is invalid. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete 1 t/containedTag t/notContainedTag`<br>
+      Expected: No tag is deleted as one of the targeting tags is not associated with the person. Error details shown in the status message. Status bar remains the same.
 
    1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
