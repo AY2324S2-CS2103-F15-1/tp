@@ -1,8 +1,10 @@
 package seedu.findvisor.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.findvisor.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
@@ -160,5 +162,38 @@ public class ParserUtil {
             throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
         }
         return Optional.of(new Remark(trimmedRemark));
+    }
+
+    /**
+     * Parses the given meeting remark into a {@code String} object.
+     * Leading and trailing whitespaces for meeting remark will be trimmed.
+     *
+     * @throws ParseException if the meeting remark is invalid.
+     */
+    public static String parseMeetingRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        if (!Meeting.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Meeting.MESSAGE_REMARK_CONSTRAINTS);
+        }
+        return trimmedRemark;
+    }
+
+    /**
+     * Parses the given start, end datetimes and remark into a {@code Meeting} object.
+     * Leading and trailing whitespaces for meeting remark will be trimmed.
+     *
+     * @throws ParseException if the dateTime or remark is invalid.
+     */
+    public static Meeting parseMeeting(LocalDateTime startDateTime, LocalDateTime endDateTime, String remark)
+            throws ParseException {
+        requireAllNonNull(startDateTime, endDateTime, remark);
+        String parsedRemark = parseMeetingRemark(remark);
+
+        if (!Meeting.isValidDateTime(startDateTime, endDateTime)) {
+            throw new ParseException(Meeting.MESSAGE_DATETIME_CONSTRAINTS);
+        }
+
+        return new Meeting(startDateTime, endDateTime, parsedRemark);
     }
 }
