@@ -5,8 +5,10 @@ import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_TAG;
 
 import java.time.LocalDate;
@@ -18,8 +20,10 @@ import seedu.findvisor.logic.parser.exceptions.ParseException;
 import seedu.findvisor.model.person.PersonAddressPredicate;
 import seedu.findvisor.model.person.PersonEmailPredicate;
 import seedu.findvisor.model.person.PersonMeetingPredicate;
+import seedu.findvisor.model.person.PersonMeetingRemarkPredicate;
 import seedu.findvisor.model.person.PersonNamePredicate;
 import seedu.findvisor.model.person.PersonPhonePredicate;
+import seedu.findvisor.model.person.PersonRemarkPredicate;
 import seedu.findvisor.model.tag.PersonTagsPredicate;
 
 /**
@@ -27,7 +31,7 @@ import seedu.findvisor.model.tag.PersonTagsPredicate;
  */
 public class FindCommandParser implements Parser<FindCommand> {
     private final Prefix[] searchPrefixes = {PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-        PREFIX_ADDRESS, PREFIX_MEETING, PREFIX_TAG};
+        PREFIX_ADDRESS, PREFIX_MEETING, PREFIX_REMARK, PREFIX_MEETING_REMARK, PREFIX_TAG};
 
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -44,7 +48,7 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE,
-                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_MEETING);
+                PREFIX_EMAIL, PREFIX_ADDRESS, PREFIX_REMARK, PREFIX_MEETING_REMARK, PREFIX_MEETING);
 
         Prefix presentPrefix = findSinglePresentPrefixType(argMultimap, searchPrefixes);
         argMultimap.verifyNoBlankPrefixValueFor(presentPrefix);
@@ -102,6 +106,12 @@ public class FindCommandParser implements Parser<FindCommand> {
         }
         if (prefix.equals(PREFIX_EMAIL)) {
             return new FindCommand(new PersonEmailPredicate(userKeyword));
+        }
+        if (prefix.equals(PREFIX_REMARK)) {
+            return new FindCommand(new PersonRemarkPredicate(userKeyword));
+        }
+        if (prefix.equals(PREFIX_MEETING_REMARK)) {
+            return new FindCommand(new PersonMeetingRemarkPredicate(userKeyword));
         }
         return new FindCommand(new PersonAddressPredicate(userKeyword));
     }
