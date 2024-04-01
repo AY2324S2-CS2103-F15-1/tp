@@ -25,8 +25,7 @@ import seedu.findvisor.model.tag.Tag;
 
 /**
  * Deletes an existing tag of a person identified using it's displayed index
- * from the
- * address book.
+ * from the address book.
  */
 public class DeleteTagCommand extends Command {
 
@@ -36,8 +35,8 @@ public class DeleteTagCommand extends Command {
             + ": Deletes the tag associated with a particular person "
             + "identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "[" + PREFIX_TAG + "TAG]\n"
-            + "Example: " + COMMAND_WORD + " 1 t/tag";
+            + PREFIX_TAG + "TAG...\n"
+            + "Example: " + COMMAND_WORD + " 1 t/PRUTravellerProtect";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %1$s for Person: %2$s";
     public static final String MESSAGE_CANNOT_FIND_TAG = "There is no tag %1$s for Person: %2$s";
@@ -70,10 +69,15 @@ public class DeleteTagCommand extends Command {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Set<Tag> tagsOfPerson = personToEdit.getTags();
+        Set<Tag> missingTags = new HashSet<>();
         for (Tag tag : targetTags) {
             if (!tagsOfPerson.contains(tag)) {
-                throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, tag, personToEdit.getName()));
+                missingTags.add(tag);
             }
+        }
+
+        if (missingTags.size() > 0) {
+            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags, personToEdit.getName()));
         }
 
         Person editedPerson = createEditedPerson(personToEdit, targetTags);

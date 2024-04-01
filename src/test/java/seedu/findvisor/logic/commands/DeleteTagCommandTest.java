@@ -87,7 +87,7 @@ public class DeleteTagCommandTest {
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(INDEX_THIRD_PERSON, targetTag);
 
-        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_CANNOT_FIND_TAG, validTag,
+        String expectedMessage = String.format(DeleteTagCommand.MESSAGE_CANNOT_FIND_TAG, targetTag,
                 personToEdit.getName());
 
         assertCommandFailure(deleteTagCommand, model, expectedMessage);
