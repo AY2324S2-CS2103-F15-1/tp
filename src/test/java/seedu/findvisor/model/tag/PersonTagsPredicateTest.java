@@ -67,7 +67,7 @@ public class PersonTagsPredicateTest {
         List<String> keywords = Arrays.asList(new String[]{"exampleTag1", "exampleTag2"});
         PersonTagsPredicate predicate = new PersonTagsPredicate(keywords);
 
-        String expected = String.format("Tags = \"%1$s\", \"%2$s\"", "exampleTag1", "exampleTag2");
+        String expected = String.format("Tags containing \"%1$s\", \"%2$s\"", "exampleTag1", "exampleTag2");
         assertEquals(expected, predicate.getPredicateDescription());
     }
 

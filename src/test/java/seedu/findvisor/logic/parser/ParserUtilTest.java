@@ -6,6 +6,7 @@ import static seedu.findvisor.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.findvisor.testutil.Assert.assertThrows;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,6 +15,7 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
 import seedu.findvisor.model.person.Address;
 import seedu.findvisor.model.person.Email;
@@ -28,6 +30,7 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_DATE_STRING = "10/12/2012";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_NAME_EXTENDED = "Rachel Lee Walker";
@@ -39,7 +42,9 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
+    private static final String VALID_DATE_STRING = "10-12-2024";
     private static final String REMARK = "Wants to own a luxury car";
+
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -218,6 +223,29 @@ public class ParserUtilTest {
         Set<Tag> expectedTagSet = new HashSet<Tag>(Arrays.asList(new Tag(VALID_TAG_1), new Tag(VALID_TAG_2)));
 
         assertEquals(expectedTagSet, actualTagSet);
+    }
+
+    @Test
+    public void parseMeetingDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeetingDate((String) null));
+    }
+
+    @Test
+    public void parseMeetingDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMeetingDate(INVALID_DATE_STRING));
+    }
+
+    @Test
+    public void parseMeetingDate_validValueWithoutWhitespace_returnsPhone() throws Exception {
+        LocalDate expectedMeetingDate = LocalDate.parse(VALID_DATE_STRING, DateTimeUtil.DATE_FORMAT);
+        assertEquals(expectedMeetingDate, ParserUtil.parseMeetingDate(VALID_DATE_STRING));
+    }
+
+    @Test
+    public void parseMeetingDate_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
+        String meetingDateWithWhitespace = WHITESPACE + VALID_DATE_STRING + WHITESPACE;
+        LocalDate expectedMeetingDate = LocalDate.parse(VALID_DATE_STRING, DateTimeUtil.DATE_FORMAT);
+        assertEquals(expectedMeetingDate, ParserUtil.parseMeetingDate(meetingDateWithWhitespace));
     }
 
     @Test

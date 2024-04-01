@@ -1,6 +1,8 @@
 package seedu.findvisor.logic.commands;
 
+//@@author Dethada
 import static java.util.Objects.requireNonNull;
+import static seedu.findvisor.logic.Messages.MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_START_DATETIME;
@@ -44,8 +46,6 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_SCHEDULE_SUCCESS = "Scheduled meeting with %1$s from %2$s to %3$s";
     public static final String MESSAGE_CANNOT_SCHEDULE_MULTIPLE_MEETINGS = "Cannot schedule more than 1"
             + " meeting with a contact!";
-    public static final String MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST = "Cannot schedule meeting that"
-            + " starts before the current time!";
 
     private final Index targetIndex;
     private final Meeting meeting;
@@ -128,3 +128,4 @@ public class ScheduleCommand extends Command {
                 .toString();
     }
 }
+//@@ author

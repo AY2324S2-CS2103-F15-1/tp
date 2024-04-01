@@ -6,9 +6,58 @@ import static seedu.findvisor.testutil.Assert.assertThrows;
 
 import java.io.FileNotFoundException;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 public class StringUtilTest {
+
+    //---------------- Tests for isSafeString --------------------------------------
+    @Test
+    public void isSafeString_nullString_throwsNullPointerException() {
+        Assertions.assertThrows(NullPointerException.class, () -> StringUtil.isSafeString(null));
+    }
+
+    @Test
+    public void isSafeString_emptyString_returnsTrue() {
+        assertTrue(StringUtil.isSafeString(""));
+    }
+
+    @Test
+    public void isSafeString_onlyValidCharacterStrings_returnsTrue() {
+        // Alphabetical characters
+        assertTrue(StringUtil.isSafeString("alphabetsOnly"));
+
+        // Numerical characters
+        assertTrue(StringUtil.isSafeString("98765"));
+
+        // Alphanumeric characters
+        assertTrue(StringUtil.isSafeString("alphanumeric 01234"));
+
+        // Only white space
+        assertTrue(StringUtil.isSafeString("  "));
+
+        // Allowed special characters
+        assertTrue(StringUtil.isSafeString("_"));
+        assertTrue(StringUtil.isSafeString("\\"));
+        assertTrue(StringUtil.isSafeString("$()[]{}"));
+        assertTrue(StringUtil.isSafeString("!-+_"));
+
+        // Mix
+        assertTrue(StringUtil.isSafeString("test string with 2 special characters::"));
+        assertTrue(StringUtil.isSafeString("test string with 7 special characters:\\^&.?"));
+    }
+
+    @Test
+    public void isSafeString_containsInvalidCharacters_returnsFalse() {
+        // Contains forward slash "/"
+        assertFalse(StringUtil.isSafeString("/"));
+        assertFalse(StringUtil.isSafeString("test /"));
+        assertFalse(StringUtil.isSafeString("↑"));
+
+        // Contains foreign characters
+        assertFalse(StringUtil.isSafeString("华文字体"));
+    }
+
 
     //---------------- Tests for isNonZeroUnsignedInteger --------------------------------------
 

@@ -9,13 +9,20 @@ import static seedu.findvisor.commons.util.AppUtil.checkArgument;
  */
 public class Address {
 
-    public static final String MESSAGE_CONSTRAINTS = "Addresses can take any values, and it should not be blank";
+    private static final String SPECIAL_CHARACTERS_PATTERN = "#\\-\\(\\),"; // escaped for regex
+    private static final String SPECIAL_CHARACTERS_STRING = SPECIAL_CHARACTERS_PATTERN.replace("\\", "");
+    public static final String MESSAGE_CONSTRAINTS = "Addresses should only contain alphanumeric characters,"
+            + "spaces and these special characters, excluding the parentheses, ("
+            + SPECIAL_CHARACTERS_STRING + ").\n"
+            + "Addresses should not be blank as well.";
 
     /*
      * The first character of the address must not be a whitespace,
      * otherwise " " (a blank string) becomes a valid input.
      */
-    public static final String VALIDATION_REGEX = "[^\\s].*";
+    private static final String ALPHANUMERIC_AND_SPACE_PATTERN = "a-zA-Z0-9\\s";
+    private static final String VALIDATION_REGEX = "[^\\s][" + ALPHANUMERIC_AND_SPACE_PATTERN
+            + SPECIAL_CHARACTERS_PATTERN + "]*";
 
     public final String value;
 

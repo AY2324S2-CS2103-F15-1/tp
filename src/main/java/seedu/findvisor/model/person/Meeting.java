@@ -1,10 +1,10 @@
 package seedu.findvisor.model.person;
 
+//@@author Dethada
 import static seedu.findvisor.commons.util.AppUtil.checkArgument;
 import static seedu.findvisor.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.time.LocalDateTime;
-import java.time.temporal.ChronoUnit;
 import java.util.Objects;
 
 import seedu.findvisor.commons.util.DateTimeUtil;
@@ -20,6 +20,8 @@ public class Meeting {
             + "end date time.\n"
             + "Each input string for datetime must be in the format dd-MM-yyyy'T'HH:mm, for example 23-02-2024T16:00.\n"
             + "The start datetime must be before the end date time.";
+    public static final String MESSAGE_DATE_CONSTRAINT = "Meeting date is specified in the following format: "
+            + DateTimeUtil.DATE_PATTERN;
     public static final String MESSAGE_REMARK_CONSTRAINTS = "Remark is at most "
             + MAX_REMARK_LENGTH + " characters long.";
 
@@ -54,6 +56,18 @@ public class Meeting {
         return remark.length() <= MAX_REMARK_LENGTH;
     }
 
+    public LocalDateTime getStart() {
+        return start;
+    }
+
+    public LocalDateTime getEnd() {
+        return end;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
     public String getStartString() {
         return DateTimeUtil.dateTimeToString(start);
     }
@@ -84,8 +98,8 @@ public class Meeting {
 
         Meeting otherMeeting = (Meeting) other;
         // We only need to compare up to minutes, comparing seconds and nanos is unnecessary and can cause issues.
-        return start.truncatedTo(ChronoUnit.MINUTES).equals(otherMeeting.start.truncatedTo(ChronoUnit.MINUTES))
-                && end.truncatedTo(ChronoUnit.MINUTES).equals(otherMeeting.end.truncatedTo(ChronoUnit.MINUTES))
+        return DateTimeUtil.isEqualsDateTimeMinutes(start, otherMeeting.start)
+                && DateTimeUtil.isEqualsDateTimeMinutes(end, otherMeeting.end)
                 && remark.equals(otherMeeting.remark);
     }
 
@@ -95,4 +109,5 @@ public class Meeting {
     }
 
 }
+//@@author
 
