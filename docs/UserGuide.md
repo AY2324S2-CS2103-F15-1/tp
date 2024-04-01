@@ -279,9 +279,9 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
+**Exit** | `exit`
 **Find** | `find n/NAME|e/EMAIL|p/PHONE|t/TAG...`<br> e.g., `find n/Alice Tan`
+**Help** | `help`
 **List** | `list`
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
-**Exit** | `exit`
-**Help** | `help`
