@@ -31,6 +31,7 @@ public class ParserUtilTest {
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
     private static final String INVALID_DATE_STRING = "10/12/2012";
+    private static final String INVALID_REMARK = "/r is ♀";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_NAME_EXTENDED = "Rachel Lee Walker";
@@ -43,7 +44,7 @@ public class ParserUtilTest {
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
     private static final String VALID_DATE_STRING = "10-12-2024";
-    private static final String REMARK = "Wants to own a luxury car";
+    private static final String VALID_REMARK = "Wants to own 2 luxury cars worth $3 million each";
 
 
     private static final String WHITESPACE = " \t\r\n";
@@ -254,20 +255,25 @@ public class ParserUtilTest {
     }
 
     @Test
-    public void parseRemark_valueWithoutWhitespace_returnsRemark() {
-        Remark expectedRemark = new Remark(REMARK);
-        assertEquals(expectedRemark, ParserUtil.parseRemark(REMARK).get());
+    public void parseRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRemark(INVALID_REMARK));
     }
 
     @Test
-    public void parseRemark_valueWithWhitespace_returnsTrimmedRemark() {
-        String remarkWithWhitespace = WHITESPACE + REMARK + WHITESPACE;
-        Remark expectedRemark = new Remark(REMARK);
+    public void parseRemark_valueWithoutWhitespace_returnsRemark() throws Exception {
+        Remark expectedRemark = new Remark(VALID_REMARK);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(VALID_REMARK).get());
+    }
+
+    @Test
+    public void parseRemark_valueWithWhitespace_returnsTrimmedRemark() throws Exception {
+        String remarkWithWhitespace = WHITESPACE + VALID_REMARK + WHITESPACE;
+        Remark expectedRemark = new Remark(VALID_REMARK);
         assertEquals(expectedRemark, ParserUtil.parseRemark(remarkWithWhitespace).get());
     }
 
     @Test
-    public void parseRemark_emptyValue_returnsOptionalEmpty() {
+    public void parseRemark_emptyValue_returnsOptionalEmpty() throws Exception {
         assertEquals(Optional.empty(), ParserUtil.parseRemark(""));
     }
 }
