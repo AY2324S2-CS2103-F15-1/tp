@@ -70,30 +70,41 @@ public class DeleteTagCommand extends Command {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Set<Tag> tagsOfPerson = personToEdit.getTags();
-        Set<Tag> tagsToDelete = new HashSet<>();
-        Set<Tag> tagsToReport = new HashSet<>();
         for (Tag tag : targetTags) {
-            if (tagsOfPerson.contains(tag)) {
-                tagsToDelete.add(tag);
-            } else {
-                tagsToReport.add(tag);
+            if (!tagsOfPerson.contains(tag)) {
+                throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, tag, personToEdit.getName()));
             }
         }
 
-        if (tagsToReport.size() == 0) {
-            Person editedPerson = createEditedPerson(personToEdit, targetTags);
-            model.setPerson(personToEdit, editedPerson);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
-        } else if (tagsToDelete.size() == 0) {
-            return new CommandResult(String.format(MESSAGE_CANNOT_FIND_TAG, targetTags, personToEdit.getName()));
-        } else {
-            Person editedPerson = createEditedPerson(personToEdit, tagsToDelete);
-            model.setPerson(personToEdit, editedPerson);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_DELETE_PARTIAL_TAG, tagsToDelete,
-                    editedPerson.getName(), tagsToReport));
-        }
+        Person editedPerson = createEditedPerson(personToEdit, targetTags);
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
+
+        // Set<Tag> tagsToDelete = new HashSet<>();
+        // Set<Tag> tagsToReport = new HashSet<>();
+        // for (Tag tag : targetTags) {
+        //     if (tagsOfPerson.contains(tag)) {
+        //         tagsToDelete.add(tag);
+        //     } else {
+        //         tagsToReport.add(tag);
+        //     }
+        // }
+
+        // if (tagsToReport.size() == 0) {
+        //     Person editedPerson = createEditedPerson(personToEdit, targetTags);
+        //     model.setPerson(personToEdit, editedPerson);
+        //     model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //     return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
+        // } else if (tagsToDelete.size() == 0) {
+        //     return new CommandResult(String.format(MESSAGE_CANNOT_FIND_TAG, targetTags, personToEdit.getName()));
+        // } else {
+        //     Person editedPerson = createEditedPerson(personToEdit, tagsToDelete);
+        //     model.setPerson(personToEdit, editedPerson);
+        //     model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        //     return new CommandResult(String.format(MESSAGE_DELETE_PARTIAL_TAG, tagsToDelete,
+        //             editedPerson.getName(), tagsToReport));
+        // }
     }
 
     /**
