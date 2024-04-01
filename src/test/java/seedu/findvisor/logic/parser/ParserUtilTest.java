@@ -295,7 +295,8 @@ public class ParserUtilTest {
 
     @Test
     public void parseMeetingDateTime_validValue_returnsLocalDateTime() throws Exception {
-        assertEquals(DateTimeUtil.parseDateTimeString(VALID_DATETIME_STRING), ParserUtil.parseMeetingDateTime(VALID_DATETIME_STRING));
+        assertEquals(DateTimeUtil.parseDateTimeString(VALID_DATETIME_STRING),
+                ParserUtil.parseMeetingDateTime(VALID_DATETIME_STRING));
     }
 
     @Test
