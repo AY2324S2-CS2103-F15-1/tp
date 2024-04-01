@@ -556,20 +556,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. FINDvisor detects an error in the given data.
     * 3a1. FINDvisor shows an error message.
 
       Use case resumes at step 2.
 
-* 3b. The given remark value does not comply with stated formats and constraints.
-    * 3b1. FINDvisor shows an error message.
+* 3c. User requests to remove the remark.
+    * 3c1. FINDvisor removes the remark of the person.
 
-      Use case resumes at step 2.
-
-* 3c. The given remark value is empty or consists entirely of whitespace.
-    * 3c1. FINDvisor recognizes to remove the remark of the person on execution.
-
-      Use case resumes at step 4.
+      Use case ends.
 
 ### Non-Functional Requirements
 
