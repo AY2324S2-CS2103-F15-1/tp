@@ -225,6 +225,29 @@ Unscheduled meeting with John Doe
 No scheduled meeting with John Doe!
 ```
 
+### Deleting tags with a person : `deletetag`
+
+Deletes one or more tags associated with the specified person.
+
+Format: `deletetag INDEX [t/TAG]`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified tags must be valid tags.
+* Specified person may not have the specified tags.
+
+Examples:
+```
+> deletetag 1 t/friends t/family
+Deleted tag [[friends], [family]] for Person: Alex Yeoh
+
+> deletetag 1 t/(invalid)
+Invalid command format! 
+
+> deletetag 1 t/friendly
+There is no tag [[friendly]] for Person: Alex Yeoh
+```
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the contact list of FINDvisor.
@@ -281,5 +304,6 @@ Action | Format, Examples
 **List** | `list`
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
+**DeleteTag** | `deletetag INDEX [t/TAG]`<br> e.g., `deletetag 1 t/friends t/family`
 **Exit** | `exit`
 **Help** | `help`
