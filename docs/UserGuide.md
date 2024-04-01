@@ -140,9 +140,11 @@ Format: `list`
 
 Edits an existing person in the contact list of FINDvisor.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the current displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`.
+* The index refers to the index number shown in the current displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Input values will overwrite **all** existing values that were assigned to the specified field.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -157,7 +159,7 @@ Examples:
 
 Finds persons using specified keywords for a specified category of a person's information, e.g. either name, email, phone number, or tags.
 
-Format: `find n/NAME|e/EMAIL|p/PHONE|t/TAG...`
+Format: `find n/NAME|e/EMAIL|p/PHONE_NUMBER|t/TAG...`
 
 * The search checks if a person's information **contains** the keyword specified, e.g. `find n/Ali` will match `Alice`.
 * Only the category specified in the command is searched. e.g. `find n/John` will only search for person's name.
