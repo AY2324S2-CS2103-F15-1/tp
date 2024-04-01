@@ -539,6 +539,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 3.
 
+**Use case: Update the remark of a person**
+
+**MSS**
+
+1. User requests to list persons.
+2. FINDvisor shows a list of persons.
+3. User requests to update the remark of a specific person in the list.
+4. FINDvisor updates the remark of the person.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given remark value does not comply with stated formats and constraints.
+    * 3b1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. The given remark value is empty or consists entirely of whitespace.
+    * 3c1. FINDvisor recognizes to remove the remark of the person on execution.
+
+      Use case resumes at step 4.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
