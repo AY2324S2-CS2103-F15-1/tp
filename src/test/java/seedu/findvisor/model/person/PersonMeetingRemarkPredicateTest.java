@@ -13,7 +13,7 @@ import seedu.findvisor.testutil.PersonBuilder;
 
 public class PersonMeetingRemarkPredicateTest {
     private String meetingRemarkString = "Physical meeting at Serangoon Gardens";
-    private Optional<Meeting> meeting = Optional.of(new Meeting(LocalDateTime.now(), 
+    private Optional<Meeting> meeting = Optional.of(new Meeting(LocalDateTime.now(),
             LocalDateTime.now().plusDays(1), meetingRemarkString));
 
     @Test
@@ -78,7 +78,8 @@ public class PersonMeetingRemarkPredicateTest {
     public void toStringMethod() {
         PersonMeetingRemarkPredicate predicate = new PersonMeetingRemarkPredicate(meetingRemarkString);
 
-        String expected = PersonMeetingRemarkPredicate.class.getCanonicalName() + "{meeting remark=" + meetingRemarkString + "}";
+        String expected = PersonMeetingRemarkPredicate.class.getCanonicalName()
+                + "{meeting remark=" + meetingRemarkString + "}";
         assertEquals(expected, predicate.toString());
     }
 }
