@@ -539,6 +539,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 3.
 
+**Use case: Delete a tag**
+
+**MSS**
+
+1.  User requests to list persons.
+2.  FINDvisor shows a list of persons.
+3.  User requests to delete some tags associated with a specific person in the list.
+4.  FINDvisor deletes the tags associated with the specific person.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. The given tag is invalid.
+
+    * 3b1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 4a. The targeted tag is not associated with the person.
+
+    * 4a1. FINDvisor shows a message.
+
+      Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -602,6 +637,27 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Deleting a tag
+
+1. Deleting a tag while all persons are being shown
+
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+   1. Test case: `delete 1 t/validTag`<br>
+      Expected: First contact is selected from the list. Tags of the selected contact will be checked.
+      If validTag exisits in the person's tags, it will be removed. Successful output will be showned in the status message.
+      If validTag does not exisit in the person's tags, failure output will be showned in the status message.
+      Timestamp in the status bar is updated.
+
+   1. Test case: `delete 0 t/validTag`<br>
+      Expected: No tag is deleted as 0 is not a valid index for person. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete 1 t/invalidTag`<br>
+      Expected: No tag is deleted as the tag is invalid. Error details shown in the status message. Status bar remains the same.
+
+   1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
 
 ### Saving data
 
