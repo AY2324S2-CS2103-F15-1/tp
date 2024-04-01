@@ -102,6 +102,9 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * `DATETIME` format:
   * Applies to all parameters with `DATETIME` postfix (i.e. `START_DATETIME` and `END_DATETIME`).
   * Must follow the format `dd-MM-yyyy`T`HH:mm` (i.e. `23-02-2024T14:00`).
+
+* `REMARK` format:
+  * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
 </div>
 
 ### Viewing help : `help`
@@ -225,6 +228,26 @@ Unscheduled meeting with John Doe
 No scheduled meeting with John Doe!
 ```
 
+### Update remark of a person: `remark`
+
+Updates the remark of a specified person.
+
+This command is useful for adding additional information about a person, such as their birthday or financial goals,
+that is not covered by a person's contact information.
+
+Format: `remark INDEX r/REMARK`
+
+* Updates the remark of a person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* If there is an existing remark, it will be overwritten with the new `REMARK`.
+* If `REMARK` is empty or consists entirely of whitespace characters, the command will **remove the previous remark**.
+
+Examples:
+
+* `remark 1 r/Plans to own a house by age 35` updates the remark of the person at index 1 to `Plans to own a house by age 35`.
+* `remark 2 r/` updates the remark of the person at index 2 to be empty.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the contact list of FINDvisor.
@@ -249,10 +272,6 @@ FINDvisor data are saved automatically as a JSON file `[JAR file location]/data/
 If your changes to the data file makes its format invalid, FINDvisor will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -281,5 +300,6 @@ Action | Format, Examples
 **List** | `list`
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
+**Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
 **Exit** | `exit`
 **Help** | `help`
