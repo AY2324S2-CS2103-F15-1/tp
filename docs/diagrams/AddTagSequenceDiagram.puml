@@ -8,6 +8,7 @@ participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":AddTagCommandParser" as AddTagCommandParser LOGIC_COLOR
 participant "ParserUtil" as ParserUtil <<class>> LOGIC_COLOR
 participant "a:AddTagCommand" as AddTagCommand LOGIC_COLOR
+participant "AddTagCommand" as AddTagCommandStatic <<class>> LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -66,11 +67,11 @@ activate Model
 Model --> AddTagCommand
 deactivate Model
 
-AddTagCommand -> AddTagCommand : addTagsToPerson(personFilteredByIndex, tagSet)
-activate AddTagCommand
+AddTagCommand -> AddTagCommandStatic : addTagsToPerson(personFilteredByIndex, tagSet)
+activate AddTagCommandStatic
 
-AddTagCommand --> AddTagCommand : personWithAddedTags
-deactivate AddTagCommand
+AddTagCommandStatic --> AddTagCommand : personWithAddedTags
+deactivate AddTagCommandStatic
 
 AddTagCommand -> Model : setPerson(personFilteredByIndex, personWithAddedTags)
 activate Model
