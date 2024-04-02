@@ -110,6 +110,10 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * `REMARK` format:
     * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
 
+* `MEETING_REMARK` format:
+    * Allowed characters are the same as `REMARK` format.
+    * Maximum length of 200 characters.
+
 </div>
 
 ### Viewing help : `help`
@@ -216,7 +220,6 @@ Format: `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`
 * `START_DATETIME` must be after the system's current datetime.
 * `END_DATETIME` must be after `START_DATETIME`
 * There can be **at most** one scheduled meeting with a person.
-* `MEETING_REMARK` has the same constraints as `REMARK` as stated above.
 
 Examples:
 
