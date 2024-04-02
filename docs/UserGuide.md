@@ -102,6 +102,11 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * `DATETIME` format:
   * Applies to all parameters with `DATETIME` postfix (i.e. `START_DATETIME` and `END_DATETIME`).
   * Must follow the format `dd-MM-yyyy`T`HH:mm` (i.e. `23-02-2024T14:00`).
+
+* `DATE` format:
+  * Applies to all parameters with `DATE` postfix (i.e.`MEETING_DATE`).
+  * Must follow the format `dd-MM-yyyy` (i.e. `23-02-2024`).
+
 </div>
 
 ### Viewing help : `help`
@@ -140,7 +145,7 @@ Format: `list`
 
 Edits an existing person in the contact list of FINDvisor.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 * Edits the person at the specified `INDEX`. The index refers to the index number shown in the current displayed person list. The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
@@ -153,22 +158,34 @@ Examples:
 * `edit 3 n/Bobby Tay e/bobbytay@u.nus.edu` Edits contact displayed at index 3 and changes the name of the contact to `Bobby Tay` and email to `bobbytay@u.nus.edu` respectively.
 * `edit 1 t/PRUActive Saver III t/PRUActive Cash` Edits contact displayed at index 1 to change its tags to only `PRUActive Saver III` and `PRUActive Cash`. It will remove all other previous tags that are previously associated with the contact.
 
-### Locating persons by person's information: `find`
+### Searching persons by person's information: `find`
 
-Finds persons using specified keywords for a specified category of a person's information, e.g. either name, email, phone number, or tags.
+Finds persons that contains specified keywords based on **a specified category** of a person's information. The supported categories are:
+* Name
+* Email
+* Phone Number
+* Address
+* Remark
+* Meeting Date
+* Meeting Remark
+* Tags
 
-Format: `find n/NAME|e/EMAIL|p/PHONE|t/TAG...`
+Format:`find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br>`|mr/MEETING_REMARK|t/TAG…`<br>
 
-* The search checks if a person's information **contains** the keyword specified, e.g. `find n/Ali` will match `Alice`.
-* Only the category specified in the command is searched. e.g. `find n/John` will only search for person's name.
-* The search is case-insensitive. e.g `find n/hans` will match `Hans`.
+* Only one category can be specified and searched for any instance of the `find` command.
+* The search checks if a person's information **contains** the keyword specified, e.g. `find n/Ali` will match `Alice` and `Alicia Tay`.
+* The search is **case-insensitive**. e.g `find n/hans` will match `Hans`.
 * Order of keywords matter. e.g. `find n/Doe John` will **not match** `John Doe`.
+* User input will be validated **only** for `find m/MEETING_DATE` based on the `DATE` format.
+  * For other categories, user input does not have to conform to the corresponding parameter format, e.g. `find p/John`, however no persons will be matched.
 * Multiple keywords can be specified for tags **only**.
 
 Examples:
-* `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
-* `find e/example` returns all persons with email containing the string "example".
+* `find n/Alice` returns all persons with name containing `Alice`.
 * `find p/91234567` returns person with phone number `91234567`.
+* `find mr/online meeting` returns all persons with meeting remark containing `online meeting`.
+* `find m/23-10-2024` returns all persons with meetings on the date `23-10-2024`.
+* `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
 ### Deleting a person : `delete`
 
 Deletes the specified person from the contact list of FINDvisor.
@@ -277,7 +294,7 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find n/NAME|e/EMAIL|p/PHONE|t/TAG...`<br> e.g., `find n/Alice Tan`
+**Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br>`|mr/MEETING_REMARK|t/TAG…`<br> e.g., `find n/Alice Tan`
 **List** | `list`
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
