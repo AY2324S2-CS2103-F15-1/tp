@@ -248,29 +248,6 @@ Unscheduled meeting with John Doe
 No scheduled meeting with John Doe!
 ```
 
-### Deleting tags with a person : `deletetag`
-
-Deletes one or more tags associated with the specified person.
-
-Format: `deletetag INDEX t/TAG`
-
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* Specified tags must be valid tags.
-* Specified person may not have the specified tags.
-
-Examples:
-```
-> deletetag 1 t/friends t/family
-Deleted tag [[friends], [family]] for Person: Alex Yeoh
-
-> deletetag 1 t/(invalid)
-Invalid command format! 
-
-> deletetag 1 t/friendly
-There is no tag [[friendly]] for Person: Alex Yeoh
-```
-
 ### Update remark of a person: `remark`
 
 Updates the remark of a specified person.
@@ -308,6 +285,29 @@ Examples:
 
 * `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
 * `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
+
+### Deleting tags with a person : `deletetag`
+
+Deletes one or more tags associated with the specified person.
+
+Format: `deletetag INDEX t/TAG`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified tags must be valid tags.
+* Specified person may not have the specified tags.
+
+Examples:
+```
+> deletetag 1 t/friends t/family
+Deleted tag [[friends], [family]] for Person: Alex Yeoh
+
+> deletetag 1 t/(invalid)
+Invalid command format! 
+
+> deletetag 1 t/friendly
+There is no tag [[friendly]] for Person: Alex Yeoh
+```
 
 ### Clearing all entries : `clear`
 
