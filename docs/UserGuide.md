@@ -337,6 +337,6 @@ Action | Format, Examples
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
 **Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
-**Add Tag** | `addtag INDEX t/TAG`<br> e.g., `addtag 1 t/PRUSaver` <br> `addtag 1 t/PRUSaver t/PRUGrowth`
+**Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
 **Exit** | `exit`
 **Help** | `help`
