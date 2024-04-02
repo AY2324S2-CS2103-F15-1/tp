@@ -44,8 +44,8 @@ public class PersonPhonePredicate implements PersonPredicate {
             return false;
         }
 
-        PersonPhonePredicate otherPhoneEqualsKeywordsPredicate = (PersonPhonePredicate) other;
-        return keyword.equals(otherPhoneEqualsKeywordsPredicate.keyword);
+        PersonPhonePredicate otherPersonPhonePredicate = (PersonPhonePredicate) other;
+        return keyword.equals(otherPersonPhonePredicate.keyword);
     }
 
     @Override

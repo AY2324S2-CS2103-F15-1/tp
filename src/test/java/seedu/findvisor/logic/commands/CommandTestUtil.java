@@ -7,6 +7,7 @@ import static seedu.findvisor.commons.util.DateTimeUtil.parseDateTimeString;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_REMARK;
@@ -67,6 +68,7 @@ public class CommandTestUtil {
     public static final String TAG_DESC_SET = " " + PREFIX_TAG + VALID_TAG_FRIEND + " "
             + PREFIX_TAG + VALID_TAG_FINANCIAL_PLAN;
     public static final String REMARK_DESC = " " + PREFIX_REMARK + REMARK;
+    public static final String MEETING_REMARK_DESC = " " + PREFIX_MEETING_REMARK + VALID_MEETING_REMARK;
     public static final String MEETING_DATE_DESC = " " + PREFIX_MEETING + VALID_DATE_STRING;
 
     public static final String EMPTY_NAME_DESC = " " + PREFIX_NAME;
