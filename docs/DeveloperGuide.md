@@ -230,14 +230,17 @@ The following sequence diagram shows how the remark value is parsed through the 
 A proposed change to the current remark feature is to allow users to have remarks added as an optional field for `AddCommand` and `EditCommand` for the convenience of users.
 The `RemarkCommand` can remain for users  to only update the `Remark` of a `Person`.
 
-### Find Persons by field feature
-This feature allows users to search for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
+### Searching persons by person's information feature
+This feature allows users to find for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
 
 The current supported `Person` fields that can be searched are:
 - Name
-- Address
-- Phone
 - Email
+- Phone Number
+- Address
+- Remark
+- Meeting Date
+- Meeting Remark
 - Tags
 
 The following sequence diagram below shows how `Model` and `LogicManger` components interact with the find feature. Below are the definitions used in the sequence diagram:
@@ -249,14 +252,21 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 
 1. The user executes `find n/John` to find all `Person` with `Name` containing `John`.
 2. The `FindCommandParser` checks that only one parameter is present in the user input. This parameter is used to indicate which `Person` field to search for.
-3. When called upon to parse the value of the parameter specified by the user, the `FindCommandParser` creates an `XYZPredicate` that encapsulates the user search string e.g. `John` (`XYZ` is a placeholder for the specific `Person` field e.g. `NameContainsKeywordPredicate`).
-4. All `XYZPredicate` classes (e.g.`NameContainsKeywordPredicate`, `EmailContainsKeywordPredicate`) inherit from `Predicate<Person>` interface so that they can be treated similarly where possible e.g, during testing.
+3. When called upon to parse the value of the parameter specified by the user, the `FindCommandParser` creates an `PersonXYZPredicate` that encapsulates the user search string e.g. `John` (`XYZ` is a placeholder for the specific `Person` field e.g. `PersonNamePredicate`).
+4. All `PersonXYZPredicate` classes (e.g.`PersonNamePredicate`, `PersonEmailPredicate`) inherit from `PersonPredicate` interface so that they can be treated similarly where possible e.g, during testing.
 5. A new `FindCommand` instance is created by `FindCommandParser` and is executed by `LogicManger`.
-6. `FindCommand` will call `Model#updateFilteredPersonList(XYZPredicate)` to update the `UI` and display all `Person` that has `Name` containing `John`.
+6. `FindCommand` will call `Model#updateFilteredPersonList(PersonPredicate)` to update the `UI` and display all `Person` that has `Name` containing `John`.
 7. The result of the command execution is encapsulated as a `CommandResult` object which is returned back to `LogicManager`.
 
-#### Proposed Changes
-Include `Person` meetings as a search field. A user can supply a given date and will return all `Person` that have a meeting starting or ending on the specified date.
+#### Search persons by person's meeting date sub-feature
+For search queries based on person's meeting date, the user input will be first validated in `FindCommandParser` to check if it matches the date format specified in FINDvisor. This validation is facilitated by `ParserUtil#parseMeetingDate(String)`. Afterwards, `FindCommandParser` will create a new `PersonMeetingDatePredicate(LocalDate)` with the parsed user input if it is valid. 
+
+The following sequence diagram below show `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
+- `find`: `find m/25-04-2024`
+- `argument`: `m/25-04-2024`
+- `value`: `25-04-2024`
+
+![FindMeetingDateSequenceDiagram](images/FindMeetingDateSequenceDiagram.svg)
 
 ### Add Tag Feature
 This feature allows users to add `tags` to a `person` within the contact list, without the need to use the `edit` command.
@@ -267,7 +277,7 @@ The `AddTagCommandParser` takes in an `index` and the `tags` to add to a person.
 
 The following sequence diagram shows how `AddTag` interacts with `Logic`.
 
-![AddTagSequenceDiagram](images/AddTagSequenceDiagram.svg)
+![AddTagSequenceDiagram-Model](images/AddTagSequenceDiagram.svg)
 
 1. The user keys in `addtags 1 t/validTag1 t/validTag2` to add 2 valid tags to the `person` at the first `index`.
 2. The `AddTagCommandParser` validates `index` and `tags`, then returns a new `AddTagCommand` with the corresponding index and set of tags.
