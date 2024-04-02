@@ -234,13 +234,8 @@ Format: `unschedule INDEX`
 * Specified person must have a meeting scheduled.
 
 Examples:
-```
-> unschedule 1
-Unscheduled meeting with John Doe
 
-> unschedule 1
-No scheduled meeting with John Doe!
-```
+* `unschedule 1` unschedules the meeting with the person at index 1.
 
 ### Update remark of a person: `remark`
 
