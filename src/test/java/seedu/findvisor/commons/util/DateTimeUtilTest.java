@@ -33,6 +33,21 @@ public class DateTimeUtilTest {
     }
 
     @Test
+    public void isValidDateTime_invalidString_returnsFalse() {
+        // Invalid string
+        assertFalse(DateTimeUtil.isValidDateTime("Invalid String"));
+
+        // Invalid date format
+        assertFalse(DateTimeUtil.isValidDateTime("2024/10/12"));
+    }
+
+    @Test
+    public void isValidDateTime_validString_returnsTrue() {
+        assertTrue(DateTimeUtil.isValidDateTime("10-12-2024T14:00"));
+        assertTrue(DateTimeUtil.isValidDateTime("01-01-2024T14:00"));
+    }
+
+    @Test
     public void parseDateString_validString() {
         assertEquals(LocalDate.of(2024, 12, 31), DateTimeUtil.parseDateString("31-12-2024"));
     }

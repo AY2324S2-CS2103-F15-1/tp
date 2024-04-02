@@ -3,6 +3,8 @@ package seedu.findvisor.model.person;
 //@@author Dethada
 import static seedu.findvisor.commons.util.AppUtil.checkArgument;
 import static seedu.findvisor.commons.util.CollectionUtil.requireAllNonNull;
+import static seedu.findvisor.commons.util.StringUtil.isSafeString;
+import static seedu.findvisor.logic.Messages.MESSAGE_SAFE_STRING_INPUT_CHARACTERS;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -23,7 +25,7 @@ public class Meeting {
     public static final String MESSAGE_DATE_CONSTRAINT = "Meeting date is specified in the following format: "
             + DateTimeUtil.DATE_PATTERN;
     public static final String MESSAGE_REMARK_CONSTRAINTS = "Remark is at most "
-            + MAX_REMARK_LENGTH + " characters long.";
+            + MAX_REMARK_LENGTH + " characters long and can only contain " + MESSAGE_SAFE_STRING_INPUT_CHARACTERS;
 
     public final LocalDateTime start;
     public final LocalDateTime end;
@@ -52,8 +54,13 @@ public class Meeting {
         return start.isBefore(end);
     }
 
+    /**
+     * Returns true if the given remark is valid.
+     * The remark is valid if it is at most {@code MAX_REMARK_LENGTH} characters long and contains only safe characters.
+     */
     public static boolean isValidRemark(String remark) {
-        return remark.length() <= MAX_REMARK_LENGTH;
+        boolean validLength = remark.length() <= MAX_REMARK_LENGTH;
+        return validLength && isSafeString(remark);
     }
 
     public LocalDateTime getStart() {

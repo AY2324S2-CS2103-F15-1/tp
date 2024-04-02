@@ -61,4 +61,10 @@ deactivate FilteredList
 [<-- ModelManager
 
 deactivate ModelManager
+
+[-> ModelManager : getAddressBook()
+activate ModelManager
+
+[<-- ModelManager : addressBook
+deactivate ModelManager
 @enduml

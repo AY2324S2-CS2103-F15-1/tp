@@ -7,6 +7,8 @@ import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_START_DATETIME;
 
+import java.time.LocalDateTime;
+
 import seedu.findvisor.commons.core.index.Index;
 import seedu.findvisor.logic.Messages;
 import seedu.findvisor.logic.commands.RescheduleCommand;
@@ -42,13 +44,16 @@ public class RescheduleCommandParser implements Parser<RescheduleCommand> {
         EditMeetingDescriptor editMeetingDescriptor = new EditMeetingDescriptor();
 
         if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
-            editMeetingDescriptor.setStart(parseDateTimeString(argMultimap.getValue(PREFIX_START_DATETIME).get()));
+            LocalDateTime start = parseDateTimeString(argMultimap.getValue(PREFIX_START_DATETIME).get());
+            editMeetingDescriptor.setStart(start);
         }
         if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            editMeetingDescriptor.setEnd(parseDateTimeString(argMultimap.getValue(PREFIX_END_DATETIME).get()));
+            LocalDateTime end = parseDateTimeString(argMultimap.getValue(PREFIX_END_DATETIME).get());
+            editMeetingDescriptor.setEnd(end);
         }
         if (argMultimap.getValue(PREFIX_MEETING_REMARK).isPresent()) {
-            editMeetingDescriptor.setRemark(argMultimap.getValue(PREFIX_MEETING_REMARK).get());
+            String remark = ParserUtil.parseMeetingRemark(argMultimap.getValue(PREFIX_MEETING_REMARK).get());
+            editMeetingDescriptor.setRemark(remark);
         }
 
         if (!editMeetingDescriptor.isAnyFieldEdited()) {
