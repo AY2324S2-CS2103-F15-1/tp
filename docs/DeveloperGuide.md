@@ -26,6 +26,9 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** For all sequence diagrams, note that the lifeline for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+</div>
+
 ### Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
@@ -70,9 +73,9 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+![Structure of the UI Component](images/UiClassDiagram.svg)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `MeetingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -93,10 +96,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</div>
+![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.svg)
 
 How the `Logic` component works:
 
@@ -155,20 +155,23 @@ Classes used by multiple components are in the `seedu.findvisor.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Edit Command
+### Data Changing Commands
 
-The section aims to show how the different components interact with each other when a command that changes the data stored in FINDvisor is called.
-While the `edit` command is used as an example, any command that changes data follows a similar interaction.
+The section aims to show how the different components interact with each other when a **command that changes the data** stored in FINDvisor is called.
 
-![EditSequenceDiagram-Logic](images/EditSequenceDiagram-Logic.png)
+The `edit` command will be used as an example to demonstrate the interactions.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</div>
+The following sequence diagram shows the interaction within `Logic` component when executing `EditCommand`.
 
-In the current iteration, `ModelManager` is the only object that implements model outside of testing. The following
-sequence diagram shows the interactions within `Model` when editing a person.
+![EditSequenceDiagram-Logic](images/EditSequenceDiagram-Logic.svg)
 
-![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.png)
+The following sequence diagram shows the interactions within `Model` component when executing `EditCommand`.
+
+![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.svg)
+
+The following sequence diagram shows the interactions within the `Storage` component when executing `EditCommand`.
+
+![EditSequenceDiagram-Storage](images/EditSequenceDiagram-Storage.svg)
 
 ### Meeting Scheduling
 
@@ -213,9 +216,6 @@ The following sequence diagram shows how the remark value is parsed through the 
 
 ![RemarkSequenceDiagram-Logic](images/RemarkSequenceDiagram-Logic.svg)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `RemarkCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
-
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The activation bar for `LogicManager` does not end after the `RemarkCommand` is returned. The above diagram is only meant to highlight the parsing for `Remark` which is why the sequence diagram ends here.
 </div>
 
@@ -252,7 +252,7 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 #### Proposed Changes
 Include `Person` meetings as a search field. A user can supply a given date and will return all `Person` that have a meeting starting or ending on the specified date.
 
-### AddTag Feature
+### Add Tag Feature
 This feature allows users to add `tags` to a `person` within the contact list, without the need to use the `edit` command.
 
 This feature is implemented through the `AddTagCommand` and the `AddTagCommandParser` which extends `Command` and `Parser` respectively.
@@ -271,10 +271,10 @@ The following sequence diagram shows how `AddTag` interacts with `Logic`.
 6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the person with the newly added `Tags`.
 7. `CommandResult` is then returned to `LogicManager`.
 
-#### Proposed future improvement
+#### Proposed Changes
 Allow users to add tags to multiple people at once.
 
-### DeleteTag Feature
+### Delete Tag Feature
 
 This section aims to show the logic behind delete tag command and the consideration behind the scene.
 
@@ -422,22 +422,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor                               |                                                                               |
 | `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor within the app                | learn how to use FINDvisor without heavily referencing external documentation |
 | `* * *`  | Financial Advisor | add contacts of my clients                                                               | keep a record of my clients' contact information                              |
-| `* * *`  | Financial Advisor | find contacts of my clients                                                              | find information on a specific client                                         |
-| `* * *`  | Financial Advisor | update client's contact information                                                      |                                                                               |
 | `* * *`  | Financial Advisor | delete a client's contact                                                                | reduce clutter in contact list with clients I no longer need contact with     |
-| `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                             |
+| `* * *`  | Financial Advisor | update client's contact information                                                      |                                                                               |
+| `* * *`  | Financial Advisor | find a client's contact based on what I remember about the client's contact information  | do not have to search through the whole list to find a specific client        |
 | `* * *`  | Financial Advisor | filter contact list by categories                                                        | easily find clients based on category                                         |
+| `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                             |
 | `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | so that I can update my schedule in the event of a cancelled meeting          |
 | `* * *`  | Financial Advisor | categorize my clients into different categories such as financial plans or relationships |                                                                               |
 | `* *`    | Financial Advisor | view all my meetings for today                                                           | be prepared for my meetings of today                                          |
 | `* *`    | Financial Advisor | filter contact list by meeting date                                                      | find out who I'm meeting on a specific date                                   |
 | `* *`    | Financial Advisor | modify a scheduled meeting's date and time                                               | update a meeting's schedule accordingly                                       |
-| `* *`    | Financial Advisor | recategorize my clients into diffirent categories                                        | reorganize my client's categories when needed                                 |
-| `* *`    | Financial Advisor | add a remark about a client                                                              | take note of additional information about a client as required                |
+| `* *`    | Financial Advisor | re-categorize my clients into different categories                                       | reorganize my client's categories when needed                                 |
 | `*`      | New user          | import contact information in bulk to FINDvisor                                          | easily transfer all my client's contact into FINDvisor                        |
-| `*`      | Financial Advisor | schedule recurring meeting plans                                                         | save the effort manually scheduling the meeting each time                     |
+| `* *`    | Financial Advisor | add a remark about a client                                                              | take note of additional information about a client as required                |
 | `*`      | Financial Advisor | add a note about each meeting                                                            | know what the meeting is about                                                |
 | `*`      | Financial Advisor | edit a note about each meeting                                                           | update what the meeting is about                                              |
+| `*`      | Financial Advisor | schedule recurring meeting plans                                                         | save the effort manually scheduling the meeting each time                     |
 | `*`      | Experienced User  | remove past meeting information that is no longer needed in bulk                         | easily keep my contact list and meeting information up to date.               |
 | `*`      | Experienced User  | use shorthand commands                                                                   | speed up my workflow                                                          |
 | `*`      | Experienced User  | set up shortcuts that I can run                                                          | speed up my workflow                                                          |
