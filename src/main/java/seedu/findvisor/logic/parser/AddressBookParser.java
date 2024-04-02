@@ -13,6 +13,7 @@ import seedu.findvisor.logic.commands.AddTagCommand;
 import seedu.findvisor.logic.commands.ClearCommand;
 import seedu.findvisor.logic.commands.Command;
 import seedu.findvisor.logic.commands.DeleteCommand;
+import seedu.findvisor.logic.commands.DeleteTagCommand;
 import seedu.findvisor.logic.commands.EditCommand;
 import seedu.findvisor.logic.commands.ExitCommand;
 import seedu.findvisor.logic.commands.FindCommand;
@@ -81,6 +82,9 @@ public class AddressBookParser {
 
         case DeleteCommand.COMMAND_WORD:
             return new DeleteCommandParser().parse(arguments);
+
+        case DeleteTagCommand.COMMAND_WORD:
+            return new DeleteTagCommandParser().parse(arguments);
 
         case ClearCommand.COMMAND_WORD:
             return new ClearCommand();
