@@ -564,7 +564,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Add tags to a person**
+#### Use case: Add tags to a person
 
 **MSS**
 
