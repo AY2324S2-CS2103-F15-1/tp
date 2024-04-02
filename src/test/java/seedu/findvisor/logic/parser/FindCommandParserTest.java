@@ -5,18 +5,23 @@ import static seedu.findvisor.logic.commands.CommandTestUtil.ADDRESS_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMAIL_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMAIL_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_ADDRESS_DESC;
+import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_EMAIL_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_NAME_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_PHONE_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.EMPTY_TAG_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.INCOMPLETE_TAG_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.MEETING_DATE_DESC;
+import static seedu.findvisor.logic.commands.CommandTestUtil.MEETING_REMARK_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.NAME_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.findvisor.logic.commands.CommandTestUtil.PHONE_DESC_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.PHONE_DESC_BOB;
+import static seedu.findvisor.logic.commands.CommandTestUtil.REMARK;
+import static seedu.findvisor.logic.commands.CommandTestUtil.REMARK_DESC;
 import static seedu.findvisor.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_DATE;
+import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_MEETING_REMARK;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_ADDRESS;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_NAME;
@@ -34,8 +39,10 @@ import seedu.findvisor.logic.commands.FindCommand;
 import seedu.findvisor.model.person.PersonAddressPredicate;
 import seedu.findvisor.model.person.PersonEmailPredicate;
 import seedu.findvisor.model.person.PersonMeetingPredicate;
+import seedu.findvisor.model.person.PersonMeetingRemarkPredicate;
 import seedu.findvisor.model.person.PersonNamePredicate;
 import seedu.findvisor.model.person.PersonPhonePredicate;
+import seedu.findvisor.model.person.PersonRemarkPredicate;
 import seedu.findvisor.model.tag.PersonTagsPredicate;
 
 public class FindCommandParserTest {
@@ -75,6 +82,14 @@ public class FindCommandParserTest {
         expectedFindCommand = new FindCommand(new PersonMeetingPredicate(VALID_DATE));
         assertParseSuccess(parser, MEETING_DATE_DESC, expectedFindCommand);
 
+        // parse remark
+        expectedFindCommand = new FindCommand(new PersonRemarkPredicate(REMARK));
+        assertParseSuccess(parser, REMARK_DESC, expectedFindCommand);
+
+        // parse meeting remark
+        expectedFindCommand = new FindCommand(new PersonMeetingRemarkPredicate(VALID_MEETING_REMARK));
+        assertParseSuccess(parser, MEETING_REMARK_DESC, expectedFindCommand);
+
         // parse multiple tags
         expectedFindCommand = new FindCommand(new PersonTagsPredicate(
                 Arrays.asList(new String[]{"friend", "husband"})));
@@ -97,6 +112,12 @@ public class FindCommandParserTest {
     public void parse_invalidArgs_failure() {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindCommand.MESSAGE_USAGE);
 
+        // Empty string
+        assertParseFailure(parser, "", expectedMessage);
+
+        // Whitespaces only
+        assertParseFailure(parser, "     ", expectedMessage);
+
         // Invalid prefix
         assertParseFailure(parser, "@/test", expectedMessage);
 
@@ -111,6 +132,9 @@ public class FindCommandParserTest {
     public void parse_emptyArgs_failure() {
         // Empty name prefix
         assertParseFailure(parser, EMPTY_NAME_DESC, String.format(Messages.MESSAGE_EMPTY_FIELD, PREFIX_NAME));
+
+        // Empty email prefix
+        assertParseFailure(parser, EMPTY_EMAIL_DESC, String.format(Messages.MESSAGE_EMPTY_FIELD, PREFIX_EMAIL));
 
         // Empty phone prefix
         assertParseFailure(parser, EMPTY_PHONE_DESC, String.format(Messages.MESSAGE_EMPTY_FIELD, PREFIX_PHONE));

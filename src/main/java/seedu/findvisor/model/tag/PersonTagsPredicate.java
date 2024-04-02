@@ -9,7 +9,7 @@ import seedu.findvisor.model.person.Person;
 import seedu.findvisor.model.person.PersonPredicate;
 
 /**
- * A predicate for evaluating if a {@link Person}'s name contains (case-insensitive) any of the given keywords.
+ * A predicate for evaluating if a {@link Person}'s tags contains (case-insensitive) any of the given keywords.
  * This is used to filter for persons based on their tags attribute.
  */
 public class PersonTagsPredicate implements PersonPredicate {
@@ -54,8 +54,8 @@ public class PersonTagsPredicate implements PersonPredicate {
             return false;
         }
 
-        PersonTagsPredicate otherNameContainsKeywordsPredicate = (PersonTagsPredicate) other;
-        return keywords.equals(otherNameContainsKeywordsPredicate.keywords);
+        PersonTagsPredicate otherPersonTagsPredicate = (PersonTagsPredicate) other;
+        return keywords.equals(otherPersonTagsPredicate.keywords);
     }
 
     @Override

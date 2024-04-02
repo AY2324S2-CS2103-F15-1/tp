@@ -57,7 +57,7 @@ public class ScheduleCommandParser implements Parser<ScheduleCommand> {
 
         String remark = argMultimap.getValue(PREFIX_MEETING_REMARK).orElse("");
 
-        Meeting meeting = new Meeting(startDateTime, endDateTime, remark);
+        Meeting meeting = ParserUtil.parseMeeting(startDateTime, endDateTime, remark);
 
         return new ScheduleCommand(index, meeting);
     }

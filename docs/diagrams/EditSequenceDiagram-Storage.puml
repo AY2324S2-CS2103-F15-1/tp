@@ -1,0 +1,21 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+box Storage STORAGE_COLOR_T1
+participant ":StorageManager" as StorageManager STORAGE_COLOR
+participant ":JsonAddressBookStorage" as JsonAddressBookStorage STORAGE_COLOR
+end box
+
+[-> StorageManager : saveAddressBook(addressBook)
+activate StorageManager
+
+StorageManager -> JsonAddressBookStorage : saveAddressBook(addressBook, filePath)
+activate JsonAddressBookStorage
+
+JsonAddressBookStorage --> StorageManager
+deactivate JsonAddressBookStorage
+
+[<-- StorageManager
+deactivate StorageManager
+@enduml
