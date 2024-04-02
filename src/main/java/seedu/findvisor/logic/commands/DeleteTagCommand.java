@@ -40,8 +40,6 @@ public class DeleteTagCommand extends Command {
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %1$s for Person: %2$s";
     public static final String MESSAGE_CANNOT_FIND_TAG = "There is no tag %1$s for Person: %2$s";
-    public static final String MESSAGE_DELETE_PARTIAL_TAG = "Deleted tag %1$s for Person: %2$s\n"
-            + "There is no tag %3$s for Person: %2$s";
 
     private final Index targetIndex;
     private final Set<Tag> targetTags;
