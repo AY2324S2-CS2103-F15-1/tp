@@ -33,7 +33,7 @@
           </Menu>
         </MenuBar>
 
-        <SplitPane orientation="HORIZONTAL" dividerPositions="0.3" VBox.vgrow="ALWAYS">
+        <SplitPane fx:id="splitPane" orientation="HORIZONTAL" dividerPositions="0.25" VBox.vgrow="ALWAYS">
           <VBox fx:id="meetingList" styleClass="pane-with-border" minWidth="200" prefWidth="200" VBox.vgrow="ALWAYS">
             <padding>
               <Insets top="10" right="10" bottom="10" left="10" />
@@ -41,7 +41,7 @@
             <StackPane fx:id="meetingListPanelPlaceholder" VBox.vgrow="ALWAYS"/>
           </VBox>
 
-          <VBox>
+          <VBox fx:id="mainAppView">
             <StackPane VBox.vgrow="NEVER" fx:id="commandBoxPlaceholder" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />

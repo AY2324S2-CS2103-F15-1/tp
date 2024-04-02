@@ -2,13 +2,16 @@ package seedu.findvisor.ui;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import seedu.findvisor.commons.core.GuiSettings;
 import seedu.findvisor.commons.core.LogsCenter;
@@ -35,6 +38,15 @@ public class MainWindow extends UiPart<Stage> {
     private MeetingListPanel meetingListPanel;
     private ResultDisplay resultDisplay;
     private HelpWindow helpWindow;
+
+    @FXML
+    private SplitPane splitPane;
+
+    @FXML
+    private VBox meetingList;
+
+    @FXML
+    private VBox mainAppView;
 
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -65,7 +77,9 @@ public class MainWindow extends UiPart<Stage> {
         this.logic = logic;
 
         // Configure the UI
-        setWindowDefaultSize(logic.getGuiSettings());
+        setDefaultGuiSettings(logic.getGuiSettings());
+        SplitPane.setResizableWithParent(meetingList, false);
+        SplitPane.setResizableWithParent(mainAppView, false);
 
         setAccelerators();
 
@@ -133,13 +147,14 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Sets the default size based on {@code guiSettings}.
      */
-    private void setWindowDefaultSize(GuiSettings guiSettings) {
+    private void setDefaultGuiSettings(GuiSettings guiSettings) {
         primaryStage.setHeight(guiSettings.getWindowHeight());
         primaryStage.setWidth(guiSettings.getWindowWidth());
         if (guiSettings.getWindowCoordinates() != null) {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        Platform.runLater(() -> splitPane.setDividerPosition(0, guiSettings.getDividerPosition()));
     }
 
     /**
@@ -164,7 +179,7 @@ public class MainWindow extends UiPart<Stage> {
     @FXML
     private void handleExit() {
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY());
+                (int) primaryStage.getX(), (int) primaryStage.getY(), splitPane.getDividerPositions()[0]);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();
