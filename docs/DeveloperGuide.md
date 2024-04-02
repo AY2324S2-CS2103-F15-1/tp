@@ -186,6 +186,12 @@ The `schedule` command is implemented to allow users to schedule meetings within
 The following sequence diagram shows how a schedule meeting operation goes through the `Logic` component:
 ![Schedule Meeting Sequence Diagram](images/ScheduleMeetingSequenceDiagram.svg)
 
+#### Reschedule Command
+
+The `reschedule` command is designed to provide users with the capability to update the meeting details of a previously scheduled meeting. The primary action is the creation of a new `Meeting` object with the specified changes, that will replace the current `Meeting` object of the specified person in the Model.
+
+The execution flow of the `reschedule` command follows a sequence of interactions similar to the `edit` Command, with the main difference being `RescheduleCommand` takes a `EditMeetingDescriptor` instead of `EditPersonDescriptor`.
+
 #### Unschedule Command
 The `unschedule` command is designed to provide users with the capability to remove previously scheduled meetings. The primary action is the removal of the Meeting object from the specified person's record in the Model.
 
