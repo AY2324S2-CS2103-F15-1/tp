@@ -44,8 +44,8 @@ public class PersonEmailPredicate implements PersonPredicate {
             return false;
         }
 
-        PersonEmailPredicate otherEmailContainsKeywordsPredicate = (PersonEmailPredicate) other;
-        return keyword.equals(otherEmailContainsKeywordsPredicate.keyword);
+        PersonEmailPredicate otherPersonEmailPredicate = (PersonEmailPredicate) other;
+        return keyword.equals(otherPersonEmailPredicate.keyword);
     }
 
     @Override

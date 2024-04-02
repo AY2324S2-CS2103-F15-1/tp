@@ -56,7 +56,7 @@ public class PersonEmailPredicateTest {
         PersonEmailPredicate predicate = new PersonEmailPredicate("example@example.com");
         assertFalse(predicate.test(new PersonBuilder().withEmail("123@example.com").build()));
 
-        // Substring keyword
+        // Reversed keyword
         predicate = new PersonEmailPredicate("com@example.com");
         assertFalse(predicate.test(new PersonBuilder().withEmail("example@example.com").build()));
 
