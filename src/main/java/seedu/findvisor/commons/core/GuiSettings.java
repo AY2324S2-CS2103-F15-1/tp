@@ -14,27 +14,31 @@ public class GuiSettings implements Serializable {
 
     private static final double DEFAULT_HEIGHT = 600;
     private static final double DEFAULT_WIDTH = 740;
+    private static final double DEFAULT_DIVIDER_POSITION = 0.25;
 
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
+    private final double dividerPosition;
 
     /**
-     * Constructs a {@code GuiSettings} with the default height, width and position.
+     * Constructs a {@code GuiSettings} with the default height, width window position and divider position.
      */
     public GuiSettings() {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        dividerPosition = DEFAULT_DIVIDER_POSITION;
     }
 
     /**
-     * Constructs a {@code GuiSettings} with the specified height, width and position.
+     * Constructs a {@code GuiSettings} with the specified height, width window position and divider position.
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, double dividerPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+        this.dividerPosition = dividerPosition;
     }
 
     public double getWindowWidth() {
@@ -47,6 +51,10 @@ public class GuiSettings implements Serializable {
 
     public Point getWindowCoordinates() {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    }
+
+    public double getDividerPosition() {
+        return dividerPosition;
     }
 
     @Override
@@ -63,12 +71,13 @@ public class GuiSettings implements Serializable {
         GuiSettings otherGuiSettings = (GuiSettings) other;
         return windowWidth == otherGuiSettings.windowWidth
                 && windowHeight == otherGuiSettings.windowHeight
-                && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates);
+                && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates)
+                && dividerPosition == otherGuiSettings.dividerPosition;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, dividerPosition);
     }
 
     @Override
@@ -77,6 +86,7 @@ public class GuiSettings implements Serializable {
                 .add("windowWidth", windowWidth)
                 .add("windowHeight", windowHeight)
                 .add("windowCoordinates", windowCoordinates)
+                .add("dividerPosition", dividerPosition)
                 .toString();
     }
 }

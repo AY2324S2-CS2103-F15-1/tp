@@ -35,7 +35,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         }
 
         if (!argMultimap.getValue(PREFIX_TAG).isPresent()) {
-            //if there is not at least 1 tag present, throw exception
+            // if there is not at least 1 tag present, throw exception
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
         }
 

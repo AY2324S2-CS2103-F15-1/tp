@@ -35,6 +35,20 @@ public class DateTimeUtil {
     }
 
     /**
+     * Returns true if {@code dateTime} can be converted into a {@code LocalDateTime}
+     * via {@link LocalDateTime#parse(CharSequence)}, otherwise returns false.
+     * @param dateTime A string representing the date and time.
+     */
+    public static boolean isValidDateTime(String dateTime) {
+        try {
+            LocalDateTime.parse(dateTime, DATE_TIME_INPUT_FORMAT);
+        } catch (DateTimeParseException e) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
      * Converts a String into a LocalDateTime object. The expected format is dd-MM-yyyy'T'HH:mm. For
      * example, 2023-01-29T14:00.
      *

@@ -86,7 +86,7 @@ public class StringUtil {
 
     /**
      * Returns true if {@code s} is a safe string
-     * A safe string only consists of alphanumeric characters
+     * A safe string only consists of alphanumeric characters, whitespace
      * and the set of special characters: "!@#$%^&*()_+-{}[]:;'"<>?.,|~`\"
      * @throws NullPointerException if {@code s} is null.
      */

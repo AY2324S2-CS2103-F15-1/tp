@@ -25,8 +25,7 @@ import seedu.findvisor.model.tag.Tag;
 
 /**
  * Deletes an existing tag of a person identified using it's displayed index
- * from the
- * address book.
+ * from the address book.
  */
 public class DeleteTagCommand extends Command {
 
@@ -36,13 +35,11 @@ public class DeleteTagCommand extends Command {
             + ": Deletes the tag associated with a particular person "
             + "identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
-            + "[" + PREFIX_TAG + "TAG]\n"
-            + "Example: " + COMMAND_WORD + " 1 t/tag";
+            + PREFIX_TAG + "TAG...\n"
+            + "Example: " + COMMAND_WORD + " 1 t/PRUTravellerProtect";
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Deleted tag %1$s for Person: %2$s";
     public static final String MESSAGE_CANNOT_FIND_TAG = "There is no tag %1$s for Person: %2$s";
-    public static final String MESSAGE_DELETE_PARTIAL_TAG = "Deleted tag %1$s for Person: %2$s\n"
-            + "There is no tag %3$s for Person: %2$s";
 
     private final Index targetIndex;
     private final Set<Tag> targetTags;
@@ -70,30 +67,21 @@ public class DeleteTagCommand extends Command {
 
         Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
         Set<Tag> tagsOfPerson = personToEdit.getTags();
-        Set<Tag> tagsToDelete = new HashSet<>();
-        Set<Tag> tagsToReport = new HashSet<>();
+        Set<Tag> missingTags = new HashSet<>();
         for (Tag tag : targetTags) {
-            if (tagsOfPerson.contains(tag)) {
-                tagsToDelete.add(tag);
-            } else {
-                tagsToReport.add(tag);
+            if (!tagsOfPerson.contains(tag)) {
+                missingTags.add(tag);
             }
         }
 
-        if (tagsToReport.size() == 0) {
-            Person editedPerson = createEditedPerson(personToEdit, targetTags);
-            model.setPerson(personToEdit, editedPerson);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
-        } else if (tagsToDelete.size() == 0) {
-            return new CommandResult(String.format(MESSAGE_CANNOT_FIND_TAG, targetTags, personToEdit.getName()));
-        } else {
-            Person editedPerson = createEditedPerson(personToEdit, tagsToDelete);
-            model.setPerson(personToEdit, editedPerson);
-            model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            return new CommandResult(String.format(MESSAGE_DELETE_PARTIAL_TAG, tagsToDelete,
-                    editedPerson.getName(), tagsToReport));
+        if (missingTags.size() > 0) {
+            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags, personToEdit.getName()));
         }
+
+        Person editedPerson = createEditedPerson(personToEdit, targetTags);
+        model.setPerson(personToEdit, editedPerson);
+        model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
     }
 
     /**

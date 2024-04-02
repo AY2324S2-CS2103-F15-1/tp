@@ -52,8 +52,8 @@ public class PersonMeetingPredicate implements PersonPredicate {
             return false;
         }
 
-        PersonMeetingPredicate otherMeetingContainsKeywordsPredicate = (PersonMeetingPredicate) other;
-        return date.equals(otherMeetingContainsKeywordsPredicate.date);
+        PersonMeetingPredicate otherPersonMeetingPredicate = (PersonMeetingPredicate) other;
+        return date.equals(otherPersonMeetingPredicate.date);
     }
 
     @Override
