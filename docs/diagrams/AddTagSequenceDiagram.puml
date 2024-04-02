@@ -6,8 +6,9 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":AddTagCommandParser" as AddTagCommandParser LOGIC_COLOR
-participant ":ParseUtil" as ParseUtil LOGIC_COLOR
+participant "ParserUtil" as ParserUtil <<class>> LOGIC_COLOR
 participant "a:AddTagCommand" as AddTagCommand LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
@@ -30,17 +31,17 @@ deactivate AddTagCommandParser
 AddressBookParser -> AddTagCommandParser : parse("addtag 1 t/validTag1 t/validTag2")
 activate AddTagCommandParser
 
-AddTagCommandParser -> ParseUtil : parseIndex("1")
-activate ParseUtil
+AddTagCommandParser -> ParserUtil : parseIndex("1")
+activate ParserUtil
 
-ParseUtil --> AddTagCommandParser : index
-deactivate ParseUtil
+ParserUtil --> AddTagCommandParser : index
+deactivate ParserUtil
 
-AddTagCommandParser -> ParseUtil : parseTags("t/validTag1 t/validTag2")
-activate ParseUtil
+AddTagCommandParser -> ParserUtil : parseTags("t/validTag1 t/validTag2")
+activate ParserUtil
 
-ParseUtil --> AddTagCommandParser : tagSet
-deactivate ParseUtil
+ParserUtil --> AddTagCommandParser : tagSet
+deactivate ParserUtil
 
 create AddTagCommand
 AddTagCommandParser -> AddTagCommand : addTagCommand(index, tagSet)
@@ -58,7 +59,6 @@ destroy AddTagCommandParser
 
 LogicManager -> AddTagCommand : execute(m)
 activate AddTagCommand
-
 
 AddTagCommand -> Model : getFilteredPersonList()
 activate Model
@@ -84,6 +84,18 @@ activate Model
 Model --> AddTagCommand
 deactivate Model
 
-AddTagCommand --> LogicManager: commandResult(successMessage)
+create CommandResult
+AddTagCommand -> CommandResult
+activate CommandResult
+
+CommandResult --> AddTagCommand : r
+deactivate CommandResult
+
+AddTagCommand --> LogicManager: r
 deactivate AddTagCommand
+destroy CommandResult
+
+[<-- LogicManager: r
+deactivate LogicManager
+destroy AddTagCommand
 @enduml
