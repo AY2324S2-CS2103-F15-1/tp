@@ -186,6 +186,7 @@ Examples:
 * `find mr/online meeting` returns all persons with meeting remark containing `online meeting`.
 * `find m/23-10-2024` returns all persons with meetings on the date `23-10-2024`.
 * `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the contact list of FINDvisor.
@@ -241,6 +242,23 @@ Unscheduled meeting with John Doe
 > unschedule 1
 No scheduled meeting with John Doe!
 ```
+### Adding tags to a person : `addtag`
+
+Adds 1 or more tags to a specified person from the contact list of FINDvisor.
+
+This command makes it easier to add tags to a person without having to re-type all the tags using the `edit` command.
+
+Format: `addtag INDEX t/TAG...`
+
+* Adds 1 or more tags to the person at the specified `INDEX`
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3,...
+* at least 1 `TAG` must be provided.
+
+Examples:
+
+* `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
+* `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command .
 
 ### Clearing all entries : `clear`
 
