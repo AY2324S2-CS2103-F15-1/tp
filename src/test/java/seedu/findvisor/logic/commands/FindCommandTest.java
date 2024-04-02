@@ -3,6 +3,7 @@ package seedu.findvisor.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.findvisor.logic.commands.CommandTestUtil.REMARK;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_ADDRESS_AMY;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_DATE;
 import static seedu.findvisor.logic.commands.CommandTestUtil.VALID_DATE_STRING;
@@ -21,20 +22,25 @@ import static seedu.findvisor.testutil.TypicalPersons.CARL;
 import static seedu.findvisor.testutil.TypicalPersons.DANIEL;
 import static seedu.findvisor.testutil.TypicalPersons.getTypicalAddressBook;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.model.Model;
 import seedu.findvisor.model.ModelManager;
 import seedu.findvisor.model.UserPrefs;
+import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.PersonAddressPredicate;
 import seedu.findvisor.model.person.PersonEmailPredicate;
 import seedu.findvisor.model.person.PersonMeetingPredicate;
+import seedu.findvisor.model.person.PersonMeetingRemarkPredicate;
 import seedu.findvisor.model.person.PersonNamePredicate;
 import seedu.findvisor.model.person.PersonPhonePredicate;
 import seedu.findvisor.model.person.PersonPredicate;
+import seedu.findvisor.model.person.PersonRemarkPredicate;
 import seedu.findvisor.model.tag.PersonTagsPredicate;
 
 /**
@@ -150,6 +156,17 @@ public class FindCommandTest {
     }
 
     @Test
+    public void execute_nonExistentRemark_noPersonFound() {
+        String expectedSearchString = String.format("Person remark containing \"%1$s\"", REMARK);
+        String expectedMessage = String.format(FindCommand.MESSAGE_FIND_COMMAND_RESULT, 0, expectedSearchString);
+        PersonRemarkPredicate predicate = new PersonRemarkPredicate(REMARK);
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Collections.emptyList(), model.getFilteredPersonList());
+    }
+
+    @Test
     public void execute_nonExistentTag_noPersonFound() {
         String expectedSearchString = String.format("Tags containing \"%1$s\"", VALID_TAG_HUSBAND);
         String expectedMessage = String.format(FindCommand.MESSAGE_FIND_COMMAND_RESULT, 0, expectedSearchString);
@@ -203,6 +220,35 @@ public class FindCommandTest {
         expectedModel.updateFilteredPersonList(predicate);
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(BENSON), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_existingMeetingDate_personFound() {
+        Meeting existingMeeting = CARL.getMeeting().get();
+        LocalDate existingMeetingStartDate = existingMeeting.start.toLocalDate();
+        String expectedSearchString = String.format("Meeting on \"%1$s\"",
+                existingMeetingStartDate.format(DateTimeUtil.DATE_FORMAT));
+
+        String expectedMessage = String.format(FindCommand.MESSAGE_FIND_COMMAND_RESULT, 1, expectedSearchString);
+        PersonMeetingPredicate predicate = new PersonMeetingPredicate(existingMeetingStartDate);
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL), model.getFilteredPersonList());
+    }
+
+    @Test
+    public void execute_existingMeetingRemark_personFound() {
+        Meeting existingMeeting = CARL.getMeeting().get();
+        String expectedSearchString = String.format("Meeting remark containing \"%1$s\"",
+                existingMeeting.getRemark());
+
+        String expectedMessage = String.format(FindCommand.MESSAGE_FIND_COMMAND_RESULT, 1, expectedSearchString);
+        PersonMeetingRemarkPredicate predicate = new PersonMeetingRemarkPredicate(existingMeeting.getRemark());
+        FindCommand command = new FindCommand(predicate);
+        expectedModel.updateFilteredPersonList(predicate);
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(CARL), model.getFilteredPersonList());
     }
 
     @Test

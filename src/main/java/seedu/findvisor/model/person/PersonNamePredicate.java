@@ -44,8 +44,8 @@ public class PersonNamePredicate implements PersonPredicate {
             return false;
         }
 
-        PersonNamePredicate otherNameContainsKeywordsPredicate = (PersonNamePredicate) other;
-        return keyword.equals(otherNameContainsKeywordsPredicate.keyword);
+        PersonNamePredicate otherPersonNamePredicate = (PersonNamePredicate) other;
+        return keyword.equals(otherPersonNamePredicate.keyword);
     }
 
     @Override
