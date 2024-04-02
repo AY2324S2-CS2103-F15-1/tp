@@ -169,7 +169,7 @@ public class ParserUtil {
      *
      * @param dateTime The meeting date and time string to parse.
      * @return Parsed {@code LocalDateTime} object.
-     * @throws ParseException
+     * @throws ParseException if the dateTime is invalid.
      */
     public static LocalDateTime parseMeetingDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
