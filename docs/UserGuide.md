@@ -191,6 +191,7 @@ Examples:
 * `find mr/online meeting` returns all persons with meeting remark containing `online meeting`.
 * `find m/23-10-2024` returns all persons with meetings on the date `23-10-2024`.
 * `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the contact list of FINDvisor.
@@ -267,6 +268,24 @@ Examples:
 * `remark 1 r/Plans to own a house by age 35` updates the remark of the person at index 1 to `Plans to own a house by age 35`.
 * `remark 2 r/` updates the remark of the person at index 2 to be empty.
 
+### Adding tags to a person : `addtag`
+
+Adds 1 or more tags to a specified person from the contact list of FINDvisor.
+
+This command makes it easier to add tags to a person without having to re-type all the tags using the `edit` command.
+
+Format: `addtag INDEX t/TAG...`
+
+* Adds 1 or more tags to the person at the specified `INDEX`
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3,...
+* at least 1 `TAG` must be provided.
+
+Examples:
+
+* `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
+* `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the contact list of FINDvisor.
@@ -320,5 +339,6 @@ Action | Format, Examples
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
 **Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
+**Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
 **Exit** | `exit`
 **Help** | `help`
