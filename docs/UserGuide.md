@@ -298,16 +298,9 @@ Format: `deletetag INDEX t/TAG`
 * Specified person may not have the specified tags.
 
 Examples:
-```
-> deletetag 1 t/friends t/family
-Deleted tag [[friends], [family]] for Person: Alex Yeoh
 
-> deletetag 1 t/(invalid)
-Invalid command format! 
-
-> deletetag 1 t/friendly
-There is no tag [[friendly]] for Person: Alex Yeoh
-```
+* `deletetag 1 t/friends t/family` deletes the tags `friends` and  `family` of the person at index 1 in the contact list of FINDvisor.
+* `find n/Alex` followed by `deletetag 1 t/PRUSafe365 t/PRUGrowth` deletes both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -363,6 +356,6 @@ Action | Format, Examples
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
 **Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
-**Delete Tag** | `deletetag INDEX t/TAG`<br> e.g., `deletetag 1 t/friends t/family`
+**Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g., `deletetag 1 t/friends t/family`
 **Exit** | `exit`
 **Help** | `help`

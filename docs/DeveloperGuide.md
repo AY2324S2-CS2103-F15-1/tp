@@ -564,7 +564,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case: Delete a tag**
+#### Use case: Delete a tag
 
 **MSS**
 
@@ -581,27 +581,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
+* 3a. FINDvisor detects an error in the given data for deleting a tag.
 
     * 3a1. FINDvisor shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes from step 2.
 
-* 3b. The given tag is invalid.
+* 4a. FINDvisor detects an error in the given data for deleting a tag.
 
-    * 3b1. FINDvisor shows an error message.
-
-      Use case resumes at step 2.
-
-* 3c. Some of the given tag is not associated with the person.
-
-    * 3c1. FINDvisor shows an error message indicating the tags not found.
-
-      Use case resumes at step 2.
-
-* 4a. The targeted tag is not associated with the person.
-
-    * 4a1. FINDvisor shows a message.
+    * 4a1. FINDvisor shows an error message.
 
       Use case ends.
 
