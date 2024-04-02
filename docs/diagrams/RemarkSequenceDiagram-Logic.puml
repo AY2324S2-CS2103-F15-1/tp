@@ -6,7 +6,7 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":RemarkCommandParser" as RemarkCommandParser LOGIC_COLOR
-participant ":ParserUtil" as ParserUtil <<class>> LOGIC_COLOR
+participant "ParserUtil" as ParserUtil <<class>> LOGIC_COLOR
 participant "c:RemarkCommand" as RemarkCommand LOGIC_COLOR
 end box
 
