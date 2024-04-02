@@ -110,6 +110,10 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * `REMARK` format:
     * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
 
+* `MEETING_REMARK` format:
+    * Allowed characters are the same as `REMARK` format.
+    * Maximum length of 200 characters.
+
 </div>
 
 ### Viewing help : `help`
@@ -212,22 +216,18 @@ Examples:
 
 Schedules a meeting with the specified person.
 
-Format: `schedule INDEX s/START_DATETIME e/END_DATETIME`
+Format: `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`
 
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* START_DATETIME must be after the system's current datetime.
-* END_DATETIME must be after START_DATETIME
+* `START_DATETIME` must be after the system's current datetime.
+* `END_DATETIME` must be after `START_DATETIME`
 * There can be **at most** one scheduled meeting with a person.
 
 Examples:
-```
-> schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00
-Scheduled meeting with John Doe from 23-02-2024 16:00 to 23-02-2024 17:00
 
-> schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00
-Error: cannot schedule more than 1 meeting with a contact!
-```
+* `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
+* `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
 
 ### Unscheduling a meeting : `unschedule`
 
@@ -240,13 +240,8 @@ Format: `unschedule INDEX`
 * Specified person must have a meeting scheduled.
 
 Examples:
-```
-> unschedule 1
-Unscheduled meeting with John Doe
 
-> unschedule 1
-No scheduled meeting with John Doe!
-```
+* `unschedule 1` unschedules the meeting with the person at index 1.
 
 ### Update remark of a person: `remark`
 
@@ -336,7 +331,7 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br>`|mr/MEETING_REMARK|t/TAG…`<br> e.g., `find n/Alice Tan`
 **List** | `list`
-**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
+**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
 **Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
