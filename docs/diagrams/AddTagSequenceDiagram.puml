@@ -93,7 +93,6 @@ deactivate CommandResult
 
 AddTagCommand --> LogicManager: r
 deactivate AddTagCommand
-destroy CommandResult
 
 [<-- LogicManager: r
 deactivate LogicManager
