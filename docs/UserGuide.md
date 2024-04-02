@@ -150,7 +150,9 @@ Edits an existing person in the contact list of FINDvisor.
 
 Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the current displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`.
+* The index refers to the index number shown in the current displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Input values will overwrite **all** existing values that were assigned to the specified field.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -159,7 +161,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…�
 
 Examples:
 * `edit 3 n/Bobby Tay e/bobbytay@u.nus.edu` Edits contact displayed at index 3 and changes the name of the contact to `Bobby Tay` and email to `bobbytay@u.nus.edu` respectively.
-* `edit 1 t/PRUActive Saver III t/PRUActive Cash` Edits contact displayed at index 1 to change its tags to only `PRUActive Saver III` and `PRUActive Cash`. It will remove all other previous tags that are previously associated with the contact.
+* `edit 1 t/PRUActiveSaverIII t/PRUActiveCash` Edits contact displayed at index 1 to change its tags to only `PRUActiveSaverIII` and `PRUActiveCash`. It will remove all other previous tags that are previously associated with the contact.
 
 ### Searching persons by person's information: `find`
 
