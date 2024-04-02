@@ -450,14 +450,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `FINDvisor` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Edit a person**
+#### Use case: Edit a person
 
 **MSS**
 
 1. User requests to list persons.
 2. FINDvisor shows a list of persons.
-3. User requests to edit a specific person in the list and the fields to edit.
-4. FINDvisor edits the person.
+3. User requests to edit a specific field(s) of a specified person in the list.
+4. FINDvisor edits respective fields of the person.
 
     Use case ends.
 
@@ -467,22 +467,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-* 3a. The given index is invalid.
-  * 3a1. FINDvisor shows an error message.
+* 3a. FINDvisor detects an error in the given data for editing a person.
+    * 3a1. FINDvisor shows an error message.
 
-    Use case resumes at step 2.
+      Use case resumes from step 3.
 
-* 3b. No fields are given.
-  * 3b1. FINDvisor shows an error message.
-
-    Use case resumes at step 2.
-
-* 3c. Fields do not comply with stated formats and constraints.
-  * 3c1. FINDvisor shows an error message.
-
-    Use case resumes at step 2.
-
-**Use case: Delete a person**
+#### Use case: Delete a person
 
 **MSS**
 
@@ -499,13 +489,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
-
+* 3a. FINDvisor detects an error in the given data for deleting a person.
     * 3a1. FINDvisor shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes from step 3.
 
-**Use Case: Scheduling a meeting with a new person**
+#### Use Case: Scheduling a meeting with a new person
 
 **MSS**
 
@@ -519,25 +508,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The given details for adding a new person is invalid.
+* 3a. FINDvisor detects an error in the given data for adding a person.
+    * 3a1. FINDvisor shows an error message.
 
-    * 1a1. FINDvisor shows an error message.
+      Use case resumes from step 1.
 
-      Use case resumes at step 1.
-
-* 4a. The given index is invalid.
-
+* 4a. FINDvisor detects an error in the given data for scheduling a meeting.
     * 4a1. FINDvisor shows an error message.
 
-      Use case resumes at step 3.
+      Use case resumes from step 4.
 
-* 4b. The given meeting datetime is invalid.
-
-    * 4b1. FINDvisor shows an error message.
-
-      Use case resumes at step 3.
-
-**Use case: Update the remark of a person**
+#### Use case: Update the remark of a person
 
 **MSS**
 
@@ -554,13 +535,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. FINDvisor detects an error in the given data.
+* 3a. FINDvisor detects an error in the given data for updating a remark.
     * 3a1. FINDvisor shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes from step 3.
 
-* 3c. User requests to remove the remark.
-    * 3c1. FINDvisor removes the remark of the person.
+* 3b. User requests to remove the remark.
+    * 3b1. FINDvisor removes the remark of the person.
 
       Use case ends.
 
