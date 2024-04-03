@@ -5,12 +5,14 @@
 <?import javafx.scene.Scene?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" minWidth="760" minHeight="760" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -33,20 +35,21 @@
                 <Insets top="20" right="10" bottom="10" left="10" />
               </HBox.margin>
               <padding>
-              <Insets top="5" right="5" bottom="5" left="5"/>
-            </padding>
+                <Insets top="5" right="5" bottom="5" left="5"/>
+              </padding>
             </Button>
           </HBox>
         </top>
         <center>
-          <Label fx:id="helpMessage" wrapText="true" text="Your help text goes here.">
-            <padding>
-              <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+          <TableView fx:id="helpTable">
+          <columns>
+              <TableColumn fx:id="commandColumn" text="Command" />
+              <TableColumn fx:id="descriptionColumn" text="Description" />
+            </columns>
             <BorderPane.margin>
-                <Insets top="10" right="10" bottom="10" left="10" />
-              </BorderPane.margin>
-          </Label>
+            <Insets top="10" right="10" bottom="10" left="10" />
+          </BorderPane.margin>
+          </TableView>        
         </center>
       </BorderPane>
     </Scene>
