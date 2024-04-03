@@ -561,6 +561,38 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+#### Use case: Add tags to a person
+
+**MSS**
+
+1. User requests to list persons.
+2. FINDvisor shows a list of persons.
+3. User requests to add tags to a specific person in the list.
+4. FINDvisor adds specified tags to the person.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. No tag is given.
+    * 3b1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. Fields do not comply with stated formats and constraints.
+    * 3c1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
