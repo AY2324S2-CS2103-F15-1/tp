@@ -2,7 +2,7 @@
 
 Copyright by Maxim Basinski Premium - https://www.flaticon.com/free-icons/search
 - findvisor.png
-- findvisor.ico
+- favicon.ico
 
 Copyright by Jan Jan Kovařík - http://glyphicons.com/
 - calendar.png
