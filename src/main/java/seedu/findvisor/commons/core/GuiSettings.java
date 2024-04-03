@@ -19,6 +19,7 @@ public class GuiSettings implements Serializable {
     private final double windowWidth;
     private final double windowHeight;
     private final Point windowCoordinates;
+    private final boolean isMaximized;
     private final double dividerPosition;
 
     /**
@@ -28,16 +29,19 @@ public class GuiSettings implements Serializable {
         windowWidth = DEFAULT_WIDTH;
         windowHeight = DEFAULT_HEIGHT;
         windowCoordinates = null; // null represent no coordinates
+        isMaximized = false;
         dividerPosition = DEFAULT_DIVIDER_POSITION;
     }
 
     /**
      * Constructs a {@code GuiSettings} with the specified height, width window position and divider position.
      */
-    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition, double dividerPosition) {
+    public GuiSettings(double windowWidth, double windowHeight, int xPosition, int yPosition,
+                       boolean isMaximized, double dividerPosition) {
         this.windowWidth = windowWidth;
         this.windowHeight = windowHeight;
         windowCoordinates = new Point(xPosition, yPosition);
+        this.isMaximized = isMaximized;
         this.dividerPosition = dividerPosition;
     }
 
@@ -51,6 +55,10 @@ public class GuiSettings implements Serializable {
 
     public Point getWindowCoordinates() {
         return windowCoordinates != null ? new Point(windowCoordinates) : null;
+    }
+
+    public boolean getIsMaximized() {
+        return isMaximized;
     }
 
     public double getDividerPosition() {
@@ -72,12 +80,13 @@ public class GuiSettings implements Serializable {
         return windowWidth == otherGuiSettings.windowWidth
                 && windowHeight == otherGuiSettings.windowHeight
                 && Objects.equals(windowCoordinates, otherGuiSettings.windowCoordinates)
+                && isMaximized == otherGuiSettings.isMaximized
                 && dividerPosition == otherGuiSettings.dividerPosition;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(windowWidth, windowHeight, windowCoordinates, dividerPosition);
+        return Objects.hash(windowWidth, windowHeight, windowCoordinates, isMaximized, dividerPosition);
     }
 
     @Override
@@ -86,6 +95,7 @@ public class GuiSettings implements Serializable {
                 .add("windowWidth", windowWidth)
                 .add("windowHeight", windowHeight)
                 .add("windowCoordinates", windowCoordinates)
+                .add("isMaximized", isMaximized)
                 .add("dividerPosition", dividerPosition)
                 .toString();
     }
