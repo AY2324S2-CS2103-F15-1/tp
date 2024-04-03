@@ -75,7 +75,8 @@ public class DeleteTagCommand extends Command {
         }
 
         if (missingTags.size() > 0) {
-            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags, personFilteredByIndex.getName()));
+            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags,
+                    personFilteredByIndex.getName()));
         }
 
         Person editedPerson = deleteTagsFromPerson(personFilteredByIndex, targetTags);
