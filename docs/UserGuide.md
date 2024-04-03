@@ -93,7 +93,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Must follow the standard email address format (i.e. example@example.com).
 
 * `ADDRESS` format:
-  * Can take any values.
+  * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{#-(),}``.
   * Cannot be blank.
 
 * `TAG` format:
@@ -108,7 +108,8 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Must follow the format `dd-MM-yyyy` (i.e. `23-02-2024`).
 
 * `REMARK` format:
-    * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
+    * Can only consist of alphanumeric characters, whitespace and the following set of characters:  
+    ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
 
 * `MEETING_REMARK` format:
     * Allowed characters are the same as `REMARK` format.
@@ -359,17 +360,17 @@ Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways 
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear** | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK`<br>`|m/MEETING_DATE|mr/MEETING_REMARK|t/TAG…`<br> e.g., `find n/Alice Tan`
-**List** | `list`
-**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
-**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g., `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
-**Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
-**Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
-**Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
-**Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g., `deletetag 1 t/friends t/family`
-**Exit** | `exit`
 **Help** | `help`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**List** | `list`
+**Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.`edit 2 n/James Lee e/jameslee@example.com`
+**Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK`<br>`|m/MEETING_DATE|mr/MEETING_REMARK|t/TAG…`<br> e.g. `find n/Alice Tan`
+**Delete** | `delete INDEX`<br> e.g. `delete 3`
+**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g. `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
+**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g. `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
+**Unschedule** | `unschedule INDEX`<br> e.g. `unschedule 1`
+**Remark** | `remark INDEX r/REMARK`<br> e.g. `remark 1 r/Plans to own a house by age 35`
+**Add Tag** | `addtag INDEX t/TAG...`<br> e.g. `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
+**Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g. `deletetag 1 t/friends t/family`
+**Clear** | `clear`
+**Exit** | `exit`
