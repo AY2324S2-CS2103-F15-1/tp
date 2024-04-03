@@ -127,13 +127,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
@@ -353,15 +346,11 @@ than attempting to perform the undo.
 
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.svg)
 
 Similarly, how an undo operation goes through the `Model` component is shown below:
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
+![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.svg)
 
 The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
@@ -593,6 +582,35 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+#### Use case: Delete a tag
+
+**MSS**
+
+1.  User requests to list persons.
+2.  FINDvisor shows a list of persons.
+3.  User requests to delete one or more tags associated with a specific person in the list.
+4.  FINDvisor deletes the tags associated with the specific person.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. FINDvisor detects an error in the given data for deleting a tag.
+
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes from step 2.
+
+* 4a. FINDvisor detects an error in the given data for deleting a tag.
+
+    * 4a1. FINDvisor shows an error message.
+
+      Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `11` or above installed.
@@ -656,6 +674,30 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Deleting a tag
+
+1. Deleting a tag while all persons are being shown
+
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+   1. Test case: `delete 1 t/validTag`<br>
+      Expected: First contact is selected from the list. Tags of the selected contact will be checked.
+      If validTag exisits in the person's tags, it will be removed. Successful output will be showned in the status message.
+      If validTag does not exisit in the person's tags, failure output will be showned in the status message.
+      Timestamp in the status bar is updated.
+
+   1. Test case: `delete 0 t/validTag`<br>
+      Expected: No tag is deleted as 0 is not a valid index for person. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete 1 t/invalidTag`<br>
+      Expected: No tag is deleted as the tag is invalid. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete 1 t/containedTag t/notContainedTag`<br>
+      Expected: No tag is deleted as one of the targeting tags is not associated with the person. Error details shown in the status message. Status bar remains the same.
+
+   1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
 
 ### Saving data
 
