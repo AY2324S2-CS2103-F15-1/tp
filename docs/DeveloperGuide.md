@@ -510,10 +510,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1b. FINDvisor detects an error in specified keywords.
   * 1b1. FINDvisor shows an error message and requests for valid keywords from the user.
-  * 1b2. User enters new keywords along with search category.
-  * 1c3. Steps 1b1 - 1b2 are repeated until the keywords given by the user is valid.
 
-    Use case ends.
+    Use case resumes at step 1.
 
 * 1c. The given category is invalid.
   * 1c1. FINDvisor shows an error message and requests for a valid category from the user.
