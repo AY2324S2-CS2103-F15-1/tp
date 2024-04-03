@@ -492,6 +492,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 2.
 
+**Use case: Search for specific persons based on a person's field**
+
+**MSS**
+
+1. User requests to find persons based on the entered the search category and keywords.
+2. FINDvisor displays all persons that contains specified keywords for the specified search category.
+
+    Use case ends.
+
+**Extensions**
+
+* 1a. No persons match the specified keywords.
+  * 1a1. FINDvisor displays an empty list.
+
+    Use case ends.
+
+* 1b. FINDvisor detects an error in specified keywords.
+  * 1b1. FINDvisor shows an error message and requests for valid keywords from the user.
+  * 1b2. User enters new keywords along with search category.
+  * 1c3. Steps 1b1 - 1b2 are repeated until the keywords given by the user is valid.
+
+    Use case ends.
+
+* 1c. The given category is invalid.
+  * 1c1. FINDvisor shows an error message and requests for a valid category from the user.
+  * 1c2. User enters new category with keywords.
+  * 1c3. Steps 1c1 - 1c2 are repeated until the category given by the user is valid.
+
+    Use case resumes at step 2.
+
 **Use case: Delete a person**
 
 **MSS**
