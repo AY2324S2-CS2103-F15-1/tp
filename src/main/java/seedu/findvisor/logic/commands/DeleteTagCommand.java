@@ -65,8 +65,8 @@ public class DeleteTagCommand extends Command {
             throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
         }
 
-        Person personToEdit = lastShownList.get(targetIndex.getZeroBased());
-        Set<Tag> tagsOfPerson = personToEdit.getTags();
+        Person personFilteredByIndex = lastShownList.get(targetIndex.getZeroBased());
+        Set<Tag> tagsOfPerson = personFilteredByIndex.getTags();
         Set<Tag> missingTags = new HashSet<>();
         for (Tag tag : targetTags) {
             if (!tagsOfPerson.contains(tag)) {
@@ -75,28 +75,29 @@ public class DeleteTagCommand extends Command {
         }
 
         if (missingTags.size() > 0) {
-            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags, personToEdit.getName()));
+            throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags,
+                    personFilteredByIndex.getName()));
         }
 
-        Person editedPerson = createEditedPerson(personToEdit, targetTags);
-        model.setPerson(personToEdit, editedPerson);
+        Person editedPerson = deleteTagsFromPerson(personFilteredByIndex, targetTags);
+        model.setPerson(personFilteredByIndex, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
     }
 
     /**
-     * Creates and returns a copy of {@code personToEdit} without {@code targetTags}.
+     * Creates and returns a copy of {@code personFilteredByIndex} without {@code targetTags}.
      */
-    private static Person createEditedPerson(Person personToEdit, Set<Tag> targetTags) {
-        assert personToEdit != null;
+    private static Person deleteTagsFromPerson(Person personFilteredByIndex, Set<Tag> targetTags) {
+        assert personFilteredByIndex != null;
 
-        Name name = personToEdit.getName();
-        Phone phone = personToEdit.getPhone();
-        Email email = personToEdit.getEmail();
-        Address address = personToEdit.getAddress();
-        Set<Tag> tags = personToEdit.getTags();
-        Optional<Meeting> meeting = personToEdit.getMeeting();
-        Optional<Remark> remark = personToEdit.getRemark();
+        Name name = personFilteredByIndex.getName();
+        Phone phone = personFilteredByIndex.getPhone();
+        Email email = personFilteredByIndex.getEmail();
+        Address address = personFilteredByIndex.getAddress();
+        Set<Tag> tags = personFilteredByIndex.getTags();
+        Optional<Meeting> meeting = personFilteredByIndex.getMeeting();
+        Optional<Remark> remark = personFilteredByIndex.getRemark();
 
         Set<Tag> updatedTags = new HashSet<>();
         for (Tag tag : tags) {
