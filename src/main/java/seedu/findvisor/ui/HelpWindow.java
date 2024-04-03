@@ -104,7 +104,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
     }
-    
+
     /**
      * Creates a new HelpWindow.
      */
