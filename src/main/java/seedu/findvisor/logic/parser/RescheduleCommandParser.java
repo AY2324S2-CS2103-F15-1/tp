@@ -1,7 +1,6 @@
 package seedu.findvisor.logic.parser;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.findvisor.commons.util.DateTimeUtil.parseDateTimeString;
 import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_END_DATETIME;
 import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_MEETING_REMARK;
@@ -44,11 +43,11 @@ public class RescheduleCommandParser implements Parser<RescheduleCommand> {
         EditMeetingDescriptor editMeetingDescriptor = new EditMeetingDescriptor();
 
         if (argMultimap.getValue(PREFIX_START_DATETIME).isPresent()) {
-            LocalDateTime start = parseDateTimeString(argMultimap.getValue(PREFIX_START_DATETIME).get());
+            LocalDateTime start = ParserUtil.parseMeetingDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
             editMeetingDescriptor.setStart(start);
         }
         if (argMultimap.getValue(PREFIX_END_DATETIME).isPresent()) {
-            LocalDateTime end = parseDateTimeString(argMultimap.getValue(PREFIX_END_DATETIME).get());
+            LocalDateTime end = ParserUtil.parseMeetingDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
             editMeetingDescriptor.setEnd(end);
         }
         if (argMultimap.getValue(PREFIX_MEETING_REMARK).isPresent()) {
