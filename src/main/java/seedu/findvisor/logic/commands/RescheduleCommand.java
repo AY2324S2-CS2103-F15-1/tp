@@ -74,12 +74,12 @@ public class RescheduleCommand extends Command {
         if (personToEdit.getMeeting().isEmpty()) {
             throw new CommandException(MESSAGE_CANNOT_RESCHEDULE_NON_EXISTENT_MEETING);
         }
-        Person editedPerson = createEditedPerson(personToEdit, editMeetingDescriptor);
 
         if (editMeetingDescriptor.getStart().isPresent()
                 && !DateTimeUtil.isAfterCurrentDateTime(editMeetingDescriptor.getStart().get())) {
             throw new CommandException(MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST);
         }
+        Person editedPerson = createEditedPerson(personToEdit, editMeetingDescriptor);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -97,7 +97,8 @@ public class RescheduleCommand extends Command {
      * @param editMeetingDescriptor Details to edit the meeting with.
      * @return Person with the meeting details edited.
      */
-    private static Person createEditedPerson(Person personToEdit, EditMeetingDescriptor editMeetingDescriptor) {
+    private static Person createEditedPerson(Person personToEdit, EditMeetingDescriptor editMeetingDescriptor)
+            throws CommandException {
         assert personToEdit != null && editMeetingDescriptor != null;
 
         Name name = personToEdit.getName();
@@ -114,6 +115,14 @@ public class RescheduleCommand extends Command {
         LocalDateTime start = editMeetingDescriptor.getStart().orElse(currentMeeting.getStart());
         LocalDateTime end = editMeetingDescriptor.getEnd().orElse(currentMeeting.getEnd());
         String remarkString = editMeetingDescriptor.getRemark().orElse(currentMeeting.getRemark());
+
+        if (!Meeting.isValidDateTime(start, end)) {
+            throw new CommandException(Meeting.MESSAGE_DATETIME_CONSTRAINTS);
+        }
+
+        if (!Meeting.isValidRemark(remarkString)) {
+            throw new CommandException(Meeting.MESSAGE_REMARK_CONSTRAINTS);
+        }
 
         Meeting meeting = new Meeting(start, end, remarkString);
         return new Person(name, phone, email, address, tags, Optional.of(meeting), remark);
