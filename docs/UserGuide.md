@@ -117,15 +117,6 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 </div>
 
-### Viewing help : `help`
-
-Shows a message explaining how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
-
 ### Adding a person: `add`
 
 Adds a person to the contact list in FINDvisor.
@@ -230,6 +221,20 @@ Examples:
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
 
+### Unscheduling a meeting : `unschedule`
+
+Unschedules a meeting with the specified person.
+
+Format: `unschedule INDEX`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified person must have a meeting scheduled.
+
+Examples:
+
+* `unschedule 1` unschedules the meeting with the person at index 1.
+
 ### Rescheduling a meeting : `reschedule`
 
 Allows the currently scheduled meeting details to be edited.
@@ -247,20 +252,6 @@ Format: `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK
 Examples:
 * `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` Reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
 * `reschedule 1 mr/online meeting` Changes the meeting remark of the meeting with the person at index 1 to `online meeting`.
-
-### Unscheduling a meeting : `unschedule`
-
-Unschedules a meeting with the specified person.
-
-Format: `unschedule INDEX`
-
-* The index refers to the index number shown in the displayed person list.
-* The index **must be a positive integer** 1, 2, 3, …​
-* Specified person must have a meeting scheduled.
-
-Examples:
-
-* `unschedule 1` unschedules the meeting with the person at index 1.
 
 ### Update remark of a person: `remark`
 
@@ -328,6 +319,14 @@ Exits the program.
 
 Format: `exit`
 
+### Viewing help : `help`
+
+Shows a message explaining how to access the help page.
+
+![help message](images/helpMessage.png)
+
+Format: `help`
+
 ### Saving the data
 
 FINDvisor data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
@@ -360,17 +359,17 @@ Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways 
 
 Action | Format, Examples
 --------|------------------
-**Help** | `help`
 **Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **List** | `list`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK`<br>`|m/MEETING_DATE|mr/MEETING_REMARK|t/TAG…`<br> e.g. `find n/Alice Tan`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g. `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
-**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g. `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g. `unschedule 1`
+**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g. `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Remark** | `remark INDEX r/REMARK`<br> e.g. `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g. `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
 **Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g. `deletetag 1 t/friends t/family`
 **Clear** | `clear`
 **Exit** | `exit`
+**Help** | `help`
