@@ -299,6 +299,22 @@ Examples:
 * `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
 * `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
 
+### Deleting tags with a person : `deletetag`
+
+Deletes one or more tags associated with the specified person.
+
+Format: `deletetag INDEX t/TAG`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified tags must be valid tags.
+* Specified person may not have the specified tags.
+
+Examples:
+
+* `deletetag 1 t/friends t/family` deletes the tags `friends` and  `family` of the person at index 1 in the contact list of FINDvisor.
+* `find n/Alex` followed by `deletetag 1 t/PRUSafe365 t/PRUGrowth` deletes both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
+
 ### Clearing all entries : `clear`
 
 Clears all entries from the contact list of FINDvisor.
@@ -354,5 +370,6 @@ Action | Format, Examples
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
 **Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
+**Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g., `deletetag 1 t/friends t/family`
 **Exit** | `exit`
 **Help** | `help`
