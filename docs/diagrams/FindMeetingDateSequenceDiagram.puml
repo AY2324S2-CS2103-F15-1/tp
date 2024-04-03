@@ -6,13 +6,13 @@ box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":FindCommandParser" as FindCommandParser LOGIC_COLOR
+participant "ParserUtil" as ParserUtil <<class>> LOGIC_COLOR
 participant "c:FindCommand" as FindCommand LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-
-participant "p:PersonXYZPredicate" as PersonXYZPredicate MODEL_COLOR
+participant "p:PersonMeetingDatePredicate" as PersonMeetingDatePredicate MODEL_COLOR
 participant ":Model" as Model MODEL_COLOR
 end box
 [-> LogicManager : execute(find)
@@ -30,13 +30,16 @@ deactivate FindCommandParser
 
 AddressBookParser -> FindCommandParser : parse(argument)
 activate FindCommandParser
+FindCommandParser -> ParserUtil : parseMeetingDate(value)
+activate ParserUtil
+ParserUtil -> FindCommandParser : d
+deactivate ParserUtil
+create PersonMeetingDatePredicate
+FindCommandParser -> PersonMeetingDatePredicate : PersonMeetingDatePredicate(d)
+activate PersonMeetingDatePredicate
 
-create PersonXYZPredicate
-FindCommandParser -> PersonXYZPredicate : PersonXYZPredicate(value)
-activate PersonXYZPredicate
-
-PersonXYZPredicate --> FindCommandParser
-deactivate PersonXYZPredicate
+PersonMeetingDatePredicate --> FindCommandParser
+deactivate PersonMeetingDatePredicate
 
 create FindCommand
 FindCommandParser -> FindCommand : FindCommand(p)
@@ -53,7 +56,7 @@ destroy FindCommandParser
 AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
 
-LogicManager -> FindCommand : execute(m)
+LogicManager -> FindCommand : execute()
 activate FindCommand
 
 FindCommand -> Model : updateFilteredPersonList(p)
@@ -71,8 +74,9 @@ deactivate CommandResult
 
 FindCommand --> LogicManager : r
 deactivate FindCommand
-
-[<--LogicManager : r
-deactivate LogicManager
+FindCommand -[hidden]-> LogicManager : result
 destroy FindCommand
+
+[<--LogicManager
+deactivate LogicManager
 @enduml
