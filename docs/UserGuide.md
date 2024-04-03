@@ -229,6 +229,24 @@ Examples:
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
 
+### Rescheduling a meeting : `reschedule`
+
+Allows the currently scheduled meeting details to be edited.
+
+Format: `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified person must have a meeting scheduled.
+* At least one of the optional fields must be provided.
+* Input values will overwrite existing value that were assigned to the specified field.
+* `START_DATETIME` must be after the system's current datetime.
+* `END_DATETIME` must be after `START_DATETIME`
+
+Examples:
+* `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` Reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
+* `reschedule 1 mr/online meeting` Changes the meeting remark of the meeting with the person at index 1 to `online meeting`.
+
 ### Unscheduling a meeting : `unschedule`
 
 Unschedules a meeting with the specified person.
@@ -332,6 +350,7 @@ Action | Format, Examples
 **Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br>`|mr/MEETING_REMARK|t/TAG…`<br> e.g., `find n/Alice Tan`
 **List** | `list`
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
+**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g., `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
 **Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
