@@ -10,6 +10,8 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 --------------------------------------------------------------------------------------------------------------------
 
+<div style="page-break-after: always;"></div>
+
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -65,6 +67,8 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
 </div>
+
+<div style="page-break-after: always;"></div>
 
 <div markdown="block" class="alert alert-info">
 
@@ -253,6 +257,8 @@ Examples:
 * `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` Reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
 * `reschedule 1 mr/online meeting` Changes the meeting remark of the meeting with the person at index 1 to `online meeting`.
 
+<div style="page-break-after: always;"></div>
+
 ### Update remark of a person: `remark`
 
 Updates the remark of a specified person.
@@ -319,6 +325,8 @@ Exits the program.
 
 Format: `exit`
 
+<div style="page-break-after: always;"></div>
+
 ### Viewing help : `help`
 
 Shows a message explaining how to access the help page.
@@ -354,6 +362,8 @@ Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## Command summary
 
