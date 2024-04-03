@@ -515,10 +515,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1c. The given category is invalid.
   * 1c1. FINDvisor shows an error message and requests for a valid category from the user.
-  * 1c2. User enters new category with keywords.
-  * 1c3. Steps 1c1 - 1c2 are repeated until the category given by the user is valid.
 
-    Use case resumes at step 2.
+    Use case resumes at step 1.
 
 **Use case: Delete a person**
 
