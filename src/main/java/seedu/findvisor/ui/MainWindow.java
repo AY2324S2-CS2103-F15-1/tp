@@ -154,6 +154,7 @@ public class MainWindow extends UiPart<Stage> {
             primaryStage.setX(guiSettings.getWindowCoordinates().getX());
             primaryStage.setY(guiSettings.getWindowCoordinates().getY());
         }
+        primaryStage.setMaximized(guiSettings.getIsMaximized());
         Platform.runLater(() -> splitPane.setDividerPosition(0, guiSettings.getDividerPosition()));
     }
 
@@ -178,8 +179,13 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleExit() {
+        boolean isMaximized = primaryStage.isMaximized();
+        if (isMaximized) {
+            // Minimize window to restore previous width and height
+            primaryStage.setMaximized(false);
+        }
         GuiSettings guiSettings = new GuiSettings(primaryStage.getWidth(), primaryStage.getHeight(),
-                (int) primaryStage.getX(), (int) primaryStage.getY(), splitPane.getDividerPositions()[0]);
+                (int) primaryStage.getX(), (int) primaryStage.getY(), isMaximized, splitPane.getDividerPositions()[0]);
         logic.setGuiSettings(guiSettings);
         helpWindow.hide();
         primaryStage.hide();

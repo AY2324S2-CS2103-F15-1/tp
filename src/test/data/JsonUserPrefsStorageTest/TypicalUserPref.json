@@ -6,6 +6,7 @@
       "x" : 300,
       "y" : 100
     },
+    "isMaximized": false,
     "dividerPosition" : 0.25
   },
   "addressBookFilePath" : "addressbook.json"

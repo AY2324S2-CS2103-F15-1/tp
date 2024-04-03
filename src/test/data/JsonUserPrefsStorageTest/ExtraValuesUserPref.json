@@ -8,6 +8,7 @@
       "y" : 100,
       "z" : 99
     },
+    "isMaximized": false,
     "dividerPosition" : 0.25
   },
   "addressBookFilePath" : "addressbook.json"
