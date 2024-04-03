@@ -1,4 +1,4 @@
-#copyButton, #helpMessage {
+#copyButton, #helpMessage, #userGuideMessage {
     -fx-text-fill: white;
 }
 
@@ -12,6 +12,11 @@
 
 #copyButton:armed {
     -fx-background-color: darkgray;
+}
+
+#userGuideMessage {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-font-size: 18px;
 }
 
 #helpMessageContainer {

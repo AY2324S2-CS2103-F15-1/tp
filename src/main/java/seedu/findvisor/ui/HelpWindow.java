@@ -82,6 +82,9 @@ public class HelpWindow extends UiPart<Stage> {
     private Button copyButton;
 
     @FXML
+    private Label userGuideMessage;
+
+    @FXML
     private Label helpMessage;
 
     /**
@@ -91,11 +94,13 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        String message = HELP_MESSAGE + GENERAL_MESSAGE + ADD_COMMAND_MESSAGE + LIST_COMMAND_MESSAGE
+        
+        String message = GENERAL_MESSAGE + ADD_COMMAND_MESSAGE + LIST_COMMAND_MESSAGE
                 + EDIT_COMMAND_MESSAGE + FIND_COMMAND_MESSAGE + DELETE_COMMAND_MESSAGE + SCHEDULE_COMMAND_MESSAGE
                 + UNSCHEDULE_COMMAND_MESSAGE + RESCHEDULE_COMMAND_MESSAGE + REMARK_COMMAND_MESSAGE
                 + ADD_TAG_COMMAND_MESSAGE + DELETE_TAG_COMMAND_MESSAGE + CLEAR_COMMAND_MESSAGE
                 + EXIT_COMMAND_MESSAGE + HELP_COMMAND_MESSAGE;
+        userGuideMessage.setText(HELP_MESSAGE);
         helpMessage.setText(message);
     }
 
