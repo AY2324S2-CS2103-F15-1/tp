@@ -408,11 +408,12 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* financial advisors
+* financial advisors based in Singapore and deals with Singaporean clients
 * has a need of scheduling meetings with a significant number of clients
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
+* has English as his first language
 
 **Value proposition**: FINDvisor aims to streamline client management for financial advisors with a tool that organizes contact information. Furthermore, it aims to simplify organising meetings, and tracks client goals for better timeline planning—all in one clutter-free interface.
 

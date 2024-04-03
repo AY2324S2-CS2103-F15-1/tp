@@ -32,7 +32,8 @@ public class AddTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds new tags to the person identified "
             + "by the index number used in the displayed person list.\n"
-            + "Parameters: INDEX (must be a positive integer), TAGS (must be alphanumeric with no spaces)\n"
+            + "Parameters: INDEX (must be a positive integer) "
+            + PREFIX_TAG + "TAG...\n"
             + "Single tag example: " + COMMAND_WORD + " 1 "
             + PREFIX_TAG + "PRUTravellerProtect\n"
             + "Multiple tag example: " + COMMAND_WORD + " 1 "
