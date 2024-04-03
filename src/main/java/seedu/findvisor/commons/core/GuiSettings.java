@@ -12,9 +12,9 @@ import seedu.findvisor.commons.util.ToStringBuilder;
  */
 public class GuiSettings implements Serializable {
 
-    private static final double DEFAULT_HEIGHT = 600;
-    private static final double DEFAULT_WIDTH = 740;
-    private static final double DEFAULT_DIVIDER_POSITION = 0.25;
+    private static final double DEFAULT_WIDTH = 1045;
+    private static final double DEFAULT_HEIGHT = 755;
+    private static final double DEFAULT_DIVIDER_POSITION = 0.315;
 
     private final double windowWidth;
     private final double windowHeight;
