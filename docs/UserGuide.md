@@ -51,8 +51,8 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * Items in square brackets are optional.<br>
   * e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  * e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Items with `…`​ after them can be used one or more times.<br>
+  * e.g. `t/TAG…​` can be used as `t/DoeFamily` or `t/PRUactiveCash t/DoeFamily` etc.
 
 * Items with separated with `|` requires exactly one item to be matched.
   * e.g. `n/NAME|p/PHONE_NUMBER` can only accept `n/John Doe` or `p/91234567` but not both.
@@ -102,6 +102,18 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 * `DATETIME` format:
   * Applies to all parameters with `DATETIME` postfix (i.e. `START_DATETIME` and `END_DATETIME`).
   * Must follow the format `dd-MM-yyyy`T`HH:mm` (i.e. `23-02-2024T14:00`).
+
+* `DATE` format:
+  * Applies to all parameters with `DATE` postfix (i.e.`MEETING_DATE`).
+  * Must follow the format `dd-MM-yyyy` (i.e. `23-02-2024`).
+
+* `REMARK` format:
+    * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
+
+* `MEETING_REMARK` format:
+    * Allowed characters are the same as `REMARK` format.
+    * Maximum length of 200 characters.
+
 </div>
 
 ### Viewing help : `help`
@@ -140,9 +152,11 @@ Format: `list`
 
 Edits an existing person in the contact list of FINDvisor.
 
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
+Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
-* Edits the person at the specified `INDEX`. The index refers to the index number shown in the current displayed person list. The index **must be a positive integer** 1, 2, 3, …​
+* Edits the person at the specified `INDEX`.
+* The index refers to the index number shown in the current displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
 * At least one of the optional fields must be provided.
 * Input values will overwrite **all** existing values that were assigned to the specified field.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -151,24 +165,37 @@ Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
 Examples:
 * `edit 3 n/Bobby Tay e/bobbytay@u.nus.edu` Edits contact displayed at index 3 and changes the name of the contact to `Bobby Tay` and email to `bobbytay@u.nus.edu` respectively.
-* `edit 1 t/PRUActive Saver III t/PRUActive Cash` Edits contact displayed at index 1 to change its tags to only `PRUActive Saver III` and `PRUActive Cash`. It will remove all other previous tags that are previously associated with the contact.
+* `edit 1 t/PRUActiveSaverIII t/PRUActiveCash` Edits contact displayed at index 1 to change its tags to only `PRUActiveSaverIII` and `PRUActiveCash`. It will remove all other previous tags that are previously associated with the contact.
 
-### Locating persons by person's information: `find`
+### Searching persons by person's information: `find`
 
-Finds persons using specified keywords for a specified category of a person's information, e.g. either name, email, phone number, or tags.
+Finds persons that contains specified keywords based on **a specified category** of a person's information. The supported categories are:
+* Name
+* Email
+* Phone Number
+* Address
+* Remark
+* Meeting Date
+* Meeting Remark
+* Tags
 
-Format: `find n/NAME|e/EMAIL|p/PHONE|t/TAG...`
+Format:`find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br>`|mr/MEETING_REMARK|t/TAG…`<br>
 
-* The search checks if a person's information **contains** the keyword specified, e.g. `find n/Ali` will match `Alice`.
-* Only the category specified in the command is searched. e.g. `find n/John` will only search for person's name.
-* The search is case-insensitive. e.g `find n/hans` will match `Hans`.
+* Only one category can be specified and searched for any instance of the `find` command.
+* The search checks if a person's information **contains** the keyword specified, e.g. `find n/Ali` will match `Alice` and `Alicia Tay`.
+* The search is **case-insensitive**. e.g `find n/hans` will match `Hans`.
 * Order of keywords matter. e.g. `find n/Doe John` will **not match** `John Doe`.
+* User input will be validated **only** for `find m/MEETING_DATE` based on the `DATE` format.
+  * For other categories, user input does not have to conform to the corresponding parameter format, e.g. `find p/John`, however no persons will be matched.
 * Multiple keywords can be specified for tags **only**.
 
 Examples:
-* `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
-* `find e/example` returns all persons with email containing the string "example".
+* `find n/Alice` returns all persons with name containing `Alice`.
 * `find p/91234567` returns person with phone number `91234567`.
+* `find mr/online meeting` returns all persons with meeting remark containing `online meeting`.
+* `find m/23-10-2024` returns all persons with meetings on the date `23-10-2024`.
+* `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
+
 ### Deleting a person : `delete`
 
 Deletes the specified person from the contact list of FINDvisor.
@@ -189,22 +216,36 @@ Examples:
 
 Schedules a meeting with the specified person.
 
-Format: `schedule INDEX s/START_DATETIME e/END_DATETIME`
+Format: `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`
 
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* START_DATETIME must be after the system's current datetime.
-* END_DATETIME must be after START_DATETIME
+* `START_DATETIME` must be after the system's current datetime.
+* `END_DATETIME` must be after `START_DATETIME`
 * There can be **at most** one scheduled meeting with a person.
 
 Examples:
-```
-> schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00
-Scheduled meeting with John Doe from 23-02-2024 16:00 to 23-02-2024 17:00
 
-> schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00
-Error: cannot schedule more than 1 meeting with a contact!
-```
+* `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
+* `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
+
+### Rescheduling a meeting : `reschedule`
+
+Allows the currently scheduled meeting details to be edited.
+
+Format: `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified person must have a meeting scheduled.
+* At least one of the optional fields must be provided.
+* Input values will overwrite existing value that were assigned to the specified field.
+* `START_DATETIME` must be after the system's current datetime.
+* `END_DATETIME` must be after `START_DATETIME`
+
+Examples:
+* `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` Reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
+* `reschedule 1 mr/online meeting` Changes the meeting remark of the meeting with the person at index 1 to `online meeting`.
 
 ### Unscheduling a meeting : `unschedule`
 
@@ -217,13 +258,62 @@ Format: `unschedule INDEX`
 * Specified person must have a meeting scheduled.
 
 Examples:
-```
-> unschedule 1
-Unscheduled meeting with John Doe
 
-> unschedule 1
-No scheduled meeting with John Doe!
-```
+* `unschedule 1` unschedules the meeting with the person at index 1.
+
+### Update remark of a person: `remark`
+
+Updates the remark of a specified person.
+
+This command is useful for adding additional information about a person, such as their birthday or financial goals,
+that is not covered by a person's contact information.
+
+Format: `remark INDEX r/REMARK`
+
+* Updates the remark of a person at the specified `INDEX`.
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* If there is an existing remark, it will be overwritten with the new `REMARK`.
+* If `REMARK` is empty or consists entirely of whitespace characters, the command will **remove the previous remark**.
+
+Examples:
+
+* `remark 1 r/Plans to own a house by age 35` updates the remark of the person at index 1 to `Plans to own a house by age 35`.
+* `remark 2 r/` updates the remark of the person at index 2 to be empty.
+
+### Adding tags to a person : `addtag`
+
+Adds 1 or more tags to a specified person from the contact list of FINDvisor.
+
+This command makes it easier to add tags to a person without having to re-type all the tags using the `edit` command.
+
+Format: `addtag INDEX t/TAG...`
+
+* Adds 1 or more tags to the person at the specified `INDEX`
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3,...
+* at least 1 `TAG` must be provided.
+
+Examples:
+
+* `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
+* `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
+
+### Deleting tags with a person : `deletetag`
+
+Deletes one or more tags associated with the specified person.
+
+Format: `deletetag INDEX t/TAG`
+
+* The index refers to the index number shown in the displayed person list.
+* The index **must be a positive integer** 1, 2, 3, …​
+* Specified tags must be valid tags.
+* Specified person may not have the specified tags.
+
+Examples:
+
+* `deletetag 1 t/friends t/family` deletes the tags `friends` and  `family` of the person at index 1 in the contact list of FINDvisor.
+* `find n/Alex` followed by `deletetag 1 t/PRUSafe365 t/PRUGrowth` deletes both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
 
 ### Clearing all entries : `clear`
 
@@ -250,10 +340,6 @@ If your changes to the data file makes its format invalid, FINDvisor will discar
 Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
 
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
@@ -277,9 +363,13 @@ Action | Format, Examples
 **Clear** | `clear`
 **Delete** | `delete INDEX`<br> e.g., `delete 3`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find** | `find n/NAME|e/EMAIL|p/PHONE|t/TAG...`<br> e.g., `find n/Alice Tan`
+**Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK`<br>`|m/MEETING_DATE|mr/MEETING_REMARK|t/TAG…`<br> e.g., `find n/Alice Tan`
 **List** | `list`
-**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
+**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g., `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
+**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g., `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
 **Unschedule** | `unschedule INDEX`<br> e.g., `unschedule 1`
+**Remark** | `remark INDEX r/REMARK`<br> e.g., `remark 1 r/Plans to own a house by age 35`
+**Add Tag** | `addtag INDEX t/TAG...`<br> e.g., `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
+**Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g., `deletetag 1 t/friends t/family`
 **Exit** | `exit`
 **Help** | `help`

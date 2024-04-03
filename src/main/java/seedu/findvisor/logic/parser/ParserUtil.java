@@ -1,17 +1,22 @@
 package seedu.findvisor.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.findvisor.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.findvisor.commons.core.index.Index;
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.commons.util.StringUtil;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
 import seedu.findvisor.model.person.Address;
 import seedu.findvisor.model.person.Email;
+import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Name;
 import seedu.findvisor.model.person.Phone;
 import seedu.findvisor.model.person.Remark;
@@ -125,15 +130,89 @@ public class ParserUtil {
     }
 
     /**
+     * Validates and parses the meeting date string to a {@code LocalDate} object.
+     * Leading and trailing whitespaces will be trimmed.
+     *
+     * @param meetingDate The date string to parse.
+     * @return Parsed {@code LocalDate} object.
+     * @throws ParseException If the given {@code meetingDate} is invalid.
+     */
+    public static LocalDate parseMeetingDate(String meetingDate) throws ParseException {
+        requireNonNull(meetingDate);
+        String trimmedMeetingDate = meetingDate.trim();
+        if (!DateTimeUtil.isValidDate(trimmedMeetingDate)) {
+            throw new ParseException(Meeting.MESSAGE_DATE_CONSTRAINT);
+        }
+        return DateTimeUtil.parseDateString(trimmedMeetingDate);
+    }
+
+    /**
      * Parses a {@code String remark} into a {@code Optional<Remark>}.
      * Leading and trailing whitespaces will be trimmed.
+     *
+     * @throws ParseException if the given {@code remark} is invalid.
      */
-    public static Optional<Remark> parseRemark(String remark) {
+    public static Optional<Remark> parseRemark(String remark) throws ParseException {
         requireNonNull(remark);
         String trimmedRemark = remark.trim();
         if (trimmedRemark.isBlank()) {
             return Optional.empty();
         }
+        if (!Remark.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Remark.MESSAGE_CONSTRAINTS);
+        }
         return Optional.of(new Remark(trimmedRemark));
+    }
+
+    /**
+     * Parses the given meeting date and time into a {@code LocalDateTime} object.
+     *
+     * @param dateTime The meeting date and time string to parse.
+     * @return Parsed {@code LocalDateTime} object.
+     * @throws ParseException if the dateTime is invalid.
+     */
+    public static LocalDateTime parseMeetingDateTime(String dateTime) throws ParseException {
+        requireNonNull(dateTime);
+        String trimmedDateTime = dateTime.trim();
+        if (!DateTimeUtil.isValidDateTime(trimmedDateTime)) {
+            throw new ParseException(Meeting.MESSAGE_DATETIME_CONSTRAINTS);
+        }
+        return DateTimeUtil.parseDateTimeString(trimmedDateTime);
+    }
+
+    /**
+     * Parses the given meeting remark into a {@code String} object.
+     * Leading and trailing whitespaces for meeting remark will be trimmed.
+     *
+     * @param remark The meeting remark to parse.
+     * @return The parsed meeting remark.
+     * @throws ParseException if the meeting remark is invalid.
+     */
+    public static String parseMeetingRemark(String remark) throws ParseException {
+        requireNonNull(remark);
+        String trimmedRemark = remark.trim();
+        if (!Meeting.isValidRemark(trimmedRemark)) {
+            throw new ParseException(Meeting.MESSAGE_REMARK_CONSTRAINTS);
+        }
+        return trimmedRemark;
+    }
+
+    /**
+     * Parses the given start, end datetimes and remark into a {@code Meeting} object.
+     * Leading and trailing whitespaces for meeting remark will be trimmed.
+     *
+     * @return The parsed {@code Meeting} object.
+     * @throws ParseException if the dateTime or remark is invalid.
+     */
+    public static Meeting parseMeeting(LocalDateTime startDateTime, LocalDateTime endDateTime, String remark)
+            throws ParseException {
+        requireAllNonNull(startDateTime, endDateTime, remark);
+        String parsedRemark = parseMeetingRemark(remark);
+
+        if (!Meeting.isValidDateTime(startDateTime, endDateTime)) {
+            throw new ParseException(Meeting.MESSAGE_DATETIME_CONSTRAINTS);
+        }
+
+        return new Meeting(startDateTime, endDateTime, parsedRemark);
     }
 }

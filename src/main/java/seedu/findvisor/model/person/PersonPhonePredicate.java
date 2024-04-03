@@ -10,7 +10,7 @@ public class PersonPhonePredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code PhoneEqualsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonPhonePredicate} with the specified keyword.
      *
      * @param keyword The keyword to be used to lookup against the person's phone.
      */
@@ -24,7 +24,7 @@ public class PersonPhonePredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Phone = \"%1$s\"", keyword);
+        return String.format("Phone containing \"%1$s\"", keyword);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class PersonPhonePredicate implements PersonPredicate {
             return false;
         }
 
-        PersonPhonePredicate otherPhoneEqualsKeywordsPredicate = (PersonPhonePredicate) other;
-        return keyword.equals(otherPhoneEqualsKeywordsPredicate.keyword);
+        PersonPhonePredicate otherPersonPhonePredicate = (PersonPhonePredicate) other;
+        return keyword.equals(otherPersonPhonePredicate.keyword);
     }
 
     @Override

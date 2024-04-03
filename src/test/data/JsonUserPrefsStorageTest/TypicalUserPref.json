@@ -5,7 +5,8 @@
     "windowCoordinates" : {
       "x" : 300,
       "y" : 100
-    }
+    },
+    "dividerPosition" : 0.25
   },
   "addressBookFilePath" : "addressbook.json"
 }

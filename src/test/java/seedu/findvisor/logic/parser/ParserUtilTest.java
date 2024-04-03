@@ -6,6 +6,8 @@ import static seedu.findvisor.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
 import static seedu.findvisor.testutil.Assert.assertThrows;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -14,9 +16,11 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.findvisor.commons.util.DateTimeUtil;
 import seedu.findvisor.logic.parser.exceptions.ParseException;
 import seedu.findvisor.model.person.Address;
 import seedu.findvisor.model.person.Email;
+import seedu.findvisor.model.person.Meeting;
 import seedu.findvisor.model.person.Name;
 import seedu.findvisor.model.person.Phone;
 import seedu.findvisor.model.person.Remark;
@@ -28,6 +32,9 @@ public class ParserUtilTest {
     private static final String INVALID_ADDRESS = " ";
     private static final String INVALID_EMAIL = "example.com";
     private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_DATE_STRING = "10/12/2012";
+    private static final String INVALID_DATETIME_STRING = "INVALID DATETIME STRING";
+    private static final String INVALID_REMARK = "/r is ♀";
 
     private static final String VALID_NAME = "Rachel Walker";
     private static final String VALID_NAME_EXTENDED = "Rachel Lee Walker";
@@ -39,7 +46,12 @@ public class ParserUtilTest {
     private static final String VALID_EMAIL = "rachel@example.com";
     private static final String VALID_TAG_1 = "friend";
     private static final String VALID_TAG_2 = "neighbour";
-    private static final String REMARK = "Wants to own a luxury car";
+    private static final String VALID_DATE_STRING = "10-12-2024";
+    private static final String VALID_DATETIME_STRING = "10-12-2024T14:00";
+    private static final String VALID_REMARK = "Wants to own 2 luxury cars worth $3 million each";
+    private static final LocalDateTime START_DATETIME = LocalDateTime.of(2024, 12, 1, 13, 0);
+    private static final LocalDateTime END_DATETIME = LocalDateTime.of(2024, 12, 1, 14, 0);
+
 
     private static final String WHITESPACE = " \t\r\n";
 
@@ -221,25 +233,107 @@ public class ParserUtilTest {
     }
 
     @Test
+    public void parseMeetingDate_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeetingDate((String) null));
+    }
+
+    @Test
+    public void parseMeetingDate_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMeetingDate(INVALID_DATE_STRING));
+    }
+
+    @Test
+    public void parseMeetingDate_validValueWithoutWhitespace_returnsPhone() throws Exception {
+        LocalDate expectedMeetingDate = LocalDate.parse(VALID_DATE_STRING, DateTimeUtil.DATE_FORMAT);
+        assertEquals(expectedMeetingDate, ParserUtil.parseMeetingDate(VALID_DATE_STRING));
+    }
+
+    @Test
+    public void parseMeetingDate_validValueWithWhitespace_returnsTrimmedPhone() throws Exception {
+        String meetingDateWithWhitespace = WHITESPACE + VALID_DATE_STRING + WHITESPACE;
+        LocalDate expectedMeetingDate = LocalDate.parse(VALID_DATE_STRING, DateTimeUtil.DATE_FORMAT);
+        assertEquals(expectedMeetingDate, ParserUtil.parseMeetingDate(meetingDateWithWhitespace));
+    }
+
+    @Test
     public void parseRemark_null_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () -> ParserUtil.parseRemark(null));
     }
 
     @Test
-    public void parseRemark_valueWithoutWhitespace_returnsRemark() {
-        Remark expectedRemark = new Remark(REMARK);
-        assertEquals(expectedRemark, ParserUtil.parseRemark(REMARK).get());
+    public void parseRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseRemark(INVALID_REMARK));
     }
 
     @Test
-    public void parseRemark_valueWithWhitespace_returnsTrimmedRemark() {
-        String remarkWithWhitespace = WHITESPACE + REMARK + WHITESPACE;
-        Remark expectedRemark = new Remark(REMARK);
+    public void parseRemark_valueWithoutWhitespace_returnsRemark() throws Exception {
+        Remark expectedRemark = new Remark(VALID_REMARK);
+        assertEquals(expectedRemark, ParserUtil.parseRemark(VALID_REMARK).get());
+    }
+
+    @Test
+    public void parseRemark_valueWithWhitespace_returnsTrimmedRemark() throws Exception {
+        String remarkWithWhitespace = WHITESPACE + VALID_REMARK + WHITESPACE;
+        Remark expectedRemark = new Remark(VALID_REMARK);
         assertEquals(expectedRemark, ParserUtil.parseRemark(remarkWithWhitespace).get());
     }
 
     @Test
-    public void parseRemark_emptyValue_returnsOptionalEmpty() {
+    public void parseRemark_emptyValue_returnsOptionalEmpty() throws Exception {
         assertEquals(Optional.empty(), ParserUtil.parseRemark(""));
+    }
+
+    @Test
+    public void parseMeetingDateTime_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeetingDateTime(null));
+    }
+
+    @Test
+    public void parseMeetingDateTime_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMeetingDateTime(INVALID_DATETIME_STRING));
+    }
+
+    @Test
+    public void parseMeetingDateTime_validValue_returnsLocalDateTime() throws Exception {
+        assertEquals(DateTimeUtil.parseDateTimeString(VALID_DATETIME_STRING),
+                ParserUtil.parseMeetingDateTime(VALID_DATETIME_STRING));
+    }
+
+    @Test
+    public void parseMeetingRemark_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeetingRemark(null));
+    }
+
+    @Test
+    public void parseMeetingRemark_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMeetingRemark(INVALID_REMARK));
+    }
+
+    @Test
+    public void parseMeetingRemark_validValue_returnsTrimmedRemark() throws Exception {
+        assertEquals(VALID_REMARK, ParserUtil.parseMeetingRemark(VALID_REMARK));
+    }
+
+    @Test
+    public void parseMeeting_null_throwsNullPointerException() {
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeeting(null, null, null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeeting(START_DATETIME, null, null));
+        assertThrows(NullPointerException.class, () -> ParserUtil.parseMeeting(START_DATETIME, END_DATETIME, null));
+    }
+
+    @Test
+    public void parseMeeting_invalidRemark_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMeeting(START_DATETIME, END_DATETIME, INVALID_REMARK));
+    }
+
+    @Test
+    public void parseMeeting_invalidDateTimes_throwsParseException() {
+        assertThrows(ParseException.class, () -> ParserUtil.parseMeeting(END_DATETIME, START_DATETIME, VALID_REMARK));
+    }
+
+    @Test
+    public void parseMeeting_validMeeting_returnsMeeting() throws Exception {
+        assertEquals(new Meeting(START_DATETIME, END_DATETIME, VALID_REMARK),
+                ParserUtil.parseMeeting(START_DATETIME, END_DATETIME, VALID_REMARK));
     }
 }

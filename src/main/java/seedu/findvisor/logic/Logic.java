@@ -33,6 +33,9 @@ public interface Logic {
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
+    /** Returns an unmodifiable view of the list of persons with today's meetings */
+    ObservableList<Person> getTodaysMeetingPersonList();
+
     /**
      * Returns the user prefs' address book file path.
      */

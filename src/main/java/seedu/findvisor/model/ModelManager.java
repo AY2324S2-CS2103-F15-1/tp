@@ -12,6 +12,7 @@ import javafx.collections.transformation.FilteredList;
 import seedu.findvisor.commons.core.GuiSettings;
 import seedu.findvisor.commons.core.LogsCenter;
 import seedu.findvisor.model.person.Person;
+import seedu.findvisor.model.person.PersonTodayMeetingsPredicate;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +23,7 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+    private final FilteredList<Person> todaysMeetingPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +36,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+        todaysMeetingPersons = new FilteredList<>(this.addressBook.getPersonList());
+        todaysMeetingPersons.setPredicate(new PersonTodayMeetingsPredicate());
     }
 
     public ModelManager() {
@@ -129,6 +133,11 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public ObservableList<Person> getTodaysMeetingPersonList() {
+        return todaysMeetingPersons;
+    }
+
+    @Override
     public boolean equals(Object other) {
         if (other == this) {
             return true;
@@ -142,7 +151,8 @@ public class ModelManager implements Model {
         ModelManager otherModelManager = (ModelManager) other;
         return addressBook.equals(otherModelManager.addressBook)
                 && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+                && filteredPersons.equals(otherModelManager.filteredPersons)
+                && todaysMeetingPersons.equals(otherModelManager.todaysMeetingPersons);
     }
 
 }

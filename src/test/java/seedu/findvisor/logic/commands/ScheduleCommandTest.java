@@ -1,5 +1,6 @@
 package seedu.findvisor.logic.commands;
 
+//@@author Dethada
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -71,7 +72,7 @@ public class ScheduleCommandTest {
         Meeting meeting = createOldMeeting();
         ScheduleCommand scheduleCommand = new ScheduleCommand(INDEX_FIRST_PERSON, meeting);
 
-        assertCommandFailure(scheduleCommand, model, ScheduleCommand.MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST);
+        assertCommandFailure(scheduleCommand, model, Messages.MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST);
     }
 
     @Test
@@ -153,3 +154,4 @@ public class ScheduleCommandTest {
     }
 
 }
+//@@author

@@ -7,12 +7,15 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":ScheduleCommandParser" as ScheduleCommandParser LOGIC_COLOR
 participant "s:ScheduleCommand" as ScheduleCommand LOGIC_COLOR
+participant "ScheduleCommand" as ScheduleCommandStatic <<class>> LOGIC_COLOR
+participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant ":Model" as Model MODEL_COLOR
+participant "m:Model" as Model MODEL_COLOR
 participant ":Meeting" as Meeting MODEL_COLOR
 end box
+
 [-> LogicManager : execute(schedule)
 activate LogicManager
 
@@ -46,25 +49,25 @@ deactivate ScheduleCommand
 ScheduleCommandParser --> AddressBookParser : s
 deactivate ScheduleCommandParser
 ScheduleCommandParser -[hidden]-> AddressBookParser : s
-destroy ScheduleCommandParser
 
 AddressBookParser --> LogicManager : s
 deactivate AddressBookParser
+destroy ScheduleCommandParser
 
-LogicManager -> ScheduleCommand : execute()
+LogicManager -> ScheduleCommand : execute(m)
 activate ScheduleCommand
 
-ScheduleCommand -> Model : getFilteredPersonList()
+ScheduleCommand -> Model : getFilteredPersonLisAt()
 activate Model
 
 Model --> ScheduleCommand
 deactivate Model
 
-ScheduleCommand -> ScheduleCommand : createEditedPerson(personToEdit, meeting)
-activate ScheduleCommand
+ScheduleCommand -> ScheduleCommandStatic : createEditedPerson(personToEdit, meeting)
+activate ScheduleCommandStatic
 
-ScheduleCommand --> ScheduleCommand : editedPerson
-deactivate ScheduleCommand
+ScheduleCommandStatic --> ScheduleCommand : editedPerson
+deactivate ScheduleCommandStatic
 
 ScheduleCommand -> Model : setPerson(personToEdit, editedPerson)
 activate Model
@@ -78,11 +81,17 @@ activate Model
 Model --> ScheduleCommand
 deactivate Model
 
-ScheduleCommand --> LogicManager : result
-deactivate ScheduleCommand
-ScheduleCommand -[hidden]-> LogicManager : result
-destroy ScheduleCommand
+create CommandResult
+ScheduleCommand -> CommandResult
+activate CommandResult
 
-[<--LogicManager
+CommandResult --> ScheduleCommand
+deactivate CommandResult
+
+ScheduleCommand --> LogicManager : r
+deactivate ScheduleCommand
+
+[<--LogicManager : r
 deactivate LogicManager
+destroy ScheduleCommand
 @enduml

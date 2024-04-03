@@ -17,7 +17,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.findvisor.commons.core.index.Index;
 import seedu.findvisor.logic.Messages;
-import seedu.findvisor.logic.parser.ParserUtil;
 import seedu.findvisor.model.AddressBook;
 import seedu.findvisor.model.Model;
 import seedu.findvisor.model.ModelManager;
@@ -36,7 +35,7 @@ public class RemarkCommandTest {
 
     @Test
     public void execute_nonEmptyRemark_updateRemarkSuccess() {
-        Optional<Remark> remark = ParserUtil.parseRemark(REMARK);
+        Optional<Remark> remark = Optional.of(new Remark(REMARK));
         RemarkCommand remarkCommand = new RemarkCommand(INDEX_FIRST_PERSON, remark);
 
         Person targetPerson = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
@@ -54,13 +53,13 @@ public class RemarkCommandTest {
 
     @Test
     public void execute_emptyRemark_removeRemarkSuccess() {
-        Optional<Remark> remark = ParserUtil.parseRemark("");
+        Optional<Remark> emptyRemark = Optional.empty();
         // Second person has a remark
-        RemarkCommand remarkCommand = new RemarkCommand(INDEX_SECOND_PERSON, remark);
+        RemarkCommand remarkCommand = new RemarkCommand(INDEX_SECOND_PERSON, emptyRemark);
 
         Person targetPerson = model.getFilteredPersonList().get(INDEX_SECOND_PERSON.getZeroBased());
         PersonBuilder personInList = new PersonBuilder(targetPerson);
-        Person editedPerson = personInList.withRemark(remark).build();
+        Person editedPerson = personInList.withRemark(emptyRemark).build();
 
         String expectedMessage = String.format(RemarkCommand.MESSAGE_REMOVE_REMARK_SUCCESS, targetPerson.getName());
 
@@ -73,7 +72,7 @@ public class RemarkCommandTest {
     @Test
     public void execute_invalidPersonIndexUnfilteredList_failure() {
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
-        Optional<Remark> remark = ParserUtil.parseRemark(REMARK);
+        Optional<Remark> remark = Optional.of(new Remark(REMARK));
         RemarkCommand remarkCommand = new RemarkCommand(outOfBoundIndex, remark);
 
         assertCommandFailure(remarkCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
@@ -81,10 +80,10 @@ public class RemarkCommandTest {
 
     @Test
     public void equals() {
-        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, ParserUtil.parseRemark(REMARK));
+        final RemarkCommand standardCommand = new RemarkCommand(INDEX_FIRST_PERSON, Optional.of(new Remark(REMARK)));
 
         // same values -> returns true
-        Optional<Remark> remark = ParserUtil.parseRemark(REMARK);
+        Optional<Remark> remark = Optional.of(new Remark(REMARK));
         RemarkCommand commandWithSameValues = new RemarkCommand(INDEX_FIRST_PERSON, remark);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
@@ -101,13 +100,14 @@ public class RemarkCommandTest {
         assertFalse(standardCommand.equals(new RemarkCommand(INDEX_SECOND_PERSON, remark)));
 
         // different descriptor -> returns false
-        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON, ParserUtil.parseRemark("Different"))));
+        assertFalse(standardCommand.equals(new RemarkCommand(INDEX_FIRST_PERSON,
+                Optional.of(new Remark("Different Remark")))));
     }
 
     @Test
     public void toStringMethod() {
         Index index = Index.fromOneBased(1);
-        Optional<Remark> remark = ParserUtil.parseRemark(REMARK);
+        Optional<Remark> remark = Optional.of(new Remark(REMARK));
         RemarkCommand remarkCommand = new RemarkCommand(index, remark);
         String expected = RemarkCommand.class.getCanonicalName() + "{index=" + index + ", remark="
                 + remark.map(r -> r.value).orElse("") + "}";

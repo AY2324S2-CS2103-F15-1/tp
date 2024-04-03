@@ -1,5 +1,6 @@
 package seedu.findvisor.model.person;
 
+//@@author Dethada
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -51,11 +52,18 @@ public class MeetingTest {
         // null meeting remark
         assertThrows(NullPointerException.class, () -> Meeting.isValidRemark(null));
 
-        // invalid meeting remark
+        // meeting remark too long
         assertFalse(Meeting.isValidRemark(INVALID_MEETING_REMARK));
 
+        // contains invalid character
+        assertFalse(Meeting.isValidRemark("A/B"));
+        assertFalse(Meeting.isValidRemark("Emoji ❤️"));
+        assertFalse(Meeting.isValidRemark("不能使用华文字体"));
+
         // valid meeting remark
+        assertTrue(Meeting.isValidRemark(""));
         assertTrue(Meeting.isValidRemark(VALID_MEETING_REMARK));
+        assertTrue(Meeting.isValidRemark("Owes $100"));
     }
 
     @Test
@@ -82,3 +90,4 @@ public class MeetingTest {
         assertFalse(meeting.equals(new Meeting(START, END, "Different remark")));
     }
 }
+//@@author

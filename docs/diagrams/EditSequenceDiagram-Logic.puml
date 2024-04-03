@@ -7,13 +7,18 @@ participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant "d:EditCommandDescriptor" as EditCommandDescriptor LOGIC_COLOR
-participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant "c:EditCommand" as EditCommand LOGIC_COLOR
+participant "EditCommand" as EditCommandStatic <<class>> LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
 participant "m:Model" as Model MODEL_COLOR
 participant "m:PersonList" as Model MODEL_COLOR
+end box
+
+box Storage STORAGE_COLOR_T1
+participant "s:Storage" as Storage STORAGE_COLOR
 end box
 
 [-> LogicManager : execute("edit 1 n/Alex Yeoh")
@@ -46,14 +51,15 @@ activate EditCommand
 EditCommand --> EditCommandParser :
 deactivate EditCommand
 
-EditCommandParser --> AddressBookParser : e
+EditCommandParser --> AddressBookParser : c
 deactivate EditCommandParser
 
 EditCommandParser -[hidden]-> AddressBookParser
-destroy EditCommandParser
+destroy EditCommandDescriptor
 
-AddressBookParser --> LogicManager : e
+AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
+destroy EditCommandParser
 
 LogicManager -> EditCommand : execute(m)
 activate EditCommand
@@ -64,11 +70,11 @@ activate Model
 Model --> EditCommand
 deactivate Model
 
-EditCommand -> EditCommand : createEditedPerson(personToEdit, d)
-activate EditCommand
+EditCommand -> EditCommandStatic : createEditedPerson(personToEdit, d)
+activate EditCommandStatic
 
-EditCommand --> EditCommand : editedPerson
-deactivate EditCommand
+EditCommandStatic --> EditCommand : editedPerson
+deactivate EditCommandStatic
 
 EditCommand -> Model : setPerson(personToEdit, editedPerson)
 activate Model
@@ -92,6 +98,20 @@ deactivate CommandResult
 EditCommand --> LogicManager : r
 deactivate EditCommand
 
-[<--LogicManager
+LogicManager -> Model : getAddressBook()
+activate Model
+
+Model --> LogicManager : addressBook
+deactivate Model
+
+LogicManager -> Storage : saveAddressBook(addressBook)
+activate Storage
+
+Storage --> LogicManager :
+deactivate Storage
+
+[<--LogicManager : r
 deactivate LogicManager
+
+destroy EditCommand
 @enduml

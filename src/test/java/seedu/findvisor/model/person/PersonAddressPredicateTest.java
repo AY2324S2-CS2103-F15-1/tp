@@ -82,7 +82,7 @@ public class PersonAddressPredicateTest {
         String keyword = "30 Apple Ave";
         PersonAddressPredicate predicate = new PersonAddressPredicate(keyword);
 
-        String expected = String.format("Address = \"%1$s\"", keyword);
+        String expected = String.format("Address containing \"%1$s\"", keyword);
         assertEquals(expected, predicate.getPredicateDescription());
     }
 

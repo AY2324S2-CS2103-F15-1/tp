@@ -3,6 +3,7 @@ package seedu.findvisor.logic.parser;
 import static seedu.findvisor.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.findvisor.logic.commands.CommandTestUtil.REMARK;
 import static seedu.findvisor.logic.commands.CommandTestUtil.REMARK_DESC;
+import static seedu.findvisor.logic.parser.CliSyntax.PREFIX_REMARK;
 import static seedu.findvisor.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.findvisor.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.findvisor.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
@@ -12,6 +13,7 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 
 import seedu.findvisor.commons.core.index.Index;
+import seedu.findvisor.logic.Messages;
 import seedu.findvisor.logic.commands.RemarkCommand;
 import seedu.findvisor.model.person.Remark;
 
@@ -51,6 +53,12 @@ public class RemarkCommandParserTest {
     }
 
     @Test
+    public void parse_duplicatedPrefix_throwsParseException() {
+        assertParseFailure(parser, "1 r/first remark r/second remark",
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_REMARK));
+    }
+
+    @Test
     public void parse_emptyArg_throwsParseException() {
         assertParseFailure(parser, "     ", String.format(
                 MESSAGE_INVALID_COMMAND_FORMAT,
@@ -59,7 +67,7 @@ public class RemarkCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsRemarkCommand() {
-        Optional<Remark> remark = ParserUtil.parseRemark(REMARK);
+        Optional<Remark> remark = Optional.of(new Remark(REMARK));
         Index targetIndex = INDEX_FIRST_PERSON;
         RemarkCommand expectedRemarkCommand = new RemarkCommand(targetIndex, remark);
         assertParseSuccess(parser,

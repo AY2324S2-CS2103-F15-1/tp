@@ -56,7 +56,7 @@ public class PersonEmailPredicateTest {
         PersonEmailPredicate predicate = new PersonEmailPredicate("example@example.com");
         assertFalse(predicate.test(new PersonBuilder().withEmail("123@example.com").build()));
 
-        // Substring keyword
+        // Reversed keyword
         predicate = new PersonEmailPredicate("com@example.com");
         assertFalse(predicate.test(new PersonBuilder().withEmail("example@example.com").build()));
 
@@ -71,7 +71,7 @@ public class PersonEmailPredicateTest {
         String keyword = "example@example.com";
         PersonEmailPredicate predicate = new PersonEmailPredicate(keyword);
 
-        String expected = String.format("Email = \"%1$s\"", keyword);
+        String expected = String.format("Email containing \"%1$s\"", keyword);
         assertEquals(expected, predicate.getPredicateDescription());
     }
 

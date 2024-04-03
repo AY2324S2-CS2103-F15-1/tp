@@ -11,7 +11,7 @@ public class PersonNamePredicate implements PersonPredicate {
     private final String keyword;
 
     /**
-     * Constructs an {@code NameContainsKeywordPredicate} with the specified keyword.
+     * Constructs an {@code PersonNamePredicate} with the specified keyword.
      *
      * @param keyword The keyword to be used to lookup against the person's name. The match is case-insensitive.
      */
@@ -25,7 +25,7 @@ public class PersonNamePredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
-        return String.format("Name = \"%1$s\"", keyword);
+        return String.format("Name containing \"%1$s\"", keyword);
     }
 
     @Override
@@ -44,8 +44,8 @@ public class PersonNamePredicate implements PersonPredicate {
             return false;
         }
 
-        PersonNamePredicate otherNameContainsKeywordsPredicate = (PersonNamePredicate) other;
-        return keyword.equals(otherNameContainsKeywordsPredicate.keyword);
+        PersonNamePredicate otherPersonNamePredicate = (PersonNamePredicate) other;
+        return keyword.equals(otherPersonNamePredicate.keyword);
     }
 
     @Override

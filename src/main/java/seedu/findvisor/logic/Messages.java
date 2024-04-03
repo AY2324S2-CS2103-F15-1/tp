@@ -17,10 +17,15 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid";
-    public static final String MESSAGE_FIND_PERSONS_LISTED_OVERVIEW = "Search result for: %1$s. \n%2$d persons listed!";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_EMPTY_FIELD = "Empty value for field: %1$s!";
+    public static final String MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST = "Cannot schedule meeting that"
+            + " starts before the current time!";
+    public static final String MESSAGE_REQUIRE_AT_LEAST_ONE_FIELD = "At least one field to edit must be provided.";
+
+    public static final String MESSAGE_SAFE_STRING_INPUT_CHARACTERS = "alphanumeric characters, whitespace and the"
+            + " following set of characters: {!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\\}";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -51,6 +56,7 @@ public class Messages {
         return builder.toString();
     }
 
+    //@@author Dethada
     /**
      * Formats the {@code meeting} for display to the user.
      */
@@ -66,6 +72,7 @@ public class Messages {
         }
         return builder.toString();
     }
+    //@@author
 
     /**
      * Formats the {@code remark} for display to the user

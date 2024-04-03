@@ -11,8 +11,9 @@ participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
 box Model MODEL_COLOR_T1
-participant "p:XYZPredicate" as XYZPredicate MODEL_COLOR
-participant ":Model" as Model MODEL_COLOR
+
+participant "p:PersonXYZPredicate" as PersonXYZPredicate MODEL_COLOR
+participant "m:Model" as Model MODEL_COLOR
 end box
 [-> LogicManager : execute(find)
 activate LogicManager
@@ -30,12 +31,12 @@ deactivate FindCommandParser
 AddressBookParser -> FindCommandParser : parse(argument)
 activate FindCommandParser
 
-create XYZPredicate
-FindCommandParser -> XYZPredicate : XYZPredicate(value)
-activate XYZPredicate
+create PersonXYZPredicate
+FindCommandParser -> PersonXYZPredicate : PersonXYZPredicate(value)
+activate PersonXYZPredicate
 
-XYZPredicate --> FindCommandParser
-deactivate XYZPredicate
+PersonXYZPredicate --> FindCommandParser
+deactivate PersonXYZPredicate
 
 create FindCommand
 FindCommandParser -> FindCommand : FindCommand(p)
@@ -47,12 +48,13 @@ deactivate FindCommand
 FindCommandParser --> AddressBookParser : c
 deactivate FindCommandParser
 FindCommandParser -[hidden]-> AddressBookParser : c
-destroy FindCommandParser
 
 AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
 
-LogicManager -> FindCommand : execute()
+destroy FindCommandParser
+
+LogicManager -> FindCommand : execute(m)
 activate FindCommand
 
 FindCommand -> Model : updateFilteredPersonList(p)
@@ -70,9 +72,8 @@ deactivate CommandResult
 
 FindCommand --> LogicManager : r
 deactivate FindCommand
-FindCommand -[hidden]-> LogicManager : result
-destroy FindCommand
 
-[<--LogicManager
+[<--LogicManager : r
 deactivate LogicManager
+destroy FindCommand
 @enduml

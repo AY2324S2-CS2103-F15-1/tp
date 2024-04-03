@@ -26,6 +26,9 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** For all sequence diagrams, note that the lifeline for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+</div>
+
 ### Architecture
 
 <img src="images/ArchitectureDiagram.png" width="280" />
@@ -70,9 +73,9 @@ The sections below give more details of each component.
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
-![Structure of the UI Component](images/UiClassDiagram.png)
+![Structure of the UI Component](images/UiClassDiagram.svg)
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `MeetingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
 The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
 
@@ -93,10 +96,7 @@ Here's a (partial) class diagram of the `Logic` component:
 
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("delete 1")` API call as an example.
 
-![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `DeleteCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</div>
+![Interactions Inside the Logic Component for the `delete 1` Command](images/DeleteSequenceDiagram.svg)
 
 How the `Logic` component works:
 
@@ -127,13 +127,6 @@ The `Model` component,
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Person` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Person` needing their own `Tag` objects.<br>
-
-<img src="images/BetterModelClassDiagram.png" width="450" />
-
-</div>
-
-
 ### Storage component
 
 **API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
@@ -155,20 +148,23 @@ Classes used by multiple components are in the `seedu.findvisor.commons` package
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### Edit Command
+### Data Changing Commands
 
-The section aims to show how the different components interact with each other when a command that changes the data stored in FINDvisor is called.
-While the `edit` command is used as an example, any command that changes data follows a similar interaction.
+The section aims to show how the different components interact with each other when a **command that changes the data** stored in FINDvisor is called.
 
-![EditSequenceDiagram-Logic](images/EditSequenceDiagram-Logic.png)
+The `edit` command will be used as an example to demonstrate the interactions.
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `EditCommandParser` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
-</div>
+The following sequence diagram shows the interaction within `Logic` component when executing `EditCommand`.
 
-In the current iteration, `ModelManager` is the only object that implements model outside of testing. The following
-sequence diagram shows the interactions within `Model` when editing a person.
+![EditSequenceDiagram-Logic](images/EditSequenceDiagram-Logic.svg)
 
-![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.png)
+The following sequence diagram shows the interactions within `Model` component when executing `EditCommand`.
+
+![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.svg)
+
+The following sequence diagram shows the interactions within the `Storage` component when executing `EditCommand`.
+
+![EditSequenceDiagram-Storage](images/EditSequenceDiagram-Storage.svg)
 
 ### Meeting Scheduling
 
@@ -185,6 +181,12 @@ The `schedule` command is implemented to allow users to schedule meetings within
 
 The following sequence diagram shows how a schedule meeting operation goes through the `Logic` component:
 ![Schedule Meeting Sequence Diagram](images/ScheduleMeetingSequenceDiagram.svg)
+
+#### Reschedule Command
+
+The `reschedule` command is designed to provide users with the capability to update the meeting details of a previously scheduled meeting. The primary action is the creation of a new `Meeting` object with the specified changes, that will replace the current `Meeting` object of the specified person in the Model.
+
+The execution flow of the `reschedule` command follows a sequence of interactions similar to the `edit` Command, with the main difference being `RescheduleCommand` takes a `EditMeetingDescriptor` instead of `EditPersonDescriptor`.
 
 #### Unschedule Command
 The `unschedule` command is designed to provide users with the capability to remove previously scheduled meetings. The primary action is the removal of the Meeting object from the specified person's record in the Model.
@@ -213,9 +215,6 @@ The following sequence diagram shows how the remark value is parsed through the 
 
 ![RemarkSequenceDiagram-Logic](images/RemarkSequenceDiagram-Logic.svg)
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `RemarkCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-</div>
-
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The activation bar for `LogicManager` does not end after the `RemarkCommand` is returned. The above diagram is only meant to highlight the parsing for `Remark` which is why the sequence diagram ends here.
 </div>
 
@@ -224,14 +223,17 @@ The following sequence diagram shows how the remark value is parsed through the 
 A proposed change to the current remark feature is to allow users to have remarks added as an optional field for `AddCommand` and `EditCommand` for the convenience of users.
 The `RemarkCommand` can remain for users  to only update the `Remark` of a `Person`.
 
-### Find Persons by field feature
-This feature allows users to search for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
+### Searching persons by person's information feature
+This feature allows users to find for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
 
 The current supported `Person` fields that can be searched are:
 - Name
-- Address
-- Phone
 - Email
+- Phone Number
+- Address
+- Remark
+- Meeting Date
+- Meeting Remark
 - Tags
 
 The following sequence diagram below shows how `Model` and `LogicManger` components interact with the find feature. Below are the definitions used in the sequence diagram:
@@ -243,16 +245,23 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 
 1. The user executes `find n/John` to find all `Person` with `Name` containing `John`.
 2. The `FindCommandParser` checks that only one parameter is present in the user input. This parameter is used to indicate which `Person` field to search for.
-3. When called upon to parse the value of the parameter specified by the user, the `FindCommandParser` creates an `XYZPredicate` that encapsulates the user search string e.g. `John` (`XYZ` is a placeholder for the specific `Person` field e.g. `NameContainsKeywordPredicate`).
-4. All `XYZPredicate` classes (e.g.`NameContainsKeywordPredicate`, `EmailContainsKeywordPredicate`) inherit from `Predicate<Person>` interface so that they can be treated similarly where possible e.g, during testing.
+3. When called upon to parse the value of the parameter specified by the user, the `FindCommandParser` creates an `PersonXYZPredicate` that encapsulates the user search string e.g. `John` (`XYZ` is a placeholder for the specific `Person` field e.g. `PersonNamePredicate`).
+4. All `PersonXYZPredicate` classes (e.g.`PersonNamePredicate`, `PersonEmailPredicate`) inherit from `PersonPredicate` interface so that they can be treated similarly where possible e.g, during testing.
 5. A new `FindCommand` instance is created by `FindCommandParser` and is executed by `LogicManger`.
-6. `FindCommand` will call `Model#updateFilteredPersonList(XYZPredicate)` to update the `UI` and display all `Person` that has `Name` containing `John`.
+6. `FindCommand` will call `Model#updateFilteredPersonList(PersonPredicate)` to update the `UI` and display all `Person` that has `Name` containing `John`.
 7. The result of the command execution is encapsulated as a `CommandResult` object which is returned back to `LogicManager`.
 
-#### Proposed Changes
-Include `Person` meetings as a search field. A user can supply a given date and will return all `Person` that have a meeting starting or ending on the specified date.
+#### Search persons by person's meeting date sub-feature
+For search queries based on person's meeting date, the user input will be first validated in `FindCommandParser` to check if it matches the date format specified in FINDvisor. This validation is facilitated by `ParserUtil#parseMeetingDate(String)`. Afterwards, `FindCommandParser` will create a new `PersonMeetingDatePredicate(LocalDate)` with the parsed user input if it is valid. 
 
-### AddTag Feature
+The following sequence diagram below show `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
+- `find`: `find m/25-04-2024`
+- `argument`: `m/25-04-2024`
+- `value`: `25-04-2024`
+
+![FindMeetingDateSequenceDiagram](images/FindMeetingDateSequenceDiagram.svg)
+
+### Add Tag Feature
 This feature allows users to add `tags` to a `person` within the contact list, without the need to use the `edit` command.
 
 This feature is implemented through the `AddTagCommand` and the `AddTagCommandParser` which extends `Command` and `Parser` respectively.
@@ -261,7 +270,7 @@ The `AddTagCommandParser` takes in an `index` and the `tags` to add to a person.
 
 The following sequence diagram shows how `AddTag` interacts with `Logic`.
 
-![AddTagSequenceDiagram](images/AddTagSequenceDiagram.svg)
+![AddTagSequenceDiagram-Model](images/AddTagSequenceDiagram.svg)
 
 1. The user keys in `addtags 1 t/validTag1 t/validTag2` to add 2 valid tags to the `person` at the first `index`.
 2. The `AddTagCommandParser` validates `index` and `tags`, then returns a new `AddTagCommand` with the corresponding index and set of tags.
@@ -271,8 +280,30 @@ The following sequence diagram shows how `AddTag` interacts with `Logic`.
 6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the person with the newly added `Tags`.
 7. `CommandResult` is then returned to `LogicManager`.
 
-#### Proposed future improvement
+#### Proposed Changes
 Allow users to add tags to multiple people at once.
+
+### Delete Tag Feature
+
+This section aims to show the logic behind delete tag command and the consideration behind the scene.
+
+Delete Tag Command is a new featured added for user to delete one specific tag associated with a specific person located by index of the current list. This command is called by `deletetag` followed by the index of the targeted person, then by one target tag `tag` object. In case of the targeting tag is not associated with the person, an error message suggesting missing targeted tag will be returned.
+
+The delete tag mechanism is facilitated by `DeleteTagCommand` and `DeleteTagCommandParser` that extends `Command` and `Parser` respectively. The `DeleteTagCommandParser` takes in an `index` and the `tag` to delete from a person. If both are supplied and valid, they are passed into the `DeleteTagCommand`.
+
+The following sequence diagram shows how `DeleteTagCommand` interacts with `Logic`.
+
+![DeleteTagSequenceDiagram](images/DeleteTagSequenceDiagram.svg)
+
+1. The user keys in `deletetag 1 t/validTag` to delete `validTag` associated with the `person` at the first `index`.
+2. The `DeleteTagCommandParser` checks that the `index` and `tag` are valid, then returns a new `DeleteTagCommand` with the corresponding index and the target tag.
+3. The `LogicManager` then executes the `DeleteTagCommand`.
+4. The `DeleteTagCommand` finds the `Person` using `Index` and check whether the target tag exists for the `Person`.
+5. If targeted `tag` is found with the targeted `Person`, then the command creates a new `Person` with the all other tags except the targeted tag.
+6. If targeted `tag` is not found with the targeted `Person`, then the command will return an error message indicating the `Person` does not have the targeted `validTag`.
+7. `DeleteTagCommand` then calls the `setPerson(person, editedPerson)` method to set the old `Person` to the newly created `Person`.
+8. `DeleteTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the newly updated person list in Findvisor.
+9. `CommandResult` is then returned to `LogicManager`.
 
 ### \[Proposed\] Undo/redo feature
 
@@ -315,15 +346,11 @@ than attempting to perform the undo.
 
 The following sequence diagram shows how an undo operation goes through the `Logic` component:
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.png)
-
-<div markdown="span" class="alert alert-info">:information_source: **Note:** The lifeline for `UndoCommand` should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline reaches the end of diagram.
-
-</div>
+![UndoSequenceDiagram](images/UndoSequenceDiagram-Logic.svg)
 
 Similarly, how an undo operation goes through the `Model` component is shown below:
 
-![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.png)
+![UndoSequenceDiagram](images/UndoSequenceDiagram-Model.svg)
 
 The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
@@ -394,50 +421,48 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​            | I want to …​                                                                        | So that I can…​                                                                 |
-|----------|-------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------|
-| `* * *`  | New user          | easily download and launch FINDvisor                                               | quickly start managing my client information                                    |
-| `* * *`  | New user          | know what are the available functionalities of FINDvisor                           |                                                                                 |
-| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor within the app         |                                                                                 |
-| `* * *`  | Financial Advisor | add contacts of my clients                                                         | keep a record of my clients' contact information                                |
-| `* * *`  | Financial Advisor | find contacts of my clients                                                        | find information on a specific client                                          |
-| `* * *`  | Financial Advisor | update client's contact information                                                | not need to delete and create new contact information                           |
-| `* * *`  | Financial Advisor | remove contact information                                                         | reduce clutter in contact list with clients I have severed ties with           |
-| `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                | know the next meeting plan with a specific client                               |
-| `* * *`  | Financial Advisor | filter contact list by tags                                                        | update the other parties under the same plan if they were not present in the meeting |
-| `* * *`  | Financial Advisor | delete a scheduled meeting                                                         | keep my schedule up-to-date                                                     |
-| `* * *`  | Financial Advisor | group my clients into different groupings according to financial plans             | easily find target clients                                                      |
-| `* *`    | Financial Advisor | be able to view all my meetings for the day                                       | be prepared for my meetings of the day                                          |
-| `* *`    | Financial Advisor | filter contact list by meeting details                                             | find out who I'm meeting                                                        |
-| `* *`    | Financial Advisor | modify a scheduled meeting's details                                               | keep up-to-date with the meeting's details                                      |
-| `* *`    | Financial Advisor | shift clients into different groups                                                | reorganize in the event of changes                                              |
-| `* *`    | Financial Advisor | be able to add simple notes to my client contact information                       | know their financial goals to prepare me for my next meeting with them         |
-| `*`      | New user          | import contact information in bulk to FINDvisor                                    | save time and ensure no client is overlooked                                   |
-| `*`      | Financial Advisor | filter for upcoming meet plans at given time                                       | know the meeting plans at the given time                                        |
-| `*`      | Financial Advisor | schedule recurring meeting plans                                                   | not have to manually add the meeting one by one                                 |
-| `*`      | Financial Advisor | group my clients into different groupings according to clients' relationships      | easily manage clients' that have relationships                                  |
-| `*`      | Financial Advisor | able to attach a note about each meeting                                           | know what the meeting is about                                                  |
-| `*`      | Experienced User  | bulk remove old contact data that is no longer needed                              | reduce clutter                                                                   |
-| `*`      | Experienced User  | bulk remove past meeting data that is no longer needed                             | reduce clutter                                                                   |
-| `*`      | Experienced User  | be able to use shorthand commands                                                  | speed up my workflow                                                             |
-| `*`      | Experienced User  | set up shortcuts that I can run                                                    | speed up my workflow                                                             |
-| `*`      | Experienced User  | export my data                                                                     | backup my data                                                                   |
-| `*`      | Experienced User  | import my data                                                                     | restore my data from backup                                                      |
-| `*`      | Experienced User  | archive contact data that are not in use, but I still want to keep                 | reduce clutter                                                                   |
-| `*`      | Experienced User  | archive past meeting data that are not in use, but I still want to keep            | reduce clutter                                                                   |
+| Priority | As a …​           | I want to …​                                                                             | So that I can…​                                                               |
+|----------|-------------------|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| `* * *`  | New user          | easily download and launch FINDvisor                                                     | quickly start managing my client information                                  |
+| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor                               |                                                                               |
+| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor within the app                | learn how to use FINDvisor without heavily referencing external documentation |
+| `* * *`  | Financial Advisor | add contacts of my clients                                                               | keep a record of my clients' contact information                              |
+| `* * *`  | Financial Advisor | delete a client's contact                                                                | reduce clutter in contact list with clients I no longer need contact with     |
+| `* * *`  | Financial Advisor | update client's contact information                                                      |                                                                               |
+| `* * *`  | Financial Advisor | find a client's contact based on what I remember about the client's contact information  | do not have to search through the whole list to find a specific client        |
+| `* * *`  | Financial Advisor | filter contact list by categories                                                        | easily find clients based on category                                         |
+| `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                             |
+| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | so that I can update my schedule in the event of a cancelled meeting          |
+| `* * *`  | Financial Advisor | categorize my clients into different categories such as financial plans or relationships |                                                                               |
+| `* *`    | Financial Advisor | view all my meetings for today                                                           | be prepared for my meetings of today                                          |
+| `* *`    | Financial Advisor | filter contact list by meeting date                                                      | find out who I'm meeting on a specific date                                   |
+| `* *`    | Financial Advisor | modify a scheduled meeting's date and time                                               | update a meeting's schedule accordingly                                       |
+| `* *`    | Financial Advisor | re-categorize my clients into different categories                                       | reorganize my client's categories when needed                                 |
+| `*`      | New user          | import contact information in bulk to FINDvisor                                          | easily transfer all my client's contact into FINDvisor                        |
+| `* *`    | Financial Advisor | add a remark about a client                                                              | take note of additional information about a client as required                |
+| `*`      | Financial Advisor | add a note about each meeting                                                            | know what the meeting is about                                                |
+| `*`      | Financial Advisor | edit a note about each meeting                                                           | update what the meeting is about                                              |
+| `*`      | Financial Advisor | schedule recurring meeting plans                                                         | save the effort manually scheduling the meeting each time                     |
+| `*`      | Experienced User  | remove past meeting information that is no longer needed in bulk                         | easily keep my contact list and meeting information up to date.               |
+| `*`      | Experienced User  | use shorthand commands                                                                   | speed up my workflow                                                          |
+| `*`      | Experienced User  | set up shortcuts that I can run                                                          | speed up my workflow                                                          |
+| `*`      | Experienced User  | export my data                                                                           | backup my data                                                                |
+| `*`      | Experienced User  | import my data                                                                           | restore my data from backup                                                   |
+| `*`      | Experienced User  | archive contact data that are not in use, but I still want to keep                       | reduce clutter in the application                                             |
+| `*`      | Experienced User  | archive past meeting data that are not in use, but I still want to keep                  | reduce clutter in the application                                             |
 
 ### Use cases
 
 (For all use cases below, the **System** is the `FINDvisor` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Edit a person**
+#### Use case: Edit a person
 
 **MSS**
 
 1. User requests to list persons.
 2. FINDvisor shows a list of persons.
-3. User requests to edit a specific person in the list and the fields to edit.
-4. FINDvisor edits the person.
+3. User requests to edit a specific field(s) of a specified person in the list.
+4. FINDvisor edits respective fields of the person.
 
     Use case ends.
 
@@ -447,22 +472,39 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-* 3a. The given index is invalid.
-  * 3a1. FINDvisor shows an error message.
+* 3a. FINDvisor detects an error in the given data for editing a person.
+    * 3a1. FINDvisor shows an error message.
 
-    Use case resumes at step 2.
+      Use case resumes from step 3.
 
-* 3b. No fields are given.
-  * 3b1. FINDvisor shows an error message.
+#### Use case: Search for specific persons based on a person's field
 
-    Use case resumes at step 2.
+**MSS**
 
-* 3c. Fields do not comply with stated formats and constraints.
-  * 3c1. FINDvisor shows an error message.
+1. User requests to find persons based on the entered the search category and keywords.
+2. FINDvisor displays all persons that contains specified keywords for the specified search category.
 
-    Use case resumes at step 2.
+    Use case ends.
 
-**Use case: Delete a person**
+**Extensions**
+
+* 1a. No persons match the specified keywords.
+  * 1a1. FINDvisor displays an empty list.
+
+    Use case ends.
+
+* 1b. FINDvisor detects an error in specified keywords.
+  * 1b1. FINDvisor shows an error message and requests for valid keywords from the user.
+
+    Use case resumes at step 1.
+
+* 1c. The given category is invalid.
+  * 1c1. FINDvisor shows an error message and requests for a valid category from the user.
+
+    Use case resumes at step 1.
+
+
+#### Use case: Delete a person
 
 **MSS**
 
@@ -479,13 +521,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
   Use case ends.
 
-* 3a. The given index is invalid.
-
+* 3a. FINDvisor detects an error in the given data for deleting a person.
     * 3a1. FINDvisor shows an error message.
 
-      Use case resumes at step 2.
+      Use case resumes from step 3.
 
-**Use Case: Scheduling a meeting with a new person**
+#### Use Case: Scheduling a meeting with a new person
 
 **MSS**
 
@@ -499,23 +540,103 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 
-* 1a. The given details for adding a new person is invalid.
+* 3a. FINDvisor detects an error in the given data for adding a person.
+    * 3a1. FINDvisor shows an error message.
 
-    * 1a1. FINDvisor shows an error message.
+      Use case resumes from step 1.
 
-      Use case resumes at step 1.
+* 4a. FINDvisor detects an error in the given data for scheduling a meeting.
+    * 4a1. FINDvisor shows an error message.
 
-* 4a. The given index is invalid.
+      Use case resumes from step 4.
+
+#### Use case: Update the remark of a person
+
+**MSS**
+
+1. User requests to list persons.
+2. FINDvisor shows a list of persons.
+3. User requests to update the remark of a specific person in the list.
+4. FINDvisor updates the remark of the person.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. FINDvisor detects an error in the given data for updating a remark.
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes from step 3.
+
+* 3b. User requests to remove the remark.
+    * 3b1. FINDvisor removes the remark of the person.
+
+      Use case ends.
+
+#### Use case: Add tags to a person
+
+**MSS**
+
+1. User requests to list persons.
+2. FINDvisor shows a list of persons.
+3. User requests to add tags to a specific person in the list.
+4. FINDvisor adds specified tags to the person.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. The given index is invalid.
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3b. No tag is given.
+    * 3b1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+* 3c. Fields do not comply with stated formats and constraints.
+    * 3c1. FINDvisor shows an error message.
+
+      Use case resumes at step 2.
+
+#### Use case: Delete a tag
+
+**MSS**
+
+1.  User requests to list persons.
+2.  FINDvisor shows a list of persons.
+3.  User requests to delete one or more tags associated with a specific person in the list.
+4.  FINDvisor deletes the tags associated with the specific person.
+
+    Use case ends.
+
+**Extensions**
+
+* 2a. The list is empty.
+
+  Use case ends.
+
+* 3a. FINDvisor detects an error in the given data for deleting a tag.
+
+    * 3a1. FINDvisor shows an error message.
+
+      Use case resumes from step 2.
+
+* 4a. FINDvisor detects an error in the given data for deleting a tag.
 
     * 4a1. FINDvisor shows an error message.
 
-      Use case resumes at step 3.
-
-* 4b. The given meeting datetime is invalid.
-
-    * 4b1. FINDvisor shows an error message.
-
-      Use case resumes at step 3.
+      Use case ends.
 
 ### Non-Functional Requirements
 
@@ -580,6 +701,30 @@ testers are expected to do more *exploratory* testing.
       Expected: Similar to previous.
 
 1. _{ more test cases …​ }_
+
+### Deleting a tag
+
+1. Deleting a tag while all persons are being shown
+
+   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+
+   1. Test case: `delete 1 t/validTag`<br>
+      Expected: First contact is selected from the list. Tags of the selected contact will be checked.
+      If validTag exisits in the person's tags, it will be removed. Successful output will be showned in the status message.
+      If validTag does not exisit in the person's tags, failure output will be showned in the status message.
+      Timestamp in the status bar is updated.
+
+   1. Test case: `delete 0 t/validTag`<br>
+      Expected: No tag is deleted as 0 is not a valid index for person. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete 1 t/invalidTag`<br>
+      Expected: No tag is deleted as the tag is invalid. Error details shown in the status message. Status bar remains the same.
+
+   1. Test case: `delete 1 t/containedTag t/notContainedTag`<br>
+      Expected: No tag is deleted as one of the targeting tags is not associated with the person. Error details shown in the status message. Status bar remains the same.
+
+   1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
+      Expected: Similar to previous.
 
 ### Saving data
 
