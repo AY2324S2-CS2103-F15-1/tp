@@ -36,9 +36,9 @@ public class ScheduleCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Schedules a meeting with the person identified "
             + "by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + PREFIX_START_DATETIME + "START DATETIME "
-            + PREFIX_END_DATETIME + "END DATETIME "
-            + "[" + PREFIX_MEETING_REMARK + "REMARK" + "]\n"
+            + PREFIX_START_DATETIME + "START_DATETIME "
+            + PREFIX_END_DATETIME + "END_DATETIME "
+            + "[" + PREFIX_MEETING_REMARK + "MEETING_REMARK" + "]\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_START_DATETIME + "22-02-2024T14:00 "
             + PREFIX_END_DATETIME + "22-02-2024T15:00 ";
