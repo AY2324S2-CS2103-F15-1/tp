@@ -94,7 +94,6 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        
         String message = GENERAL_MESSAGE + ADD_COMMAND_MESSAGE + LIST_COMMAND_MESSAGE
                 + EDIT_COMMAND_MESSAGE + FIND_COMMAND_MESSAGE + DELETE_COMMAND_MESSAGE + SCHEDULE_COMMAND_MESSAGE
                 + UNSCHEDULE_COMMAND_MESSAGE + RESCHEDULE_COMMAND_MESSAGE + REMARK_COMMAND_MESSAGE
