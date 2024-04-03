@@ -41,8 +41,6 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String USERGUIDE_URL = "https://ay2324s2-cs2103-f15-1.github.io/tp/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL + "\n\n";
 
-    public static final String GENERAL_MESSAGE = "Below are the major commands for FINDvisor:\n\n";
-
     public static final String CLEAR_COMMAND_MESSAGE = "Clear all the contacts in FINDvisor.";
     public static final String EXIT_COMMAND_MESSAGE = "Exit FINDvisor.";
     public static final String LIST_COMMAND_MESSAGE = "List all persons in FINDvisor.";
@@ -106,6 +104,7 @@ public class HelpWindow extends UiPart<Stage> {
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
     }
+    
     /**
      * Creates a new HelpWindow.
      */
@@ -130,7 +129,7 @@ public class HelpWindow extends UiPart<Stage> {
             text.setFill(Color.WHITE);
             cell.setGraphic(text);
             cell.setPadding(new Insets(5, 5, 5, 5));
-            text.wrappingWidthProperty().bind(descriptionColumn.widthProperty());
+            text.wrappingWidthProperty().bind(descriptionColumn.widthProperty().subtract(10));
             text.textProperty().bind(cell.itemProperty());
             return cell;
         });

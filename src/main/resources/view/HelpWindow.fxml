@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.stage.Stage?>
 
-<fx:root resizable="false" title="Help" type="javafx.stage.Stage" minWidth="760" minHeight="760" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root resizable="false" title="Help" type="javafx.stage.Stage" minWidth="603" minHeight="603" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <icons>
     <Image url="@/images/help_icon.png" />
   </icons>
@@ -32,7 +32,7 @@
             </Label>
             <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
               <HBox.margin>
-                <Insets top="20" right="10" bottom="10" left="10" />
+                <Insets top="15" right="10" bottom="10" left="10" />
               </HBox.margin>
               <padding>
                 <Insets top="5" right="5" bottom="5" left="5"/>
@@ -43,13 +43,13 @@
         <center>
           <TableView fx:id="helpTable">
           <columns>
-              <TableColumn fx:id="commandColumn" text="Command" />
-              <TableColumn fx:id="descriptionColumn" text="Description" />
+              <TableColumn fx:id="commandColumn" text="Command" minWidth="100" prefWidth="120" maxWidth="200" resizable="false"/>
+              <TableColumn fx:id="descriptionColumn" text="Description" minWidth="400" prefWidth="640" maxWidth="Infinity" resizable="false"/>
             </columns>
             <BorderPane.margin>
             <Insets top="10" right="10" bottom="10" left="10" />
           </BorderPane.margin>
-          </TableView>        
+          </TableView>
         </center>
       </BorderPane>
     </Scene>
