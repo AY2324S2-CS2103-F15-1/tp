@@ -570,7 +570,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list persons.
 2.  FINDvisor shows a list of persons.
-3.  User requests to delete some tags associated with a specific person in the list.
+3.  User requests to delete one or more tags associated with a specific person in the list.
 4.  FINDvisor deletes the tags associated with the specific person.
 
     Use case ends.
