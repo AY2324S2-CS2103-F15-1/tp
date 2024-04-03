@@ -78,7 +78,7 @@ public class DeleteTagCommand extends Command {
             throw new CommandException(String.format(MESSAGE_CANNOT_FIND_TAG, missingTags, personToEdit.getName()));
         }
 
-        Person editedPerson = createEditedPerson(personToEdit, targetTags);
+        Person editedPerson = deleteTagsFromPerson(personToEdit, targetTags);
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, targetTags, editedPerson.getName()));
@@ -87,7 +87,7 @@ public class DeleteTagCommand extends Command {
     /**
      * Creates and returns a copy of {@code personToEdit} without {@code targetTags}.
      */
-    private static Person createEditedPerson(Person personToEdit, Set<Tag> targetTags) {
+    private static Person deleteTagsFromPerson(Person personToEdit, Set<Tag> targetTags) {
         assert personToEdit != null;
 
         Name name = personToEdit.getName();
