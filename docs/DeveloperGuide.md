@@ -408,7 +408,7 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* financial advisors based in Singapore and deals with clients in Singapore
+* financial advisors based in Singapore and deals with Singaporean clients
 * has a need of scheduling meetings with a significant number of clients
 * can type fast
 * prefers typing to mouse interactions
