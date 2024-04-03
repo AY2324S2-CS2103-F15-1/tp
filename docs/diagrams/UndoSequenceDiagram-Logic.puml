@@ -39,8 +39,8 @@ deactivate Model
 UndoCommand --> LogicManager : result
 deactivate UndoCommand
 UndoCommand -[hidden]-> LogicManager : result
-destroy UndoCommand
 
 [<--LogicManager : result
 deactivate LogicManager
+destroy UndoCommand
 @enduml

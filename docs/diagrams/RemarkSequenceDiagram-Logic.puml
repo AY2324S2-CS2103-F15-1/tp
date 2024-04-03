@@ -43,7 +43,7 @@ deactivate Remark
 ParserUtil --> RemarkCommandParser : Optional.of(r)
 
 else value is blank
-    ParserUtil --> RemarkCommandParser : Optional.Empty()
+ParserUtil --> RemarkCommandParser : Optional.Empty()
 deactivate ParserUtil
 end
 
@@ -58,8 +58,9 @@ RemarkCommandParser --> AddressBookParser : c
 deactivate RemarkCommandParser
 
 RemarkCommandParser -[hidden]-> AddressBookParser
-destroy RemarkCommandParser
 
 AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
+destroy RemarkCommandParser
+[ <-[hidden]- LogicManager
 @enduml

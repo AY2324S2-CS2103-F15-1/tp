@@ -55,11 +55,11 @@ EditCommandParser --> AddressBookParser : c
 deactivate EditCommandParser
 
 EditCommandParser -[hidden]-> AddressBookParser
-destroy EditCommandParser
 destroy EditCommandDescriptor
 
 AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
+destroy EditCommandParser
 
 LogicManager -> EditCommand : execute(m)
 activate EditCommand

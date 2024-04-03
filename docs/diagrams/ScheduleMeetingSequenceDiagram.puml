@@ -49,10 +49,10 @@ deactivate ScheduleCommand
 ScheduleCommandParser --> AddressBookParser : s
 deactivate ScheduleCommandParser
 ScheduleCommandParser -[hidden]-> AddressBookParser : s
-destroy ScheduleCommandParser
 
 AddressBookParser --> LogicManager : s
 deactivate AddressBookParser
+destroy ScheduleCommandParser
 
 LogicManager -> ScheduleCommand : execute(m)
 activate ScheduleCommand

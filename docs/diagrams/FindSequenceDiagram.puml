@@ -13,7 +13,7 @@ end box
 box Model MODEL_COLOR_T1
 
 participant "p:PersonXYZPredicate" as PersonXYZPredicate MODEL_COLOR
-participant ":Model" as Model MODEL_COLOR
+participant "m:Model" as Model MODEL_COLOR
 end box
 [-> LogicManager : execute(find)
 activate LogicManager
@@ -48,10 +48,11 @@ deactivate FindCommand
 FindCommandParser --> AddressBookParser : c
 deactivate FindCommandParser
 FindCommandParser -[hidden]-> AddressBookParser : c
-destroy FindCommandParser
 
 AddressBookParser --> LogicManager : c
 deactivate AddressBookParser
+
+destroy FindCommandParser
 
 LogicManager -> FindCommand : execute(m)
 activate FindCommand
