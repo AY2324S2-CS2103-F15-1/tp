@@ -93,7 +93,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Must follow the standard email address format (i.e. example@example.com).
 
 * `ADDRESS` format:
-  * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``{#-(),}``.
+  * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``#-(),``.
   * Cannot be blank.
 
 * `TAG` format:
@@ -109,7 +109,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 * `REMARK` format:
     * Can only consist of alphanumeric characters, whitespace and the following set of characters:  
-    ``{!@#$%^&*()_+-{}[]:;'\"<>?.,|~\`}``.
+    ``!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\``.
 
 * `MEETING_REMARK` format:
     * Allowed characters are the same as `REMARK` format.
