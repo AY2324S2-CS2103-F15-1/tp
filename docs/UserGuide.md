@@ -151,7 +151,7 @@ Format: `list`
 
 ### Editing a person : `edit`
 
-Edits an existing person in the contact list of FINDvisor.
+Edits an existing person's contact information (name, phone number, email and address) and tags in FINDvisor.
 
 Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
 
