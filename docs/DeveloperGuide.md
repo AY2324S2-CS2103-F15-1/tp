@@ -492,7 +492,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case resumes at step 2.
 
-**Use case: Search for specific persons based on a person's field**
+#### Use case: Search for specific persons based on a person's field
 
 **MSS**
 
