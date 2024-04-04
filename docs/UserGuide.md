@@ -120,6 +120,8 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Adding a person: `add`
 
 Adds a person to the contact list in FINDvisor.
@@ -223,8 +225,6 @@ Examples:
 
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
-
-<div style="page-break-after: always;"></div>
 
 ### Unscheduling a meeting : `unschedule`
 
