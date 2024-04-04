@@ -224,6 +224,8 @@ Examples:
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
 * `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
 
+<div style="page-break-after: always;"></div>
+
 ### Unscheduling a meeting : `unschedule`
 
 Unschedules a meeting with the specified person.
