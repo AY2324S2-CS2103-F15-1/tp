@@ -112,8 +112,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Must follow the format `dd-MM-yyyy` (i.e. `23-02-2024`).
 
 * `REMARK` format:
-    * Can only consist of alphanumeric characters, whitespace and the following set of characters:  
-    ``!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\``.
+    * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\``.
 
 * `MEETING_REMARK` format:
     * Allowed characters are the same as `REMARK` format.
