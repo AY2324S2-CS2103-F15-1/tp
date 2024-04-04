@@ -112,8 +112,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Must follow the format `dd-MM-yyyy` (i.e. `23-02-2024`).
 
 * `REMARK` format:
-    * Can only consist of alphanumeric characters, whitespace and the following set of characters:  
-    ``!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\``.
+    * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\``.
 
 * `MEETING_REMARK` format:
     * Allowed characters are the same as `REMARK` format.
@@ -283,30 +282,33 @@ Examples:
 
 Adds 1 or more tags to a specified person from the contact list of FINDvisor.
 
-This command makes it easier to add tags to a person without having to re-type all the tags using the `edit` command.
+This command makes it easier to add tags to a person without having to re-type all existing tags using the `edit` command.
 
 Format: `addtag INDEX t/TAG...`
 
 * Adds 1 or more tags to the person at the specified `INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3,...
-* at least 1 `TAG` must be provided.
+* At least 1 `TAG` must be provided.
 
 Examples:
 
 * `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
 * `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
 
-### Deleting tags with a person : `deletetag`
+### Deleting tags from a person : `deletetag`
 
-Deletes one or more tags associated with the specified person.
+Deletes 1 or more tags from a specified person from the contact list of FINDvisor.
 
-Format: `deletetag INDEX t/TAG`
+This command makes it easier to remove tags from a person without having to re-type all tags that should be kept using the `edit` command.
 
+Format: `deletetag INDEX t/TAG...`
+
+* Deletes 1 or more tags from the person at the specified `INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* Specified tags must be valid tags.
-* Specified person may not have the specified tags.
+* At least 1 `TAG` must be provided.
+* Specified person **must have all** the specified `TAG`.
 
 Examples:
 
@@ -360,6 +362,7 @@ Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways 
 ## Known issues
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+2. **When adding a tag with many characters**, the text for the tag does not wrap and will go off-screen. While FINDvisor does not impose a character length limit, for the optimal experience, it is recommended to use tags of short character lengths. 
 
 --------------------------------------------------------------------------------------------------------------------
 
