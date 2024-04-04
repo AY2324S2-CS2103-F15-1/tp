@@ -3,10 +3,12 @@ package seedu.findvisor.ui;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.findvisor.commons.core.LogsCenter;
 import seedu.findvisor.logic.commands.AddCommand;
@@ -31,8 +33,6 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2324s2-cs2103-f15-1.github.io/tp/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL + "\n\n";
-
-    public static final String GENERAL_MESSAGE = "Below are the major commands for FINDvisor:\n";
 
     public static final String CLEAR_COMMAND_MESSAGE = ClearCommand.COMMAND_WORD
                 + ": Clear all the contacts in FINDvisor\n";
@@ -85,7 +85,7 @@ public class HelpWindow extends UiPart<Stage> {
     private Label userGuideMessage;
 
     @FXML
-    private Label helpMessage;
+    private GridPane helpTable;
 
     /**
      * Creates a new HelpWindow.
@@ -94,13 +94,38 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        String message = GENERAL_MESSAGE + ADD_COMMAND_MESSAGE + LIST_COMMAND_MESSAGE
-                + EDIT_COMMAND_MESSAGE + FIND_COMMAND_MESSAGE + DELETE_COMMAND_MESSAGE + SCHEDULE_COMMAND_MESSAGE
-                + UNSCHEDULE_COMMAND_MESSAGE + RESCHEDULE_COMMAND_MESSAGE + REMARK_COMMAND_MESSAGE
-                + ADD_TAG_COMMAND_MESSAGE + DELETE_TAG_COMMAND_MESSAGE + CLEAR_COMMAND_MESSAGE
-                + EXIT_COMMAND_MESSAGE + HELP_COMMAND_MESSAGE;
+        helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
-        helpMessage.setText(message);
+        int i = 0;
+        helpTable.addRow(i++, createHeaderLabel("Command"), createHeaderLabel("Description"));
+        helpTable.addRow(i++, createCommandLabel(AddCommand.COMMAND_WORD),
+                createDescriptionLabel(ADD_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ListCommand.COMMAND_WORD),
+                createDescriptionLabel(LIST_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(EditCommand.COMMAND_WORD),
+                createDescriptionLabel(EDIT_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(FindCommand.COMMAND_WORD),
+                createDescriptionLabel(FIND_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(DeleteCommand.COMMAND_WORD),
+                createDescriptionLabel(DELETE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ScheduleCommand.COMMAND_WORD),
+                createDescriptionLabel(SCHEDULE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(UnscheduleCommand.COMMAND_WORD),
+                createDescriptionLabel(UNSCHEDULE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(RescheduleCommand.COMMAND_WORD),
+                createDescriptionLabel(RESCHEDULE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(RemarkCommand.COMMAND_WORD),
+                createDescriptionLabel(REMARK_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(AddTagCommand.COMMAND_WORD),
+                createDescriptionLabel(ADD_TAG_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(DeleteTagCommand.COMMAND_WORD),
+                createDescriptionLabel(DELETE_TAG_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ClearCommand.COMMAND_WORD),
+                createDescriptionLabel(CLEAR_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ExitCommand.COMMAND_WORD),
+                createDescriptionLabel(EXIT_COMMAND_MESSAGE));
+        helpTable.addRow(i, createCommandLabel(HelpCommand.COMMAND_WORD),
+                createDescriptionLabel(HELP_COMMAND_MESSAGE));
     }
 
     /**
@@ -108,6 +133,43 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow() {
         this(new Stage());
+    }
+
+    /**
+     * Creates a {@code Label} with text wrap based on {@code text}
+     */
+    private Label createTextWrapLabel(String text) {
+        Label label = new Label(text);
+        label.setWrapText(true);
+        label.getStyleClass().add("cell");
+        return label;
+    }
+
+    /**
+     * Creates a header {@code Label} based on {@code header}
+     */
+    private Label createHeaderLabel(String header) {
+        Label label = createTextWrapLabel(header);
+        label.getStyleClass().add("header-cell");
+        return label;
+    }
+
+    /**
+     * Creates a command {@code Label} based on {@code command}
+     */
+    private Label createCommandLabel(String command) {
+        Label label = createTextWrapLabel(command);
+        label.getStyleClass().add("command-cell");
+        return label;
+    }
+
+    /**
+     * Creates a description {@code Label} based on {@code description}
+     */
+    private Label createDescriptionLabel(String description) {
+        Label label = createTextWrapLabel(description);
+        label.getStyleClass().add("description-cell");
+        return label;
     }
 
     /**
