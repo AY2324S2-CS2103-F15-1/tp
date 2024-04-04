@@ -1,21 +1,14 @@
 package seedu.findvisor.ui;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TableCell;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import seedu.findvisor.commons.core.LogsCenter;
 import seedu.findvisor.logic.commands.AddCommand;
@@ -82,13 +75,7 @@ public class HelpWindow extends UiPart<Stage> {
     private Label userGuideMessage;
 
     @FXML
-    private TableView<CommandHelpDescriptor> helpTable;
-
-    @FXML
-    private TableColumn<CommandHelpDescriptor, String> commandColumn;
-
-    @FXML
-    private TableColumn<CommandHelpDescriptor, String> descriptionColumn;
+    private GridPane helpTable;
 
     /**
      * Creates a new HelpWindow.
@@ -97,12 +84,38 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        // Solution below adapted from https://stackoverflow.com/a/11186231
-        helpTable.setColumnResizePolicy(helpTable.CONSTRAINED_RESIZE_POLICY);
-        commandColumn.setCellValueFactory(new PropertyValueFactory<>("command"));
-        descriptionColumn.setCellValueFactory(new PropertyValueFactory<>("description"));
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
+        int i = 0;
+        helpTable.addRow(i++, createHeaderLabel("Command"), createHeaderLabel("Description"));
+        helpTable.addRow(i++, createCommandLabel(AddCommand.COMMAND_WORD),
+                createDescriptionLabel(ADD_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ListCommand.COMMAND_WORD),
+                createDescriptionLabel(LIST_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(EditCommand.COMMAND_WORD),
+                createDescriptionLabel(EDIT_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(FindCommand.COMMAND_WORD),
+                createDescriptionLabel(FIND_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(DeleteCommand.COMMAND_WORD),
+                createDescriptionLabel(DELETE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ScheduleCommand.COMMAND_WORD),
+                createDescriptionLabel(SCHEDULE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(UnscheduleCommand.COMMAND_WORD),
+                createDescriptionLabel(UNSCHEDULE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(RescheduleCommand.COMMAND_WORD),
+                createDescriptionLabel(RESCHEDULE_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(RemarkCommand.COMMAND_WORD),
+                createDescriptionLabel(REMARK_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(AddTagCommand.COMMAND_WORD),
+                createDescriptionLabel(ADD_TAG_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(DeleteTagCommand.COMMAND_WORD),
+                createDescriptionLabel(DELETE_TAG_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ClearCommand.COMMAND_WORD),
+                createDescriptionLabel(CLEAR_COMMAND_MESSAGE));
+        helpTable.addRow(i++, createCommandLabel(ExitCommand.COMMAND_WORD),
+                createDescriptionLabel(EXIT_COMMAND_MESSAGE));
+        helpTable.addRow(i, createCommandLabel(HelpCommand.COMMAND_WORD),
+                createDescriptionLabel(HELP_COMMAND_MESSAGE));
     }
 
     /**
@@ -113,74 +126,40 @@ public class HelpWindow extends UiPart<Stage> {
     }
 
     /**
-     * Initializes the help window by setting up command descriptions in a table view. It configures
-     * the description column to support text wrapping for long descriptions using a custom cell factory.
+     * Creates a {@code Label} with text wrap based on {@code text}
      */
-    @FXML
-    public void initialize() {
-        List<CommandHelpDescriptor> commands = prepareCommandHelpList();
-
-        // @@author Javiery3889-reused
-        // Reused from https://stackoverflow.com/a/22732723
-        // with minor modifications
-        descriptionColumn.setCellFactory(tc -> {
-            TableCell<CommandHelpDescriptor, String> cell = new TableCell<>();
-            Text text = new Text();
-            text.setFill(Color.WHITE);
-            cell.setGraphic(text);
-            cell.setPadding(new Insets(5, 5, 5, 5));
-            text.wrappingWidthProperty().bind(descriptionColumn.widthProperty().subtract(10));
-            text.textProperty().bind(cell.itemProperty());
-            return cell;
-        });
-        // @@author
-
-        helpTable.getItems().addAll(commands);
-    }
-
-    private List<CommandHelpDescriptor> prepareCommandHelpList() {
-        return Arrays.asList(
-            new CommandHelpDescriptor(AddCommand.COMMAND_WORD, ADD_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(ListCommand.COMMAND_WORD, LIST_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(EditCommand.COMMAND_WORD, EDIT_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(FindCommand.COMMAND_WORD, FIND_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(DeleteCommand.COMMAND_WORD, DELETE_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(ScheduleCommand.COMMAND_WORD, SCHEDULE_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(UnscheduleCommand.COMMAND_WORD, UNSCHEDULE_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(RescheduleCommand.COMMAND_WORD, RESCHEDULE_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(RemarkCommand.COMMAND_WORD, REMARK_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(AddTagCommand.COMMAND_WORD, ADD_TAG_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(DeleteTagCommand.COMMAND_WORD, DELETE_TAG_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(ClearCommand.COMMAND_WORD, CLEAR_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(ExitCommand.COMMAND_WORD, EXIT_COMMAND_MESSAGE),
-            new CommandHelpDescriptor(HelpCommand.COMMAND_WORD, HELP_COMMAND_MESSAGE)
-        );
+    private Label createTextWrapLabel(String text) {
+        Label label = new Label(text);
+        label.setWrapText(true);
+        label.getStyleClass().add("cell");
+        return label;
     }
 
     /**
-     * Stores the details of a command including the command word, and command description.
+     * Creates a header {@code Label} based on {@code header}
      */
-    public static class CommandHelpDescriptor {
-        private final String command;
-        private final String description;
+    private Label createHeaderLabel(String header) {
+        Label label = createTextWrapLabel(header);
+        label.getStyleClass().add("header-cell");
+        return label;
+    }
 
-        /**
-         * Constructor for CommandHelpDescriptor
-         * @param command
-         * @param description
-         */
-        public CommandHelpDescriptor(String command, String description) {
-            this.command = command;
-            this.description = description;
-        }
+    /**
+     * Creates a command {@code Label} based on {@code command}
+     */
+    private Label createCommandLabel(String command) {
+        Label label = createTextWrapLabel(command);
+        label.getStyleClass().add("command-cell");
+        return label;
+    }
 
-        public String getCommand() {
-            return command;
-        }
-
-        public String getDescription() {
-            return description;
-        }
+    /**
+     * Creates a description {@code Label} based on {@code description}
+     */
+    private Label createDescriptionLabel(String description) {
+        Label label = createTextWrapLabel(description);
+        label.getStyleClass().add("description-cell");
+        return label;
     }
 
     /**

@@ -10,6 +10,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.stage.Stage?>
 
 <fx:root resizable="false" title="Help" type="javafx.stage.Stage" minWidth="603" minHeight="603" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
@@ -21,19 +22,15 @@
       <stylesheets>
         <URL value="@HelpWindow.css" />
       </stylesheets>
-
       <BorderPane fx:id="helpMessageContainer">
         <top>
-          <HBox alignment="TOP_LEFT" spacing="10">
+          <HBox alignment="CENTER_LEFT" spacing="10">
             <Label fx:id="userGuideMessage">
              <HBox.margin>
                 <Insets top="10" right="10" bottom="10" left="10" />
-              </HBox.margin>
+             </HBox.margin>
             </Label>
             <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
-              <HBox.margin>
-                <Insets top="15" right="10" bottom="10" left="10" />
-              </HBox.margin>
               <padding>
                 <Insets top="5" right="5" bottom="5" left="5"/>
               </padding>
@@ -41,15 +38,11 @@
           </HBox>
         </top>
         <center>
-          <TableView fx:id="helpTable">
-          <columns>
-              <TableColumn fx:id="commandColumn" text="Command" minWidth="100" prefWidth="120" maxWidth="200" resizable="false"/>
-              <TableColumn fx:id="descriptionColumn" text="Description" minWidth="400" prefWidth="640" maxWidth="Infinity" resizable="false"/>
-            </columns>
+          <GridPane fx:id="helpTable">
             <BorderPane.margin>
-            <Insets top="10" right="10" bottom="10" left="10" />
-          </BorderPane.margin>
-          </TableView>
+              <Insets top="10" right="10" bottom="10" left="10" />
+            </BorderPane.margin>
+          </GridPane>
         </center>
       </BorderPane>
     </Scene>
