@@ -1,4 +1,4 @@
-#copyButton, #helpMessage, #userGuideMessage {
+#copyButton, #userGuideMessage {
     -fx-text-fill: white;
 }
 
@@ -16,13 +16,27 @@
 
 #userGuideMessage {
     -fx-background-color: derive(#1d1d1d, 20%);
-    -fx-font-size: 18px;
+    -fx-font-size: 16px;
 }
 
 #helpMessageContainer {
     -fx-background-color: derive(#1d1d1d, 20%);
 }
 
-#helpMessage {
-    -fx-font-size: 18px;
+.table-view {
+    -fx-background-color: derive(#1d1d1d, 20%);
+}
+
+.table-view .column-header .label {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-font-size: 16px;
+}
+
+.table-view .table-cell {
+    -fx-background-color: derive(#1d1d1d, 20%);
+    -fx-text-fill: white;
+    -fx-border-color: white;
+    -fx-font-size: 14px;
 }
