@@ -34,46 +34,36 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String USERGUIDE_URL = "https://ay2324s2-cs2103-f15-1.github.io/tp/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL + "\n\n";
 
-    public static final String CLEAR_COMMAND_MESSAGE = ClearCommand.COMMAND_WORD
-                + ": Clear all the contacts in FINDvisor\n";
-    public static final String EXIT_COMMAND_MESSAGE = ExitCommand.COMMAND_WORD + ": Exit FINDvisor\n";
-    public static final String LIST_COMMAND_MESSAGE = ListCommand.COMMAND_WORD + ": List all persons in FINDvisor.\n";
-    public static final String HELP_COMMAND_MESSAGE = HelpCommand.COMMAND_WORD
-                + ": Shows program usage instructions.\n";
+    public static final String CLEAR_COMMAND_MESSAGE = "Clear all the contacts in FINDvisor.";
+    public static final String EXIT_COMMAND_MESSAGE = "Exit FINDvisor.";
+    public static final String LIST_COMMAND_MESSAGE = "List all persons in FINDvisor.";
+    public static final String HELP_COMMAND_MESSAGE = "Shows program usage instructions.";
 
-    public static final String ADD_COMMAND_MESSAGE = AddCommand.COMMAND_WORD + ": Adds a person to FINDvisor.\n";
-    public static final String DELETE_COMMAND_MESSAGE = DeleteCommand.COMMAND_WORD + ": Deletes the person identified"
-                + " by the index number used in the displayed person list.\n";
-    public static final String FIND_COMMAND_MESSAGE = FindCommand.COMMAND_WORD
-                + ": Finds all persons whose information matches "
+    public static final String ADD_COMMAND_MESSAGE = "Adds a person to FINDvisor.";
+    public static final String DELETE_COMMAND_MESSAGE = "Deletes the person identified."
+                + " by the index number used in the displayed person list.";
+    public static final String FIND_COMMAND_MESSAGE = "Finds all persons whose information matches "
                 + "the specified keywords (case-insensitive) of the specified category and "
-                + "displays them as a list with index numbers.\n";
-    public static final String EDIT_COMMAND_MESSAGE = EditCommand.COMMAND_WORD
-                + ": Edits the details of the person identified "
+                + "displays them as a list with index numbers.";
+    public static final String EDIT_COMMAND_MESSAGE = "Edits the details of the person identified "
                 + "by the index number used in the displayed person list. "
-                + "Existing values will be overwritten by the input values.\n";
+                + "Existing values will be overwritten by the input values.";
 
-    public static final String ADD_TAG_COMMAND_MESSAGE = AddTagCommand.COMMAND_WORD
-                + ": Adds new tags to the person identified"
-                + " by the index number used in the displayed person list.\n";
-    public static final String DELETE_TAG_COMMAND_MESSAGE = DeleteTagCommand.COMMAND_WORD
-                + ": Deletes the tag associated with "
-                + "a person identified by the index number used in the displayed person list.\n";
+    public static final String ADD_TAG_COMMAND_MESSAGE = "Adds new tags to the person identified"
+                + " by the index number used in the displayed person list.";
+    public static final String DELETE_TAG_COMMAND_MESSAGE = "Deletes the tag associated with "
+                + "a person identified by the index number used in the displayed person list.";
 
-    public static final String SCHEDULE_COMMAND_MESSAGE = ScheduleCommand.COMMAND_WORD
-                + ": Schedules a meeting with the person "
-                + "identified by the index number used in the displayed person list.\n";
-    public static final String UNSCHEDULE_COMMAND_MESSAGE = UnscheduleCommand.COMMAND_WORD
-                + ": Unschedules a meeting with the person "
-                + "identified by the index number used in the displayed person list.\n";
-    public static final String RESCHEDULE_COMMAND_MESSAGE = RescheduleCommand.COMMAND_WORD
-                + ": Reschedules a meeting with the person "
-                + "identified by the index number used in the displayed person list.\n";
+    public static final String SCHEDULE_COMMAND_MESSAGE = "Schedules a meeting with the person "
+                + "identified by the index number used in the displayed person list.";
+    public static final String UNSCHEDULE_COMMAND_MESSAGE = "Unschedules a meeting with the person "
+                + "identified by the index number used in the displayed person list.";
+    public static final String RESCHEDULE_COMMAND_MESSAGE = "Reschedules a meeting with the person "
+                + "identified by the index number used in the displayed person list.";
 
-    public static final String REMARK_COMMAND_MESSAGE = RemarkCommand.COMMAND_WORD
-                + ": Updates a remark of the person identified "
+    public static final String REMARK_COMMAND_MESSAGE = "Updates a remark of the person identified "
                 + "by the index number used in the displayed person list. "
-                + "Existing values will be overwritten by the input.\n";
+                + "Existing values will be overwritten by the input.";
 
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
