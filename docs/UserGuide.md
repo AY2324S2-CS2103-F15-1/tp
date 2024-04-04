@@ -283,30 +283,33 @@ Examples:
 
 Adds 1 or more tags to a specified person from the contact list of FINDvisor.
 
-This command makes it easier to add tags to a person without having to re-type all the tags using the `edit` command.
+This command makes it easier to add tags to a person without having to re-type all existing tags using the `edit` command.
 
 Format: `addtag INDEX t/TAG...`
 
 * Adds 1 or more tags to the person at the specified `INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3,...
-* at least 1 `TAG` must be provided.
+* At least 1 `TAG` must be provided.
 
 Examples:
 
 * `list` followed by `addtag 1 t/PRUSafe365` adds `PRUSafe365` to the 1st person in the contact list of FINDvisor.
 * `find n/Holly` followed by `addtag 1 t/PRUSafe365 t/PRUGrowth` adds both `PRUSafe365` and  `PRUGrowth` to the 1st person in the results of the `find` command.
 
-### Deleting tags with a person : `deletetag`
+### Deleting tags from a person : `deletetag`
 
-Deletes one or more tags associated with the specified person.
+Deletes 1 or more tags from a specified person from the contact list of FINDvisor.
 
-Format: `deletetag INDEX t/TAG`
+This command makes it easier to remove tags from a person without having to re-type all tags that should be kept using the `edit` command.
 
+Format: `deletetag INDEX t/TAG...`
+
+* Deletes 1 or more tags from the person at the specified `INDEX`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* Specified tags must be valid tags.
-* Specified person may not have the specified tags.
+* At least 1 `TAG` must be provided.
+* Specified person **must have all** the specified `TAG`.
 
 Examples:
 
