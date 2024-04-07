@@ -18,6 +18,17 @@ public class DateTimeUtilTest {
     }
 
     @Test
+    public void parseDateTimeString_invalidString_throwsDateTimeParseException() {
+        assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateTimeString("INVALID STRING"));
+
+        // Invalid date
+        assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateTimeString("31-04-2024T14:00"));
+
+        // Invalid date leap year
+        assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateTimeString("29-02-2025T14:00"));
+    }
+
+    @Test
     public void isValidDate_invalidString_returnsFalse() {
         // Invalid string
         assertFalse(DateTimeUtil.isValidDate("Invalid String"));
@@ -53,12 +64,18 @@ public class DateTimeUtilTest {
     }
 
     @Test
-    public void parseDateeString_invalidString_throwsDateTimeParseException() {
+    public void parseDateString_invalidString_throwsDateTimeParseException() {
         assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateString("INVALID STRING"));
+
+        // Invalid date
+        assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateString("31-04-2024"));
+
+        // Invalid date leap year
+        assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateString("29-02-2025"));
     }
 
     @Test
-    public void parseDateeString_invalidDateFormat_throwsDateTimeParseException() {
+    public void parseDateString_invalidDateFormat_throwsDateTimeParseException() {
         assertThrows(DateTimeParseException.class, () -> DateTimeUtil.parseDateString("2024-10-10"));
     }
 

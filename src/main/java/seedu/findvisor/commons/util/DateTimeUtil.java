@@ -4,21 +4,25 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.time.temporal.ChronoUnit;
 
 /**
  * Handles DateTime parsing and formatting.
  */
 public class DateTimeUtil {
-    public static final String DATE_PATTERN = "dd-MM-yyyy";
+    public static final String DATE_PATTERN = "dd-MM-uuuu";
 
     public static final DateTimeFormatter DATE_TIME_INPUT_FORMAT =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy'T'HH:mm");
+            DateTimeFormatter.ofPattern("dd-MM-uuuu'T'HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     public static final DateTimeFormatter DATE_TIME_OUTPUT_FORMAT =
-            DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+            DateTimeFormatter.ofPattern("dd-MM-uuuu HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
-    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_PATTERN);
+    public static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern(DATE_PATTERN)
+            .withResolverStyle(ResolverStyle.STRICT);
 
     /**
      * Returns true if {@code date} can be converted into a {@code LocalDate} via {@link LocalDate#parse(CharSequence)},
