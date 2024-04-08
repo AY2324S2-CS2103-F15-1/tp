@@ -15,7 +15,7 @@ title: User Guide
 ## About FINDvisor
 FINDvisor is a desktop app for **Singapore-based** financial advisors to manage contacts with **Singapore-based phone numbers**. If you **frequently schedule meetings and require quick access to your contacts' details**, then FINDvisor is the tool for you. It is optimized for use via a Command Line Interface ([CLI](https://aws.amazon.com/what-is/cli/#:~:text=A%20command%20line%20interface%20(CLI,all%20applications%20and%20software%20systems.))), suitable for individuals who prefer typing over mouse interactions.
 
-FINDvisor enables financial advisors to quickly save and retrieve the following contact's information: Name, Phone Number, Email, Address. It also allows financial advisors to create a remark and additional tags for a specific contact when needed. Lastly, FINDvisor offer financial advisors the ability to manage their meetings with their contacts.
+FINDvisor enables financial advisors to quickly save and retrieve the following contact's information such as name, phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed and offers the capability to manage their meetings with their contacts.
 ## Quick start
 
 1. Ensure you have Java `11` or above installed in your Computer.
