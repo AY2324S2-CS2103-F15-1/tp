@@ -389,6 +389,25 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+--------------------------------------------------------------------------------------------------------------------
+
+## **Planned Enhancements**
+
+This section describes planned features to be implemented after v1.4.
+
+### Flexibility of Date and DateTime Inputs
+
+In the current implementation of FINDvisor, it only strictly accepts dates of the format `dd-MM-yyyy` and datetime values of the format `dd-MM-yyyy`T`HH:mm`.
+To enhance usability, FINDvisor will accept the following formats:
+
+* Date:
+  * `d-M-yyyy` - Accepts single digit days and months without adding any zeroes to the front. Double-digit days and months will still be accepted in this format.
+  * `d-M-yy` - Similar to the format above, except that it allows 2 digit values for the year as input. When using a double-digit value for year, it will use the current century to produce the full date e.g., `1-1-24` will be read as the `1st January 2024`.
+* Datetime:
+  * `d-M-yyyy`T`H:m` - Apart from accepting single digit days and months, single digit hours and minutes will also be accepted. Double-digit hours and minutes will still be accepted in this format.
+  * `d-M-yy`T`H:m` - Similar to the format above, except that it allows for 2 digit values for the year as input.
+  * `d-M-yyyy H:m` - Allows the use of whitespace as the date and time separator.
+  * `d-M-yy H:m` - Allows the use of whitespace as the date and time separator.
 
 --------------------------------------------------------------------------------------------------------------------
 
