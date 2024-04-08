@@ -40,7 +40,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String HELP_COMMAND_MESSAGE = "Shows program usage instructions.";
 
     public static final String ADD_COMMAND_MESSAGE = "Adds a person to FINDvisor.";
-    public static final String DELETE_COMMAND_MESSAGE = "Deletes the person identified."
+    public static final String DELETE_COMMAND_MESSAGE = "Deletes the person identified"
                 + " by the index number used in the displayed person list.";
     public static final String FIND_COMMAND_MESSAGE = "Finds all persons whose information matches "
                 + "the specified keywords (case-insensitive) of the specified category and "
