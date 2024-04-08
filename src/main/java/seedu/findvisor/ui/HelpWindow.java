@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.findvisor.commons.core.LogsCenter;
 import seedu.findvisor.logic.commands.AddCommand;
@@ -84,6 +85,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        root.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
         int i = 0;
