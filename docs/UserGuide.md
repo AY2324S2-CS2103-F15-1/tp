@@ -267,7 +267,7 @@ Updates the remark of a specified person.
 This command is useful for adding additional information about a person, such as their birthday or financial goals,
 that is not covered by a person's contact information.
 
-Format: `remark INDEX r/REMARK`
+Format: `remark INDEX r/[REMARK]`
 
 * Updates the remark of a person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
@@ -382,7 +382,7 @@ Action | Format, Examples
 **Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g. `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
 **Unschedule** | `unschedule INDEX`<br> e.g. `unschedule 1`
 **Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g. `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
-**Remark** | `remark INDEX r/REMARK`<br> e.g. `remark 1 r/Plans to own a house by age 35`
+**Remark** | `remark INDEX r/[REMARK]`<br> e.g. `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g. `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
 **Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g. `deletetag 1 t/friends t/family`
 **Clear** | `clear`
