@@ -21,27 +21,27 @@
       <stylesheets>
         <URL value="@HelpWindow.css" />
       </stylesheets>
-      <BorderPane fx:id="helpMessageContainer">
-        <top>
-          <HBox alignment="CENTER_LEFT" spacing="10">
-            <Label fx:id="userGuideMessage">
-             <HBox.margin>
-                <Insets top="10" right="10" bottom="10" left="10" />
-             </HBox.margin>
-            </Label>
-            <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
-              <padding>
-                <Insets top="5" right="5" bottom="5" left="5"/>
-              </padding>
-            </Button>
-          </HBox>
-        </top>
-        <center>
-          <ScrollPane fitToWidth="true">
-            <GridPane fx:id="helpTable" />
-          </ScrollPane>
-        </center>
-      </BorderPane>
+      <ScrollPane fitToWidth="true">
+        <BorderPane fx:id="helpMessageContainer">
+          <top>
+            <HBox alignment="CENTER_LEFT" spacing="10">
+              <Label fx:id="userGuideMessage">
+               <HBox.margin>
+                  <Insets top="10" right="10" bottom="10" left="10" />
+               </HBox.margin>
+              </Label>
+              <Button fx:id="copyButton" mnemonicParsing="false" onAction="#copyUrl" text="Copy URL">
+                <padding>
+                  <Insets top="5" right="5" bottom="5" left="5"/>
+                </padding>
+              </Button>
+            </HBox>
+          </top>
+          <center>
+              <GridPane fx:id="helpTable" />
+          </center>
+        </BorderPane>
+      </ScrollPane>
     </Scene>
   </scene>
 </fx:root>

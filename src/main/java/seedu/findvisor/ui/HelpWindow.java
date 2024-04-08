@@ -85,7 +85,13 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
-        root.setMaxHeight(Screen.getPrimary().getBounds().getHeight());
+        root.setMaxHeight(Screen.getPrimary().getVisualBounds().getHeight());
+        // Required due to bug: https://bugs.openjdk.org/browse/JDK-8187899
+        // Setting max height does not change initial height. Initial height of window is not set but computed.
+        // Hence, there is a need to check for computed height and restrict it to the max size.
+        if (root.getHeight() > root.getMaxHeight()) {
+            root.setHeight(root.getMaxHeight());
+        }
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
         int i = 0;
