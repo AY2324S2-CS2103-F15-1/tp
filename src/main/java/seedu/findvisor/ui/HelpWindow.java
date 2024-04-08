@@ -88,6 +88,9 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         root.setMaxHeight(Screen.getPrimary().getVisualBounds().getHeight());
+        if (root.getMinHeight() > root.getMaxHeight()) {
+            root.setMinHeight(root.getMaxHeight());
+        }
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
         int i = 0;
@@ -186,6 +189,7 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
+        getRoot().show();
         if (hasNotShownOnce) {
             // Required for bug: https://bugs.openjdk.org/browse/JDK-8187899
             if (getRoot().getHeight() > getRoot().getMaxHeight()) {
@@ -193,7 +197,6 @@ public class HelpWindow extends UiPart<Stage> {
             }
             hasNotShownOnce = false;
         }
-        getRoot().show();
         getRoot().centerOnScreen();
     }
 
