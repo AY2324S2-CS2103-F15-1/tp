@@ -185,13 +185,13 @@ Format:`find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br
 * User input will be validated **only** for `find m/MEETING_DATE` based on the `DATE` format.
   * For other categories, user input does not have to conform to the corresponding parameter format, e.g. `find p/John`, however no persons will be matched.
 * Multiple keywords can be specified for tags **only**.
+  * Persons matching **at least** one of the specified tag keywords will be returned. e.g. `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` or `friends`.
 
 Examples:
 * `find n/Alice` returns all persons with name containing `Alice`.
 * `find p/91234567` returns person with phone number `91234567`.
 * `find mr/online meeting` returns all persons with meeting remark containing `online meeting`.
 * `find m/23-10-2024` returns all persons with meetings on the date `23-10-2024`.
-* `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` and `friends`.
 
 ### Deleting a person : `delete`
 
