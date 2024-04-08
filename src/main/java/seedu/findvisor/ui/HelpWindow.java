@@ -9,6 +9,7 @@ import javafx.scene.control.Label;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.layout.GridPane;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import seedu.findvisor.commons.core.LogsCenter;
 import seedu.findvisor.logic.commands.AddCommand;
@@ -40,7 +41,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String HELP_COMMAND_MESSAGE = "Shows program usage instructions.";
 
     public static final String ADD_COMMAND_MESSAGE = "Adds a person to FINDvisor.";
-    public static final String DELETE_COMMAND_MESSAGE = "Deletes the person identified."
+    public static final String DELETE_COMMAND_MESSAGE = "Deletes the person identified"
                 + " by the index number used in the displayed person list.";
     public static final String FIND_COMMAND_MESSAGE = "Finds all persons whose information matches "
                 + "the specified keywords (case-insensitive) of the specified category and "
@@ -68,6 +69,8 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
+    private boolean hasNotShownOnce = true;
+
     @FXML
     private Button copyButton;
 
@@ -84,6 +87,10 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public HelpWindow(Stage root) {
         super(FXML, root);
+        root.setMaxHeight(Screen.getPrimary().getVisualBounds().getHeight());
+        if (root.getMinHeight() > root.getMaxHeight()) {
+            root.setMinHeight(root.getMaxHeight());
+        }
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
         int i = 0;
@@ -183,6 +190,13 @@ public class HelpWindow extends UiPart<Stage> {
     public void show() {
         logger.fine("Showing help page about the application.");
         getRoot().show();
+        if (hasNotShownOnce) {
+            // Required for bug: https://bugs.openjdk.org/browse/JDK-8187899
+            if (getRoot().getHeight() > getRoot().getMaxHeight()) {
+                getRoot().setHeight(getRoot().getMaxHeight());
+            }
+            hasNotShownOnce = false;
+        }
         getRoot().centerOnScreen();
     }
 
