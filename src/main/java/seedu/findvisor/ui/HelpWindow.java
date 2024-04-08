@@ -69,7 +69,7 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
-    private static boolean hasNotShownOnce = true;
+    private boolean hasNotShownOnce = true;
 
     @FXML
     private Button copyButton;
