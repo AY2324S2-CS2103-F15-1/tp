@@ -69,6 +69,8 @@ public class HelpWindow extends UiPart<Stage> {
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
+    private static boolean hasNotShownOnce = true;
+
     @FXML
     private Button copyButton;
 
@@ -86,12 +88,6 @@ public class HelpWindow extends UiPart<Stage> {
     public HelpWindow(Stage root) {
         super(FXML, root);
         root.setMaxHeight(Screen.getPrimary().getVisualBounds().getHeight());
-        // Required due to bug: https://bugs.openjdk.org/browse/JDK-8187899
-        // Setting max height does not change initial height. Initial height of window is not set but computed.
-        // Hence, there is a need to check for computed height and restrict it to the max size.
-        if (root.getHeight() > root.getMaxHeight()) {
-            root.setHeight(root.getMaxHeight());
-        }
         helpTable.setPadding(new Insets(10, 10, 10, 10));
         userGuideMessage.setText(HELP_MESSAGE);
         int i = 0;
@@ -190,6 +186,13 @@ public class HelpWindow extends UiPart<Stage> {
      */
     public void show() {
         logger.fine("Showing help page about the application.");
+        if (hasNotShownOnce) {
+            // Required for bug: https://bugs.openjdk.org/browse/JDK-8187899
+            if (getRoot().getHeight() > getRoot().getMaxHeight()) {
+                getRoot().setHeight(getRoot().getMaxHeight());
+            }
+            hasNotShownOnce = false;
+        }
         getRoot().show();
         getRoot().centerOnScreen();
     }
