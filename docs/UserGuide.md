@@ -273,7 +273,7 @@ Format: `remark INDEX r/[REMARK]`
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
 * If there is an existing remark, it will be overwritten with the new `REMARK`.
-* If `REMARK` is empty or consists entirely of whitespace characters, the command will **remove the previous remark**.
+* If `REMARK` is empty or consists entirely of whitespace characters, the command will **remove the existing remark**.
 
 Examples:
 
