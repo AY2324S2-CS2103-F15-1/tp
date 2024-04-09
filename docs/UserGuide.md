@@ -74,7 +74,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 **:information_source: Notes about input values format:**<br>
 
-* Input values cannot be blank unless specified by feature description.
+* Input values cannot be blank unless otherwise specified.
 * Spacing of values:
   * Leading and trailing spaces of input values will be removed.
   * Extra spaces between values will remain unless otherwise specified.
