@@ -34,7 +34,7 @@ public class HelpWindow extends UiPart<Stage> {
 
     public static final String USERGUIDE_URL = "https://ay2324s2-cs2103-f15-1.github.io/tp/UserGuide.html";
     public static final String HELP_MESSAGE = "Refer to the user guide: " + USERGUIDE_URL + "\n\n";
-
+    //@@author YuZizhen
     public static final String CLEAR_COMMAND_MESSAGE = "Clear all the contacts in FINDvisor.";
     public static final String EXIT_COMMAND_MESSAGE = "Exit FINDvisor.";
     public static final String LIST_COMMAND_MESSAGE = "List all persons in FINDvisor.";
@@ -65,7 +65,7 @@ public class HelpWindow extends UiPart<Stage> {
     public static final String REMARK_COMMAND_MESSAGE = "Updates a remark of the person identified "
                 + "by the index number used in the displayed person list. "
                 + "Existing values will be overwritten by the input.";
-
+    //@@author
     private static final Logger logger = LogsCenter.getLogger(HelpWindow.class);
     private static final String FXML = "HelpWindow.fxml";
 
