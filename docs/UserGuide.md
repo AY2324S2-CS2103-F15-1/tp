@@ -86,7 +86,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Contacts are considered duplicates if they share the same phone number.
 
 * `NAME` format:
-  * Can only contain alphabetical characters and spaces.
+  * Can only contain alphanumeric characters and spaces.
   * Extra spaces between values will be processed as a single space.
 
 * `PHONE_NUMBER` format:
@@ -165,24 +165,17 @@ Examples:
 
 ### Searching persons by person's information: `find`
 
-Finds persons that contains specified keywords based on **a specified category** of a person's information. The supported categories are:
-* Name
-* Email
-* Phone Number
-* Address
-* Remark
-* Meeting Date
-* Meeting Remark
-* Tags
+Finds persons that contains specified keywords based on **a specified category** of a person's information.
 
 Format:`find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK|m/MEETING_DATE`<br>`|mr/MEETING_REMARK|t/TAG…`<br>
 
-* Only one category can be specified and searched for any instance of the `find` command.
+* **Only one category can be specified** and searched for any instance of the `find` command.
+* Specified keywords **must not be blank**.
+* User input will be validated **only** for `find m/MEETING_DATE` based on the `DATE` format.
+  * For other categories, user input **does not have to conform** to the corresponding parameter format, e.g. `find p/John`, however no persons will be matched.
 * The search checks if a person's information **contains** the keyword specified, e.g. `find n/Ali` will match `Alice` and `Alicia Tay`.
 * The search is **case-insensitive**. e.g `find n/hans` will match `Hans`.
 * Order of keywords matter. e.g. `find n/Doe John` will **not match** `John Doe`.
-* User input will be validated **only** for `find m/MEETING_DATE` based on the `DATE` format.
-  * For other categories, user input does not have to conform to the corresponding parameter format, e.g. `find p/John`, however no persons will be matched.
 * Multiple keywords can be specified for tags **only**.
   * Persons matching **at least** one of the specified tag keywords will be returned. e.g. `find t/PRUActiveCash t/friends` returns all persons with tags containing `PRUActiveCash` or `friends`.
 
@@ -320,6 +313,11 @@ Examples:
 
 Clears all entries from the contact list of FINDvisor.
 
+<div markdown="span" class="alert alert-danger">:exclamation: **Warning:**<br>
+FINDvisor will **not prompt for confirmation** and will result in **permanent deletion of all contacts** in FINDvisor.
+This action is **irreversible** and there will be no way to retrieve the data unless there is a backup copy of the JSON data file.
+</div>
+
 Format: `clear`
 
 ### Exiting the program : `exit`
@@ -344,7 +342,7 @@ FINDvisor data are saved in the hard disk automatically after any command that c
 
 ### Editing the data file
 
-FINDvisor data are saved automatically as a JSON file `[JAR file location]/data/FINDvisor.json`. Advanced users are welcome to update data directly by editing that data file.
+FINDvisor data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, FINDvisor will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
