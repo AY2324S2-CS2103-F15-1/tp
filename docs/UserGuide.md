@@ -85,7 +85,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * Contacts are considered duplicates if they share the same phone number.
 
 * `NAME` format:
-  * Can only contain alphabetical characters and spaces.
+  * Can only contain alphanumeric characters and spaces.
   * Cannot be blank.
   * Extra spaces between values will be processed as a single space.
 
