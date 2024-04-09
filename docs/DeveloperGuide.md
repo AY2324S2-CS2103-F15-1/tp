@@ -417,19 +417,18 @@ _{Explain here how the data archiving feature will be implemented}_
 - Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
 - For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 
-### Flexibility of Date and DateTime Inputs
+### 3. Allow single day, month, hour and minute as valid Date and DateTime inputs
 
-In the current implementation of FINDvisor, it only strictly accepts dates of the format `dd-MM-yyyy` and datetime values of the format `dd-MM-yyyy`T`HH:mm`.
-To enhance usability, FINDvisor will accept the following formats:
+**Current Implementation**:
 
-* Date:
-    * `d-M-yyyy` - Accepts single digit days and months without adding any zeroes to the front. Double-digit days and months will still be accepted in this format.
-    * `d-M-yy` - Similar to the format above, except that it allows 2 digit values for the year as input. When using a double-digit value for year, it will use the current century to produce the full date e.g., `1-1-24` will be read as the `1st January 2024`.
-* Datetime:
-    * `d-M-yyyy`T`H:m` - Apart from accepting single digit days and months, single digit hours and minutes will also be accepted. Double-digit hours and minutes will still be accepted in this format.
-    * `d-M-yy`T`H:m` - Similar to the format above, except that it allows for 2 digit values for the year as input.
-    * `d-M-yyyy H:m` - Allows the use of whitespace as the date and time separator.
-    * `d-M-yy H:m` - Allows the use of whitespace as the date and time separator.
+- FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
+- This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
+- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T1:1`, which is equivalent to a valid datetime `01/01/2024T01:01`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
+
+**Proposed Implementation**:
+
+- Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:m` instead.
+- This allows FINDvisor to accept both single and double-digits day, month, hour and minute values as valid `DATE` and `DATETIME` values and would not require users to pad single digit values to pad their inputs with a leading zero.
 
 --------------------------------------------------------------------------------------------------------------------
 
