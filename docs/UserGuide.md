@@ -314,6 +314,11 @@ Examples:
 
 Clears all entries from the contact list of FINDvisor.
 
+<div markdown="span" class="alert alert-danger">:exclamation: **Warning:**<br>
+FINDvisor will **not prompt for confirmation** and will result in **permanent deletion of all contacts** in FINDvisor.
+This action is **irreversible** and there will be no way to retrieve the data unless there is a backup copy of the JSON data file.
+</div>
+
 Format: `clear`
 
 ### Exiting the program : `exit`
