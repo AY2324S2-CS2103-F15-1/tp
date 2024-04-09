@@ -74,6 +74,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 **:information_source: Notes about input values format:**<br>
 
+* Input values cannot be blank unless specified by feature description.
 * Spacing of values:
   * Leading and trailing spaces of input values will be removed.
   * Extra spaces between values will remain unless otherwise specified.
@@ -86,7 +87,6 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 * `NAME` format:
   * Can only contain alphabetical characters and spaces.
-  * Cannot be blank.
   * Extra spaces between values will be processed as a single space.
 
 * `PHONE_NUMBER` format:
@@ -98,7 +98,6 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 * `ADDRESS` format:
   * Can only consist of alphanumeric characters, whitespace and the following set of characters: ``#-(),``.
-  * Cannot be blank.
 
 * `TAG` format:
   * Can only consist of alphanumeric characters.
