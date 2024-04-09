@@ -415,6 +415,17 @@ _{Explain here how the data archiving feature will be implemented}_
 - Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
 - For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 
+### 3. Allow users to enter more special characters for Name field
+**Current Implementation**:
+
+- Similar to Planned Enhancement 1, the `NAME` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- For example, if the user wishes to edit an existing Person's name at index 1 with the value "Raveendran Pavithra d/o A. Mohan", the command `edit 1 n/Raveendran Pavithra d/o A. Mohan` will be invalid as "/ and ." are not permitted.
+
+**Proposed Enhancement**:
+
+- Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `NAME` field.
+- For names containing `/` characters, the user will be required to use the `\` character to escape each `/` character. With reference to the previous `edit` command, the name will be successfully edited when the user enters `edit 1 n/Raveendran Pavithra d\/o A. Mohan`.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
