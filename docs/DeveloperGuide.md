@@ -389,6 +389,31 @@ _{more aspects and alternatives to be added}_
 
 _{Explain here how the data archiving feature will be implemented}_
 
+--------------------------------------------------------------------------------------------------------------------
+
+## **Planned Enhancements**
+**Team size: 5**
+### 1. Allow users to enter more special characters for Remark and Meeting Remark fields
+**Current Implementation**: 
+
+- `REMARK` and `MEETING_REMARK` fields uses **the same pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- For example, if the user wishes to add a remark titled "Birthday on 23/02/2024" for an existing Person at index 1, the command `remark 1 r/Birthday on 23/02/2024` will be invalid.
+
+**Proposed Enhancement**: 
+
+- Modify the pre-defined set of allowed characters to **capture any character instead**.
+- Allow escaping of `/` characters by the user using `\` as an escape character. With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
+
+### 2. Allow users to enter more special characters for Address field
+**Current Implementation**: 
+
+- Similar to Planned Enhancement 1, the `ADDRESS` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- For example, if the user wishes to edit an existing Person's address at index 1 with the value "Pinnacle@Duxton", the command `edit 1 a/Pinnacle@Duxton` will be invalid.
+
+**Proposed Enhancement**: 
+
+- Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
+- For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 
 --------------------------------------------------------------------------------------------------------------------
 
