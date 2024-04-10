@@ -420,8 +420,8 @@ _{Explain here how the data archiving feature will be implemented}_
 ### 3. Allow users to enter more special characters for Remark and Meeting Remark fields
 **Current Implementation**:
 
-- The `NAME` field uses **the same pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
-- For example, if the user wishes to edit a contact's `name` to "Samintharaj Kumar s/o A. Nair" for an existing Person at index 1, the command `edit 1 n/Samintharaj Kumar s/o A. Nair` will be invalid as `/` and `.` are not allowed.
+- The `NAME` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- For example, if the user wishes to edit a contact's name to "Samintharaj Kumar s/o A. Nair" for an existing Person at index 1, the command `edit 1 n/Samintharaj Kumar s/o A. Nair` will be invalid as `/` and `.` are not allowed.
 
 **Proposed Enhancement**:
 
