@@ -194,7 +194,7 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* The delete command only support deletion of **one person** at one time. 
+* The delete command only supports the deletion of **one person** at a time.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the contact list of FINDvisor.
