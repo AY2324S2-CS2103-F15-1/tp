@@ -74,7 +74,7 @@ public class ScheduleCommand extends Command {
         }
         Person editedPerson = createEditedPerson(personToEdit, meeting);
 
-        if (!DateTimeUtil.isAfterCurrentDateTime(meeting.start)) {
+        if (!DateTimeUtil.isAfterCurrentDateTime(meeting.getStart())) {
             throw new CommandException(MESSAGE_CANNOT_SCHEDULE_MEETING_IN_THE_PAST);
         }
 
