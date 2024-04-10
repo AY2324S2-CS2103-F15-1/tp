@@ -415,6 +415,17 @@ _{Explain here how the data archiving feature will be implemented}_
 - Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
 - For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 
+### 3. Add message notification for data file loading process
+**Current Implementation**: 
+
+- There is **no message notification** for incorrect data file loading and success data loading.
+- For example, when load a data file, the user does not know whether the data file is loaded succesfully into the FINDvisor unless the user check the contacts manually to see if there are any changes.
+
+**Proposed Enhancement**: 
+
+- Add a message for successful data file loading and an error message specifying the type of error encountered while loading data file. This provides a more direct feedback for the user.
+- For example, `Data file is loaded succesfully!` will be shown when the loading is succeeded. `Data file does not exist in the directory.` will be returned if the target datafile is not found in the directory.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
