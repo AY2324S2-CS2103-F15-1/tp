@@ -32,7 +32,7 @@ public class RescheduleCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, dateTimeToString(meetingNoRemark.start), MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, dateTimeToString(meetingNoRemark.getStart()), MESSAGE_INVALID_FORMAT);
 
         // no field specified
         assertParseFailure(parser, "1", Messages.MESSAGE_REQUIRE_AT_LEAST_ONE_FIELD);
@@ -44,20 +44,20 @@ public class RescheduleCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // invalid index
-        assertParseFailure(parser, "a" + " " + dateTimeToString(meetingNoRemark.start), MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "a" + " " + dateTimeToString(meetingNoRemark.getStart()), MESSAGE_INVALID_FORMAT);
 
         // invalid index
-        assertParseFailure(parser, "-1" + " " + dateTimeToString(meetingNoRemark.start), MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-1" + " " + dateTimeToString(meetingNoRemark.getStart()), MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidValue_failure() {
         // invalid start datetime
-        assertParseFailure(parser, "1" + " " + "22-02-1922T14:00" + " " + dateTimeToString(meetingNoRemark.end),
+        assertParseFailure(parser, "1" + " " + "22-02-1922T14:00" + " " + dateTimeToString(meetingNoRemark.getEnd()),
                 MESSAGE_INVALID_FORMAT);
 
         // invalid end datetime
-        assertParseFailure(parser, "1" + " " + dateTimeToString(meetingNoRemark.start) + " " + "22-02-1922T15:00",
+        assertParseFailure(parser, "1" + " " + dateTimeToString(meetingNoRemark.getStart()) + " " + "22-02-1922T15:00",
                 MESSAGE_INVALID_FORMAT);
 
         // invalid start and end datetime
@@ -80,19 +80,20 @@ public class RescheduleCommandParserTest {
         Index targetIndex = INDEX_THIRD_PERSON;
 
         // start datetime
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder().withStart(meetingNoRemark.start).build();
+        EditMeetingDescriptor descriptor = new EditMeetingDescriptorBuilder()
+                        .withStart(meetingNoRemark.getStart()).build();
         RescheduleCommand expectedCommand = new RescheduleCommand(targetIndex, descriptor);
         String userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // end datetime
-        descriptor = new EditMeetingDescriptorBuilder().withEnd(meetingNoRemark.end).build();
+        descriptor = new EditMeetingDescriptorBuilder().withEnd(meetingNoRemark.getEnd()).build();
         expectedCommand = new RescheduleCommand(targetIndex, descriptor);
         userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
 
         // remark
-        descriptor = new EditMeetingDescriptorBuilder().withRemark(meetingWithRemark.remark).build();
+        descriptor = new EditMeetingDescriptorBuilder().withRemark(meetingWithRemark.getRemark()).build();
         expectedCommand = new RescheduleCommand(targetIndex, descriptor);
         userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseSuccess(parser, userInput, expectedCommand);
@@ -109,19 +110,19 @@ public class RescheduleCommandParserTest {
                     PREFIX_START_DATETIME, PREFIX_END_DATETIME, PREFIX_MEETING_REMARK));
 
         // multiple start datetime
-        descriptor = new EditMeetingDescriptorBuilder().withStart(meetingNoRemark.start).build();
+        descriptor = new EditMeetingDescriptorBuilder().withStart(meetingNoRemark.getStart()).build();
         userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor)
                 + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_START_DATETIME));
 
         // multiple end datetime
-        descriptor = new EditMeetingDescriptorBuilder().withEnd(meetingNoRemark.end).build();
+        descriptor = new EditMeetingDescriptorBuilder().withEnd(meetingNoRemark.getEnd()).build();
         userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor)
                 + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_END_DATETIME));
 
         // multiple remark
-        descriptor = new EditMeetingDescriptorBuilder().withRemark(meetingWithRemark.remark).build();
+        descriptor = new EditMeetingDescriptorBuilder().withRemark(meetingWithRemark.getRemark()).build();
         userInput = targetIndex.getOneBased() + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor)
                 + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_MEETING_REMARK));

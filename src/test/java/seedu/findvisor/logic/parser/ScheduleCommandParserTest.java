@@ -35,8 +35,8 @@ public class ScheduleCommandParserTest {
         ScheduleCommand expectedScheduleCommand = new ScheduleCommand(targetIndex, meeting);
         assertParseSuccess(parser,
                 targetIndex.getOneBased() + " "
-                + PREFIX_START_DATETIME + " " + dateTimeToInputString(meeting.start) + " "
-                + PREFIX_END_DATETIME + " " + dateTimeToInputString(meeting.end),
+                + PREFIX_START_DATETIME + " " + dateTimeToInputString(meeting.getStart()) + " "
+                + PREFIX_END_DATETIME + " " + dateTimeToInputString(meeting.getEnd()),
                 expectedScheduleCommand);
     }
 
@@ -54,12 +54,13 @@ public class ScheduleCommandParserTest {
         Meeting meeting = createValidMeetingNonEmptyRemark();
         Index targetIndex = INDEX_FIRST_PERSON;
         ScheduleCommand expectedScheduleCommand = new ScheduleCommand(targetIndex, meeting);
-        System.out.println(dateTimeToInputString(meeting.start) + " " + dateTimeToInputString(meeting.end));
+        System.out.println(dateTimeToInputString(meeting.getStart())
+                + " " + dateTimeToInputString(meeting.getEnd()));
         assertParseSuccess(parser,
                 targetIndex.getOneBased() + " "
-                + PREFIX_START_DATETIME + " " + dateTimeToInputString(meeting.start) + " "
-                + PREFIX_END_DATETIME + " " + dateTimeToInputString(meeting.end) + " "
-                + PREFIX_MEETING_REMARK + " " + meeting.remark,
+                + PREFIX_START_DATETIME + " " + dateTimeToInputString(meeting.getStart()) + " "
+                + PREFIX_END_DATETIME + " " + dateTimeToInputString(meeting.getEnd()) + " "
+                + PREFIX_MEETING_REMARK + " " + meeting.getRemark(),
                 expectedScheduleCommand);
     }
 
