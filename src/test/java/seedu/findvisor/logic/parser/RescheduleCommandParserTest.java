@@ -126,4 +126,13 @@ public class RescheduleCommandParserTest {
                 + " " + MeetingUtil.getEditMeetingDescriptorDetails(descriptor);
         assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_MEETING_REMARK));
     }
+
+    @Test
+    public void parse_invalidDatetimeFormat_throwsParseException() {
+        assertParseFailure(parser,
+                INDEX_THIRD_PERSON.getOneBased() + " "
+                + PREFIX_START_DATETIME + "23-01-2024T18:00"
+                + PREFIX_END_DATETIME + "s/23-01-2024T18:00",
+                Meeting.MESSAGE_DATETIME_CONSTRAINTS);
+    }
 }
