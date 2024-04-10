@@ -415,6 +415,17 @@ _{Explain here how the data archiving feature will be implemented}_
 - Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
 - For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 
+### 3. Show warning to user when scheduling an overlapping meeting
+**Current Implementation**:
+
+- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule multiple meetings with meeting time that overlap with each other with no warnings.
+
+**Proposed Enhancement**:
+
+- When a new meeting is being scheduled or a previous meeting is being rescheduled, the input meeting date and times will be checked against all existing meetings, if there is an overlap, a warning message will be shown to the user.
+- This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
+- Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
