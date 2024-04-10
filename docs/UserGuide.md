@@ -212,6 +212,7 @@ Format: `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`
 * `START_DATETIME` must be after the system's current datetime.
 * `END_DATETIME` must be after `START_DATETIME`
 * There can be **at most** one scheduled meeting with a person.
+* If `MEETING_REMARK` is empty or consists entirely of whitespace characters, **no meeting remark will be added**.
 
 Examples:
 
@@ -245,6 +246,7 @@ Format: `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK
 * Input values will overwrite existing value that were assigned to the specified field.
 * `START_DATETIME` must be after the system's current datetime.
 * `END_DATETIME` must be after `START_DATETIME`
+* If `MEETING_REMARK` is empty or consists entirely of whitespace characters, the command will **remove the existing meeting remark**.
 
 Examples:
 * `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` Reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
