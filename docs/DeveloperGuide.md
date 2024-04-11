@@ -419,7 +419,7 @@ _{more aspects and alternatives to be added}_
 - With reference to the previous `edit` command, the person at index 1 will have their name successfully edited when the user enters `edit 1 n/Samintharaj Kumar s\/o A. Nair`.
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
-### 3. Increase flexibility of Date and DateTime formats
+### 4. Increase flexibility of Date and DateTime formats
 
 **Current Implementation**:
 
