@@ -418,7 +418,7 @@ _{Explain here how the data archiving feature will be implemented}_
 ### 3. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
 
-- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule multiple meetings with meeting time that overlap with each other with no warnings.
+- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people that can overlap with each other with no warnings.
 
 **Proposed Enhancement**:
 
