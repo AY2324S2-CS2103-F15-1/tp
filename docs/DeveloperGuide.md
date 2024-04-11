@@ -218,11 +218,6 @@ The following sequence diagram shows how the remark value is parsed through the 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The activation bar for `LogicManager` does not end after the `RemarkCommand` is returned. The above diagram is only meant to highlight the parsing for `Remark` which is why the sequence diagram ends here.
 </div>
 
-#### Proposed Changes
-
-A proposed change to the current remark feature is to allow users to have remarks added as an optional field for `AddCommand` and `EditCommand` for the convenience of users.
-The `RemarkCommand` can remain for users  to only update the `Remark` of a `Person`.
-
 ### Searching persons by person's information feature
 This feature allows users to find for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
 
@@ -279,9 +274,6 @@ The following sequence diagram shows how `AddTag` interacts with `Logic`.
 5. `AddTagCommand` then calls the `setPerson(person, personWithAddedTags)` method to set the old `Person` to the newly created `Person`.
 6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the person with the newly added `Tags`.
 7. `CommandResult` is then returned to `LogicManager`.
-
-#### Proposed Changes
-Allow users to add tags to multiple people at once.
 
 ### Delete Tag Feature
 
@@ -384,10 +376,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Cons: We must ensure that the implementation of each individual command are correct.
 
 _{more aspects and alternatives to be added}_
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 --------------------------------------------------------------------------------------------------------------------
 
