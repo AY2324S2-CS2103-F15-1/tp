@@ -83,14 +83,14 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
   * All input values are case-sensitive unless otherwise specified.
 
 * Duplicate contacts:
-  * Contacts are considered duplicates if they share the same phone number.
+  * Contacts are considered duplicates if they share the same mobile phone number.
 
 * `NAME` format:
   * Can only contain alphanumeric characters and spaces.
   * Extra spaces between values will be processed as a single space.
 
 * `PHONE_NUMBER` format:
-  * Must follow the standard Singapore telephone numbers (i.e. 9XXXXXXX or 8XXXXXXX).
+  * Must follow the standard Singapore mobile phone numbers (i.e. 9XXXXXXX or 8XXXXXXX).
   * Spaces between numbers will be ignored.
 
 * `EMAIL` format:
@@ -157,7 +157,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…�
 * Input values will overwrite **all** existing values that were assigned to the specified field.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
-* This command will check for duplicate phone number before edit is executed. If the new phone number is used by another person, the command will not be executed.
+* This command will check for duplicate mobile phone number before edit is executed. If the new mobile phone number is used by another person, the command will not be executed.
 
 Examples:
 * `edit 3 n/Bobby Tay e/bobbytay@u.nus.edu` Edits contact displayed at index 3 and changes the name of the contact to `Bobby Tay` and email to `bobbytay@u.nus.edu` respectively.
@@ -371,7 +371,7 @@ Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways 
 
 Action | Format, Examples
 --------|------------------
-**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g. `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
+**Add** | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g. `add n/James Ho p/98765432 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
 **List** | `list`
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK`<br>`|m/MEETING_DATE|mr/MEETING_REMARK|t/TAG…`<br> e.g. `find n/Alice Tan`
