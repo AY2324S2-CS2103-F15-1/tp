@@ -417,7 +417,7 @@ _{Explain here how the data archiving feature will be implemented}_
 - For addresses containing `/` characters, the user **must** use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 - These changes allow for flexibility since all special characters will be accepted for the `ADDRESS` field.
 
-### 3. Allow users to enter more special characters for Remark and Meeting Remark fields
+### 3. Allow users to enter more special characters for Name field
 **Current Implementation**:
 
 - The `NAME` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
