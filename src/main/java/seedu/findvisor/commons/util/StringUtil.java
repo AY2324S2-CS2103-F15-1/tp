@@ -5,7 +5,6 @@ import static seedu.findvisor.commons.util.AppUtil.checkArgument;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.Arrays;
 
 /**
  * Helper functions for handling strings.
@@ -15,37 +14,10 @@ public class StringUtil {
     private static final String SAFE_STRING_REGEX = "[\\w\\s!@#$%^&*()+\\-{}\\[\\]:;'\"\\\\<>?.,|~`]*";
 
     /**
-     * Returns true if the {@code sentence} contains the {@code word}.
-     *   Ignores case, but a full word match is required.
-     *   <br>examples:<pre>
-     *       containsWordIgnoreCase("ABc def", "abc") == true
-     *       containsWordIgnoreCase("ABc def", "DEF") == true
-     *       containsWordIgnoreCase("ABc def", "AB") == false //not a full word match
-     *       </pre>
-     * @param sentence cannot be null
-     * @param word cannot be null, cannot be empty, must be a single word
-     */
-    public static boolean containsWordIgnoreCase(String sentence, String word) {
-        requireNonNull(sentence);
-        requireNonNull(word);
-
-        String preppedWord = word.trim();
-        checkArgument(!preppedWord.isEmpty(), "Word parameter cannot be empty");
-        checkArgument(preppedWord.split("\\s+").length == 1, "Word parameter should be a single word");
-
-        String preppedSentence = sentence;
-        String[] wordsInPreppedSentence = preppedSentence.split("\\s+");
-
-        return Arrays.stream(wordsInPreppedSentence)
-                .anyMatch(preppedWord::equalsIgnoreCase);
-    }
-
-    /**
      * Returns true if the {@code sentence} contains the {@code subString}
      * Ignores case, but order of the words in {@code subString} matter.
-     * @param sentence The string in which to search for the substring. This parameter cannot be null.
-     * @param subString The substring to search within a {@code sentence}. This parameter is trimmed for leading and
-     *      trailing whitespace and cannot be empty after trimming. This parameter cannot be null.
+     * @param sentence The string in which to search for the substring.
+     * @param subString The substring to search within a {@code sentence}.
      */
     public static boolean containsIgnoreCase(String sentence, String subString) {
         requireNonNull(sentence);
