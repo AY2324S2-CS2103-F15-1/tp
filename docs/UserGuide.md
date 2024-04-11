@@ -84,6 +84,7 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 
 * Duplicate contacts:
   * Contacts are considered duplicates if they share the same mobile phone number.
+  * We consider mobile phone number as an unique identifier of a person in Singapore because in most of the cases, two people will not share the same mobile number (similar to how PayLah and PayNow works)
 
 * `NAME` format:
   * Can only contain alphanumeric characters and spaces.
