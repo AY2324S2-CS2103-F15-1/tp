@@ -417,18 +417,18 @@ _{Explain here how the data archiving feature will be implemented}_
 - Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
 - For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 
-### 3. Allow single day, month, hour and minute as valid Date and DateTime inputs
+### 3. Increase flexibility of Date and DateTime formats
 
 **Current Implementation**:
 
 - FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
 - This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
-- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T1:1`, which is equivalent to a valid datetime `01/01/2024T01:01`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
+- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
 
 **Proposed Implementation**:
 
-- Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:m` instead.
-- This allows FINDvisor to accept both single and double-digits day, month, hour and minute values as valid `DATE` and `DATETIME` values and would not require users to pad single digit values to pad their inputs with a leading zero.
+- Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
+- This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
 --------------------------------------------------------------------------------------------------------------------
 
