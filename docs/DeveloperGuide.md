@@ -380,7 +380,9 @@ _{more aspects and alternatives to be added}_
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
+
 **Team size: 5**
+
 ### 1. Allow users to enter more special characters for Remark and Meeting Remark fields
 **Current Implementation**: 
 
@@ -416,6 +418,19 @@ _{more aspects and alternatives to be added}_
 - Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
 - With reference to the previous `edit` command, the person at index 1 will have their name successfully edited when the user enters `edit 1 n/Samintharaj Kumar s\/o A. Nair`.
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
+
+### 3. Increase flexibility of Date and DateTime formats
+
+**Current Implementation**:
+
+- FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
+- This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
+- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
+
+**Proposed Implementation**:
+
+- Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
+- This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
 --------------------------------------------------------------------------------------------------------------------
 
