@@ -389,8 +389,9 @@ _{more aspects and alternatives to be added}_
 
 **Proposed Enhancement**: 
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**.
-- Allow escaping of `/` characters by the user using `\` as an escape character. With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
+- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
+- These changes allow for flexibility since all special characters will be accepted for the `REMARK` field.
 
 ### 2. Allow users to enter more special characters for Address field
 **Current Implementation**: 
@@ -400,8 +401,21 @@ _{more aspects and alternatives to be added}_
 
 **Proposed Enhancement**: 
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
-- For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
+- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- For addresses containing `/` characters, the user **must** use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
+- These changes allow for flexibility since all special characters will be accepted for the `ADDRESS` field.
+
+### 3. Allow users to enter more special characters for Name field
+**Current Implementation**:
+
+- The `NAME` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- For example, if the user wishes to edit a contact's name to "Samintharaj Kumar s/o A. Nair" for an existing Person at index 1, the command `edit 1 n/Samintharaj Kumar s/o A. Nair` will be invalid as `/` and `.` are not allowed.
+
+**Proposed Enhancement**:
+
+- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- With reference to the previous `edit` command, the person at index 1 will have their name successfully edited when the user enters `edit 1 n/Samintharaj Kumar s\/o A. Nair`.
+- These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
 --------------------------------------------------------------------------------------------------------------------
 
