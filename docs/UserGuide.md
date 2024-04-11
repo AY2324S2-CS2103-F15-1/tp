@@ -54,12 +54,12 @@ The components of FINDvisor's user interface are shown below:<br>
 4. **Today's Meeting List**: The list of persons who have a meeting on the current date of your computer when running the application (if any).
 
 ### On Command Success
-Below sample command that is executed successfully, note that the feedback is displayed in the **Command Result Box** and the **Person List** displays the newly added person.<br>
+Below is a sample command that is executed successfully. Note that the feedback is displayed in the **Command Result Box** and the **Person List** displays the newly added person.<br>
 
 ![Ui-Success](images/Ui-Success.png)
 
 ### On Command Failure
-Below is a sample unsuccessful command executed, note that the command is highlighted in red in the **Command Box** and the **Command Result Box** displays the relevant error message.<br>
+Below is a sample unsuccessful command executed. Note that the command is highlighted in red in the **Command Box** and the **Command Result Box** displays the relevant error message.<br>
 
 ![Ui-Failure](images/Ui-Failure.png)
 
