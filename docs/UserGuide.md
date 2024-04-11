@@ -16,8 +16,8 @@ title: User Guide
 FINDvisor is a desktop app for **Singapore-based** financial advisors to manage contacts with **Singapore-based mobile phone numbers**. If you **frequently schedule meetings and require quick access to your contacts' details**, then FINDvisor is the tool for you. It is optimized for typists, enabling individuals who type fast to perform contact management and meeting scheduling tasks efficiently.
 
 FINDvisor enables financial advisors to quickly save and retrieve the following contact's information such as name, phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
-## Quick start
 
+## Quick start
 1. Ensure you have Java `11` or above installed in your Computer.
 
 1. Download the latest `findvisor.jar` from [here](https://github.com/AY2324S2-CS2103-F15-1/tp/releases).
@@ -44,6 +44,24 @@ FINDvisor enables financial advisors to quickly save and retrieve the following 
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Interacting with FINDvisor
+The components of FINDvisor's user interface are shown below:<br>
+
+![Ui-Annotated](images/Ui-Annotated.png)
+1. **Command Box**: Commands are entered in this box and executed when the user presses the Enter key. The command entered will be cleared when a command is executed successfully.
+2. **Command Result Box**: The feedback for command will be displayed, indicating if command executed was successful. An error message will be displayed if the command was unsuccessful.
+3. **Person List**: The list of persons stored in FINDvisor. Note that this list will be display the latest list when a command to update the list is **executed successfully**.
+4. **Today's Meeting List**: The list of persons who have meetings scheduled on the date when FINDvisor was **first ran** (if any).
+
+### On Command Success
+Below sample command that is executed successfully, note that the feedback is displayed in the **Command Result Box** and the **Person List** displays the newly added person.<br>
+
+![Ui-Success](images/Ui-Success.png)
+
+### On Command Failure
+Below is a sample unsuccessful command executed, note that the command is highlighted in red in the **Command Box** and the **Command Result Box** displays the relevant error message.<br>
+
+![Ui-Failure](images/Ui-Failure.png)
 
 ## Features
 
