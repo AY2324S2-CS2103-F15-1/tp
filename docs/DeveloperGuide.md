@@ -432,16 +432,16 @@ _{more aspects and alternatives to be added}_
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
-### 3. Add message notification for data file loading process
+### 3. Notfiy user if data file is invalid
 **Current Implementation**: 
 
-- There is **no message notification** for incorrect data file loading and success data loading.
-- For example, when load a data file, the user does not know whether the data file is loaded succesfully into the FINDvisor unless the user check the contacts manually to see if there are any changes.
+- If the data file cannot be parsed due to invalid fields, FINDvisor will discard all data and start with an empty data file at the next run.
+- No notification will be displayed to the user when this occurs, which might affect the usability of FINDvisor.
 
 **Proposed Enhancement**: 
 
-- Add a message for successful data file loading and an error message specifying the type of error encountered while loading data file. This provides a more direct feedback for the user.
-- For example, `Data file is loaded succesfully!` will be shown when the loading is succeeded. `Data file does not exist in the directory.` will be returned if the target datafile is not found in the directory.
+- Notify the user if the data file is invalid on startup.
+- For example, `Data file (<file_location>) could not be loaded!` will be shown when the data file is invalid, where `file_location` is the location of the current referenced data file.
 
 --------------------------------------------------------------------------------------------------------------------
 
