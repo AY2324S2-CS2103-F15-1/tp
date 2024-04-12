@@ -440,7 +440,7 @@ _{more aspects and alternatives to be added}_
 
 **Proposed Enhancement**: 
 
-- Notify the user if the data file is invalid on startup.
+- Display a message in the Command Result Box if the data file cannot be parsed on startup.
 - For example, `Data file (<file_location>) could not be loaded!` will be shown when the data file is invalid, where `file_location` is the location of the current referenced data file.
 
 ### 6. Show warning to user when scheduling an overlapping meeting
