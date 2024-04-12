@@ -435,7 +435,8 @@ _{more aspects and alternatives to be added}_
 ### 5. Specify error message for reschedule and schedule commands
 
 **Current Implementation**:
-- When users input a invalid date for any parameters, the error message states that it is an invalid command format, although the issue is that an invalid date is passed.
+- When users input an invalid `START_DATETIME` or `END_DATETIME`, an invalid command format error message is shown instead of an invalid datetime error message.
+- The error message is not representative of the error and should be more specific about which fields are incorrect.
 
 **Proposed Implementation**:
 - The error message should specify which of the given parameters are failing instead of prompting an invalid command format.
