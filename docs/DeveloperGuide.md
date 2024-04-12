@@ -432,7 +432,7 @@ _{more aspects and alternatives to be added}_
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
-### 3. Show warning to user when scheduling an overlapping meeting
+### 5. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
 
 - No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people that can overlap with each other with no warnings.
