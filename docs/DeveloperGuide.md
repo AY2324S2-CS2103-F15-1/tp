@@ -756,6 +756,25 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
+### Adding one or more tags
+
+1. Successful run when the entire contact list is displayed.
+   1. Prerequisite: Ensure the contact list has enough people.
+   2. Single valid tag test case: `addtag 1 t/PRUActiveCash`.<br>
+      Expected: `PRUActiveCash` added to the first contact. Details of the contact with the added tags shown in the status message.
+   3. Multiple valid tags test case: `addtag 3 t/PRUSaver t/PRUHealth`.<br>
+      Expected: `PRUSaver` and `PRUHealth` added to the third contact on the filtered list. Details of the contact with the added tags shown in status message.
+
+2. Unsuccessful runs when the entire contact list is displayed.
+   1. Invalid index test case: `addtag 0 t/PRUActiveCash`.<br>
+      Expected: Tag is not added to the contact. Invalid command format error details shown in the status message.
+   2. Missing tag prefix test case: `addtag 1`.<br>
+      Expected: Tag is not added to the contact. Same display as 1.
+   3. Invalid tag provided test case: `addtag 1 t/ t/PRUSaver`.<br>
+      Expected: Tag is not added to the contact. Tag error details shown in the status message.
+   4. Index exceeds contact list test case: `addtag 3 t/ t/PRUSaver` after `find` displays only 2 contacts.<br>
+      Expected: Tag is not added to the contact. Invalid index error details shown in the status message.
+
 ### Deleting a tag
 
 1. Deleting a tag while all persons are being shown
