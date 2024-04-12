@@ -436,7 +436,7 @@ _{more aspects and alternatives to be added}_
 **Current Implementation**: 
 
 - If the data file cannot be parsed due to invalid fields, FINDvisor will discard all data and start with an empty data file at the next run.
-- No notification will be displayed to the user when this occurs, which might affect the usability of FINDvisor.
+- No error message is displayed to the user when this occurs and users are not informed of the data loss.
 
 **Proposed Enhancement**: 
 
