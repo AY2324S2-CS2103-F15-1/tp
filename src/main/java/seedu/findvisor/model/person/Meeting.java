@@ -23,7 +23,7 @@ public class Meeting {
             + "Each input string for datetime must be in the format dd-MM-yyyy'T'HH:mm, for example 23-02-2024T16:00.\n"
             + "The start datetime must be before the end date time.";
     public static final String MESSAGE_DATE_CONSTRAINT = "Meeting date is specified in the following format: "
-            + DateTimeUtil.DATE_PATTERN;
+            + DateTimeUtil.HUMAN_DATE_PATTERN;
     public static final String MESSAGE_REMARK_CONSTRAINTS = "Remark is at most "
             + MAX_REMARK_LENGTH + " characters long and can only contain " + MESSAGE_SAFE_STRING_INPUT_CHARACTERS;
 
