@@ -66,9 +66,9 @@ public class Messages {
                 .append(meeting.getStartString())
                 .append("; End: ")
                 .append(meeting.getEndString());
-        if (!meeting.remark.equals("")) {
+        if (!meeting.getRemark().equals("")) {
             builder.append("\nMeeting Remark: ")
-                    .append(meeting.remark);
+                    .append(meeting.getRemark());
         }
         return builder.toString();
     }

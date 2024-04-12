@@ -27,9 +27,9 @@ public class Meeting {
     public static final String MESSAGE_REMARK_CONSTRAINTS = "Remark is at most "
             + MAX_REMARK_LENGTH + " characters long and can only contain " + MESSAGE_SAFE_STRING_INPUT_CHARACTERS;
 
-    public final LocalDateTime start;
-    public final LocalDateTime end;
-    public final String remark;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
+    private final String remark;
 
     /**
      * Constructs an {@code Meeting}.

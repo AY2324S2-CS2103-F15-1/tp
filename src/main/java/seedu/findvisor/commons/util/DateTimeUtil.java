@@ -53,8 +53,8 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a String into a LocalDateTime object. The expected format is dd-MM-yyyy'T'HH:mm. For
-     * example, 2023-01-29T14:00.
+     * Converts a String into a LocalDateTime object. The expected format is dd-MM-uuuu'T'HH:mm. For
+     * example, 29-01-2023T14:00.
      *
      * @param input The string to be converted to a LocalDateTime object.
      * @return The resulting LocalDateTime object after the conversion.
@@ -65,7 +65,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a String into a LocalDate object. The expected format is dd-MM-yyyy. For
+     * Converts a String into a LocalDate object. The expected format is dd-MM-uuuu. For
      * example, 29-12-2024.
      *
      * @param input The string to be converted to a LocalDate object.
@@ -77,8 +77,8 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a LocalDateTime object into a String in input format. The format is dd-MM-yyyy'T'HH:mm. For
-     * example, 2023-01-29T14:00.
+     * Converts a LocalDateTime object into a String in input format. The format is dd-MM-uuuu'T'HH:mm. For
+     * example, 29-01-2023T14:00.
      *
      * @param dateTime The LocalDateTime object to be converted.
      * @return The resulting string after the conversion.
@@ -88,7 +88,7 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a LocalDate object into a String in input format. The format is dd-MM-yyyy. For
+     * Converts a LocalDate object into a String in input format. The format is dd-MM-uuuu. For
      * example, 29-12-2024.
      *
      * @param date The LocalDate object to be converted.
@@ -99,8 +99,8 @@ public class DateTimeUtil {
     }
 
     /**
-     * Converts a LocalDateTime object into a String in output format. The format is dd-MM-yyyy HH:mm. For
-     * example, 2023-01-29 14:00.
+     * Converts a LocalDateTime object into a String in output format. The format is dd-MM-uuuu HH:mm. For
+     * example, 29-01-2023 14:00.
      *
      * @param dateTime The LocalDateTime object to be converted.
      * @return The resulting string after the conversion.

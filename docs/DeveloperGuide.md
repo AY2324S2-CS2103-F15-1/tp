@@ -419,7 +419,7 @@ _{more aspects and alternatives to be added}_
 - With reference to the previous `edit` command, the person at index 1 will have their name successfully edited when the user enters `edit 1 n/Samintharaj Kumar s\/o A. Nair`.
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
-### 3. Increase flexibility of Date and DateTime formats
+### 4. Increase flexibility of Date and DateTime formats
 
 **Current Implementation**:
 
@@ -443,6 +443,18 @@ _{more aspects and alternatives to be added}_
 - Show the exact error message that the command is failing.
 - The errors contain `Invalid START_DATE`, `Invalid END_DATE`, `Meeting should consist of 2 DATETIMEs, START_DATE and END_DATE` and `The START_DATE must be before the END_DATE`.
 - For example, `The START_DATE must be before the END_DATE` will be shown if the `END_DATE` is earlier than the `START_DATE`.
+
+### 6. Show warning to user when scheduling an overlapping meeting
+**Current Implementation**:
+
+- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people that can overlap with each other with no warnings.
+
+**Proposed Enhancement**:
+
+- When a new meeting is being scheduled or a previous meeting is being rescheduled, the input meeting date and times will be checked against all existing meetings, if there is an overlap, a warning message will be shown to the user.
+- This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
+- Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
