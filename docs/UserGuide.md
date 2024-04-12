@@ -2,18 +2,22 @@
 layout: page
 title: User Guide
 ---
+## Table of Contents
+{:.no_toc}
 
-FINDvisor is a **desktop app for financial advisors to manage contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, FINDvisor can get your contact management and meeting scheduling tasks done faster than traditional GUI apps.
-
-* Table of Contents
+* ToC
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
 <div style="page-break-after: always;"></div>
 
-## Quick start
+## About FINDvisor
+FINDvisor is a desktop app for **Singapore-based** financial advisors to manage contacts with **Singapore-based mobile phone numbers**. If you **frequently schedule meetings and require quick access to your contacts' details**, then FINDvisor is the tool for you. It is optimized for typists, enabling individuals who type fast to perform contact management and meeting scheduling tasks efficiently.
 
+FINDvisor enables financial advisors to quickly save and retrieve the following contact's information such as name, phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
+
+## Quick start
 1. Ensure you have Java `11` or above installed in your Computer.
 
 1. Download the latest `findvisor.jar` from [here](https://github.com/AY2324S2-CS2103-F15-1/tp/releases).
@@ -40,6 +44,24 @@ FINDvisor is a **desktop app for financial advisors to manage contacts, optimize
 1. Refer to the [Features](#features) below for details of each command.
 
 --------------------------------------------------------------------------------------------------------------------
+## Interacting with FINDvisor
+The components of FINDvisor's user interface are shown below:<br>
+
+![Ui-Annotated](images/Ui-Annotated.png)
+1. **Command Box**: Commands are entered in this box and executed when the user presses the Enter key. The command entered will be cleared when a command is executed successfully.
+2. **Command Result Box**: The feedback for command will be displayed, indicating if command executed was successful. An error message will be displayed if the command was unsuccessful.
+3. **Person List**: The list of persons stored in FINDvisor. Note that this list will be display the latest list when a command to update the list is **executed successfully**.
+4. **Today's Meeting List**: The list of persons who have a meeting on the current date of your computer when running the application (if any).
+
+### On Command Success
+Below is a sample command that is executed successfully. Note that the feedback is displayed in the **Command Result Box** and the **Person List** displays the newly added person.<br>
+
+![Ui-Success](images/Ui-Success.png)
+
+### On Command Failure
+Below is a sample unsuccessful command executed. Note that the command is highlighted in red in the **Command Box** and the **Command Result Box** displays the relevant error message.<br>
+
+![Ui-Failure](images/Ui-Failure.png)
 
 ## Features
 
@@ -195,12 +217,11 @@ Format: `delete INDEX`
 * Deletes the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* Keying in multiple indexes deletes contacts at all the specified indexes of the displayed list.
+* The delete command only supports the deletion of **one person** at a time.
 
 Examples:
 * `list` followed by `delete 2` deletes the 2nd person in the contact list of FINDvisor.
 * `find Betsy` followed by `delete 1` deletes the 1st person in the results of the `find` command.
-* `list` followed by `delete 2 3 4` deletes the 2nd, 3rd and 4th person in the contact list of FINDvisor
 
 ### Scheduling a meeting : `schedule`
 
@@ -213,6 +234,7 @@ Format: `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`
 * `START_DATETIME` must be after the system's current datetime.
 * `END_DATETIME` must be after `START_DATETIME`
 * There can be **at most** one scheduled meeting with a person.
+* If `MEETING_REMARK` is empty or consists entirely of whitespace characters, **no meeting remark will be added**.
 
 Examples:
 
@@ -246,6 +268,7 @@ Format: `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK
 * Input values will overwrite existing value that were assigned to the specified field.
 * `START_DATETIME` must be after the system's current datetime.
 * `END_DATETIME` must be after `START_DATETIME`
+* If `MEETING_REMARK` is empty or consists entirely of whitespace characters, the command will **remove the existing meeting remark**.
 
 Examples:
 * `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` Reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
@@ -343,7 +366,7 @@ FINDvisor data are saved in the hard disk automatically after any command that c
 
 ### Editing the data file
 
-FINDvisor data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+FINDvisor data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Directly editing the data file is not officially supported, advanced users can edit the data file at their own risk.
 
 <div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
 If your changes to the data file makes its format invalid, FINDvisor will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>

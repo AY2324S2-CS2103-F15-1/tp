@@ -30,6 +30,7 @@ public class PersonTagsPredicate implements PersonPredicate {
      * @return A string describing the predicate
      */
     public String getPredicateDescription() {
+        // Solution below adapted from https://stackoverflow.com/a/669165
         String tagsString = keywords.stream()
                 .map(tag -> "\"" + tag + "\"")
                 .collect(Collectors.joining(", "));
@@ -39,6 +40,7 @@ public class PersonTagsPredicate implements PersonPredicate {
 
     @Override
     public boolean test(Person person) {
+        // Solution below adapted from https://stackoverflow.com/a/48132317
         return keywords.stream().anyMatch(keyword -> person.getTags().stream()
                 .anyMatch(tag -> StringUtil.containsIgnoreCase(tag.tagName, keyword)));
     }

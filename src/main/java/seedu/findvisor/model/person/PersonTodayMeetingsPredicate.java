@@ -32,7 +32,7 @@ public class PersonTodayMeetingsPredicate implements PersonPredicate {
     @Override
     public boolean test(Person person) {
         Optional<Meeting> personMeeting = person.getMeeting();
-        return personMeeting.map(meeting -> meeting.start.toLocalDate().equals(todaysDate)).orElse(false);
+        return personMeeting.map(meeting -> meeting.getStart().toLocalDate().equals(todaysDate)).orElse(false);
     }
 
     @Override

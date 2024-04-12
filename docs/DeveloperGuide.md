@@ -218,11 +218,6 @@ The following sequence diagram shows how the remark value is parsed through the 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The activation bar for `LogicManager` does not end after the `RemarkCommand` is returned. The above diagram is only meant to highlight the parsing for `Remark` which is why the sequence diagram ends here.
 </div>
 
-#### Proposed Changes
-
-A proposed change to the current remark feature is to allow users to have remarks added as an optional field for `AddCommand` and `EditCommand` for the convenience of users.
-The `RemarkCommand` can remain for users  to only update the `Remark` of a `Person`.
-
 ### Searching persons by person's information feature
 This feature allows users to find for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
 
@@ -279,9 +274,6 @@ The following sequence diagram shows how `AddTag` interacts with `Logic`.
 5. `AddTagCommand` then calls the `setPerson(person, personWithAddedTags)` method to set the old `Person` to the newly created `Person`.
 6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the person with the newly added `Tags`.
 7. `CommandResult` is then returned to `LogicManager`.
-
-#### Proposed Changes
-Allow users to add tags to multiple people at once.
 
 ### Delete Tag Feature
 
@@ -385,14 +377,12 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 _{more aspects and alternatives to be added}_
 
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
+
 **Team size: 5**
+
 ### 1. Allow users to enter more special characters for Remark and Meeting Remark fields
 **Current Implementation**: 
 
@@ -401,8 +391,9 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Proposed Enhancement**: 
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**.
-- Allow escaping of `/` characters by the user using `\` as an escape character. With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
+- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
+- These changes allow for flexibility since all special characters will be accepted for the `REMARK` field.
 
 ### 2. Allow users to enter more special characters for Address field
 **Current Implementation**: 
@@ -412,8 +403,45 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Proposed Enhancement**: 
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**. This allows for flexibility since all special characters will be accepted for the `ADDRESS` field.
-- For addresses containing `/` characters, the user will be required to use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
+- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- For addresses containing `/` characters, the user **must** use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
+- These changes allow for flexibility since all special characters will be accepted for the `ADDRESS` field.
+
+### 3. Allow users to enter more special characters for Name field
+**Current Implementation**:
+
+- The `NAME` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- For example, if the user wishes to edit a contact's name to "Samintharaj Kumar s/o A. Nair" for an existing Person at index 1, the command `edit 1 n/Samintharaj Kumar s/o A. Nair` will be invalid as `/` and `.` are not allowed.
+
+**Proposed Enhancement**:
+
+- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- With reference to the previous `edit` command, the person at index 1 will have their name successfully edited when the user enters `edit 1 n/Samintharaj Kumar s\/o A. Nair`.
+- These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
+
+### 4. Increase flexibility of Date and DateTime formats
+
+**Current Implementation**:
+
+- FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
+- This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
+- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
+
+**Proposed Implementation**:
+
+- Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
+- This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
+
+### 3. Show warning to user when scheduling an overlapping meeting
+**Current Implementation**:
+
+- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people that can overlap with each other with no warnings.
+
+**Proposed Enhancement**:
+
+- When a new meeting is being scheduled or a previous meeting is being rescheduled, the input meeting date and times will be checked against all existing meetings, if there is an overlap, a warning message will be shown to the user.
+- This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
+- Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
 
 --------------------------------------------------------------------------------------------------------------------
 
