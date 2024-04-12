@@ -105,8 +105,7 @@ Below is a sample unsuccessful command executed. Note that the command is highli
   * All input values are case-sensitive unless otherwise specified.
 
 * Duplicate contacts:
-  * Contacts are considered duplicates if they share the same mobile phone number.
-  * We consider mobile phone number as an unique identifier of a person in Singapore because in most of the cases, two people will not share the same mobile number (similar to how PayLah and PayNow works)
+  * Contacts are considered duplicates if they share the same mobile phone number and is used as unique identifier of a Person as no two persons would share the same mobile phone number.
 
 * `NAME` format:
   * Can only contain alphanumeric characters and spaces.
