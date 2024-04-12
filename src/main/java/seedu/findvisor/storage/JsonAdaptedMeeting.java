@@ -35,9 +35,9 @@ class JsonAdaptedMeeting {
      * Converts a given {@code Optional<Meeting>} into this class for Jackson use.
      */
     public JsonAdaptedMeeting(Optional<Meeting> source) {
-        start = source.map(meeting -> DateTimeUtil.dateTimeToInputString(meeting.start)).orElse("");
-        end = source.map(meeting -> DateTimeUtil.dateTimeToInputString(meeting.end)).orElse("");
-        remark = source.map(meeting -> meeting.remark).orElse("");
+        start = source.map(meeting -> DateTimeUtil.dateTimeToInputString(meeting.getStart())).orElse("");
+        end = source.map(meeting -> DateTimeUtil.dateTimeToInputString(meeting.getEnd())).orElse("");
+        remark = source.map(meeting -> meeting.getRemark()).orElse("");
     }
 
     /**

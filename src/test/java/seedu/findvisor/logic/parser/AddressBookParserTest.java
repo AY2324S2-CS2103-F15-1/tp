@@ -135,15 +135,15 @@ public class AddressBookParserTest {
         Meeting meeting = createValidMeeting();
         ScheduleCommand command = (ScheduleCommand) parser.parseCommand(
                 ScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-                + PREFIX_START_DATETIME + dateTimeToInputString(meeting.start) + " "
-                + PREFIX_END_DATETIME + dateTimeToInputString(meeting.end));
+                + PREFIX_START_DATETIME + dateTimeToInputString(meeting.getStart()) + " "
+                + PREFIX_END_DATETIME + dateTimeToInputString(meeting.getEnd()));
         assertEquals(new ScheduleCommand(INDEX_FIRST_PERSON, meeting), command);
 
         meeting = createValidMeetingNonEmptyRemark();
         command = (ScheduleCommand) parser.parseCommand(
                 ScheduleCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased() + " "
-                + PREFIX_START_DATETIME + dateTimeToInputString(meeting.start) + " "
-                + PREFIX_END_DATETIME + dateTimeToInputString(meeting.end) + " "
+                + PREFIX_START_DATETIME + dateTimeToInputString(meeting.getStart()) + " "
+                + PREFIX_END_DATETIME + dateTimeToInputString(meeting.getEnd()) + " "
                 + PREFIX_MEETING_REMARK + VALID_MEETING_REMARK);
         assertEquals(new ScheduleCommand(INDEX_FIRST_PERSON, meeting), command);
     }

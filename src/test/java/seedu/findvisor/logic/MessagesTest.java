@@ -23,7 +23,7 @@ public class MessagesTest {
     public void formatMeeting_withRemark() {
         Meeting meeting = VALID_MEETING_WITH_REMARK;
         String expected = String.format("Meeting Start: %s; End: %s\nMeeting Remark: %s",
-                meeting.getStartString(), meeting.getEndString(), meeting.remark);
+                meeting.getStartString(), meeting.getEndString(), meeting.getRemark());
         assertEquals(expected, Messages.format(meeting));
     }
 

@@ -225,7 +225,7 @@ public class FindCommandTest {
     @Test
     public void execute_existingMeetingDate_personFound() {
         Meeting existingMeeting = CARL.getMeeting().get();
-        LocalDate existingMeetingStartDate = existingMeeting.start.toLocalDate();
+        LocalDate existingMeetingStartDate = existingMeeting.getStart().toLocalDate();
         String expectedSearchString = String.format("Meeting on \"%1$s\"",
                 existingMeetingStartDate.format(DateTimeUtil.DATE_FORMAT));
 
