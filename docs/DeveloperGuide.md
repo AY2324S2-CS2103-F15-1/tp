@@ -432,16 +432,22 @@ _{more aspects and alternatives to be added}_
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
-### 5. Specify error message for invalid reschedule command
+### 5. Specify error message for schedule and reschedule command
 
 **Current Implementation**:
 
-- Currently, if an error occurs, a vague error message containing constrains about the `START_DATE` and `END_DATE` will be shown. User does not know exactly which constrains are their command failing.
+Currently, when the user calls the schedule or reschedule command, they will be advised appropriately when they provide:
+- an invalid command format
+- an invalid index
+- a date that occurs before the current date time
+- a start date time that occurs after the end date time
+
+However, if the user keys in an invalid date time for only one of the date time fields, they are not informed of which date time field contains the invalid input. Instead, an invalid command error is thrown.
 
 **Proposed Implementation**:
 
 - Show the exact error message that the command is failing.
-- The errors contain `Invalid START_DATE`, `Invalid END_DATE`, `Meeting should consist of 2 DATETIMEs, START_DATE and END_DATE` and `The START_DATE must be before the END_DATE`.
+- The errors contain `Invalid index`, `Invalid START_DATE`, `Invalid END_DATE`, `Meeting should consist of 2 DATETIMEs, START_DATE and END_DATE`, `Date before current date` and `The START_DATE must be before the END_DATE`.
 - For example, `The START_DATE must be before the END_DATE` will be shown if the `END_DATE` is earlier than the `START_DATE`.
 
 ### 6. Show warning to user when scheduling an overlapping meeting
