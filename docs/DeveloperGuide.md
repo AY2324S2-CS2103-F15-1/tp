@@ -783,24 +783,21 @@ Alternative test cases should have similar expected results.
 **Prerequisites:**
 1. There are multiple persons stored in FINDvisor data.
 2. There is no person with the mobile phone number `96734294`.
+3. There is a person with the mobile phone number `88812457`.
 
 **Steps:**
-1. Using the template `add n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
-2. Test case: Change the name value of the person to `Lim Wei Sheng @ Brendan`.
+1. Test case: `add n/Lim Wei Sheng, Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with invalid name value).
 
 **Expected Result:**
 1. Person is **not** added to FINDvisor.
-2. Input in the *Command Box* remains but turns red.
+2. Input in the *Command Box* remains and turns red.
 3. Error details are stated in the *Command Result Box*.
 
 **Alternative Test Cases:**
-- Change phone number value to one that already exists in FINDvisor.
-- Change the email value `brendan l@gmail.com`.
-- Change the address value to `%Blk 653C Jurong West Street 61 Singapore 643653%`.
-- Change the tag value to `PRU-Growth`.
-- Leave the name value blank,  ` `.
-- Exclude the name prefix and value, e.g. removing `n/Lim Wei Sheng Brendan` from the template.
-- Add a second name parameter as part of the template, e.g. `add n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth n/Brendan Lim Wei Sheng`.
+- `add n/Devin Leonardo e/devinleo@gmail.com p/88812457 a/Blk 60 Kaki Bukit Place 03-11 Singapore 415979` (adding a person with duplicate phone number).
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294` (adding a person but missing a required field).
+- `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with a blank required field).
+- `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with two name fields).
 
 Alternative test cases should have similar expected results.
 
