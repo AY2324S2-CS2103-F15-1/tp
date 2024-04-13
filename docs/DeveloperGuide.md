@@ -442,6 +442,8 @@ _{more aspects and alternatives to be added}_
 
 - Display a message in the Command Result Box if the data file cannot be parsed on startup.
 - For example, `Data file (<file_location>) could not be loaded!` will be shown when the data file is invalid, where `file_location` is the location of the current referenced data file.
+- Specific error message about what is the error will be shown at the command result box. The user can check the data file and modify it accordingly.
+- If new state changing command is made when the data file is invalid, the data file will be overwritten.
 
 ### 6. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
