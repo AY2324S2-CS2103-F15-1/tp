@@ -750,7 +750,7 @@ testers are expected to do more *exploratory* testing. Hence, the list of altern
 
 **Alternative Test Cases:**
 - Shifting the window to a desired position.
-- Maximizing or minimizing window.
+- Maximizing the window and restoring the window from maximized state.
 - Changing the divider position between *Today's Meeting Panel* and other UI components.
 
 Alternative test cases should have similar expected results.
