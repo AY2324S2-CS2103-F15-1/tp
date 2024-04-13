@@ -718,26 +718,90 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+testers are expected to do more *exploratory* testing. Hence, the list of alternative test cases are **not exhaustive**.
 
 </div>
 
 ### Launch and shutdown
 
-1. Initial launch
+#### Initial launch
 
-   1. Download the jar file and copy into an empty folder.
+**Prerequisites:**
+1. `Java 11` is installed in the system.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Steps:**
+1. Download the latest `findvisor.jar` file and move it into an empty folder.
+2. Open the command terminal at the folder containing `findvisor.jar`.
+3. Run `java -jar FINDvisor.jar`.
 
-1. Saving window preferences
+**Expected Result:**
+1. FINDvisor GUI appears in a minimized window.
+2. FINDvisor contains a list of sample contacts.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+#### Saving workspace settings
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+**Steps:**
+1. Test Case: Resize the window to a preferred size.
+2. Close FINDvisor.
+3. Relaunch FINDvisor through the command terminal as stated in [initial launch](#initial-launch).
 
-1. _{ more test cases …​ }_
+**Expected Result:**
+1. FINDvisor retains the previous window state before it was closed.
+
+**Alternative Test Cases:**
+- Shifting the window to a desired position.
+- Maximizing or minimizing window.
+- Changing the divider position between *Today's Meeting Panel* and other UI components.
+
+Alternative test cases should have similar expected results.
+
+### Adding a person
+
+#### Adding a person successfully
+
+**Prerequisites:**
+1. There is no person in the list with the same mobile phone number as the person to be added.
+
+**Steps:**
+1. Test Case: `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+**Expected Result:**
+1. *Person List* shows all contacts in FINDvisor.
+2. *Person List* contains the information of the newly added person as specified.
+3. *Command Result Box* outputs a successful execution message with the newly added person's information.
+
+**Alternative Test Cases:**
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily` (adding a person with tags).
+- `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily` (adding a person in any order of prefixes).
+- `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653` (adding a person with numbers in name).
+
+Alternative test cases should have similar expected results.
+
+#### Invalid value or format used for adding a person
+
+**Prerequisites:**
+1. There are multiple persons stored in FINDvisor data.
+2. There is no person with the mobile phone number `96734294`.
+
+**Steps:**
+1. Using the template `add n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+2. Test Case: Change the name value of the person to `Lim Wei Sheng @ Brendan`.
+
+**Expected Result:**
+1. Person is **not** added to FINDvisor.
+2. Input in the *Command Box* remains but turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- Change phone number value to one that already exists in FINDvisor.
+- Change the email value `brendan l@gmail.com`.
+- Change the address value to `%Blk 653C Jurong West Street 61 Singapore 643653%`.
+- Change the tag value to `PRU-Growth`.
+- Leave the name value blank,  ` `.
+- Exclude the name prefix and value, e.g. removing `n/Lim Wei Sheng Brendan` from the template.
+- Add a second name parameter as part of the template, e.g. `add n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth n/Brendan Lim Wei Sheng`.
+
+Alternative test cases should have similar expected results.
 
 ### Deleting a person
 
