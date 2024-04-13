@@ -758,14 +758,14 @@ Alternative test cases should have similar expected results.
 ### Editing a person
 #### Editing a person successfully
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons in the list.
+1. List all persons using the `list` command. At least 5 persons in the list.
 2. No person in FINDvisor has the mobile phone number `96734294`.
 
 **Steps:**
 1. Test case: `edit 1 p/96734294 e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
 
 **Expected Result:**
-1. *Person List* shows all persons in FINDvisor. The first person's data will be overwritten with the specified values in the command.
+1. *Person List* shows all persons in FINDvisor. The respective person's fields will be overwritten with the specified values supplied in the command.
 2. *Command Result Box* outputs a successful execution message with the edited person's details.
 3. *Command Box* is cleared.
 
@@ -777,14 +777,14 @@ Alternative test cases should have similar expected results.
 
 #### Invalid value or command format used for editing a person
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
-2. The first existing person in FINDvisor has the mobile phone number `96734294`.
+1. List all persons using the `list` command. Multiple persons are in the list (Less than 100).
+2. The first existing person in the *Person List* has the mobile phone number `96734294`.
 
 **Steps:**
 1. Test case: `edit 2 p/96734294`
 
 **Expected Result:**
-1. *Person List* shows all persons in FINDvisor. The second person's phone number will not be updated.
+1. *Person List* shows all persons in FINDvisor. No person's fields will be edited.
 2. *Command Result Box* will display error details.
 3. Input in the *Command Box* remains but turns red.
 
