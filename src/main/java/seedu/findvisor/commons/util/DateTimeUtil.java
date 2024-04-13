@@ -11,6 +11,7 @@ import java.time.temporal.ChronoUnit;
  * Handles DateTime parsing and formatting.
  */
 public class DateTimeUtil {
+    public static final String HUMAN_DATE_PATTERN = "dd-MM-yyyy";
     public static final String DATE_PATTERN = "dd-MM-uuuu";
 
     public static final DateTimeFormatter DATE_TIME_INPUT_FORMAT =

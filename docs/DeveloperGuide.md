@@ -499,7 +499,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | Financial Advisor | find a client's contact based on what I remember about the client's contact information  | do not have to search through the whole list to find a specific client        |
 | `* * *`  | Financial Advisor | filter contact list by categories                                                        | easily find clients based on category                                         |
 | `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                             |
-| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | so that I can update my schedule in the event of a cancelled meeting          |
+| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | update my schedule in the event of a cancelled meeting                        |
 | `* * *`  | Financial Advisor | categorize my clients into different categories such as financial plans or relationships |                                                                               |
 | `* *`    | Financial Advisor | view all my meetings for today                                                           | be prepared for my meetings of today                                          |
 | `* *`    | Financial Advisor | filter contact list by meeting date                                                      | find out who I'm meeting on a specific date                                   |
@@ -676,7 +676,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-#### Use case: Delete a tag
+#### Use case: Deleting tags from a person
 
 **MSS**
 
