@@ -465,8 +465,8 @@ _{more aspects and alternatives to be added}_
 * Has a need of managing clients who have Singapore mobile phone numbers
 * Has a need of scheduling meetings with a significant number of clients
 * Prefers typing over mouse interactions and types fast
-* is reasonably comfortable using CLI apps
-* has English as his first language
+* Is reasonably comfortable using CLI apps
+* Has English as his first language
 
 **Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve the following contact’s information such as name, mobile phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
 
