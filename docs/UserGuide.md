@@ -361,16 +361,19 @@ Format: `help`
 
 ### Saving the data
 
-FINDvisor data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+FINDvisor data are saved in the hard disk automatically as a JSON file after any command that changes the data, with the corresponding path `[JAR file location]/data/addressbook.json`. There is no need to save manually.
 
-### Editing the data file
+### Saving workspace preferences
 
-FINDvisor data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Directly editing the data file is not officially supported, advanced users can edit the data file at their own risk.
+FINDvisor automatically saves workspace preferences to a file location specified in the JSON file `[JAR file location]/config.json` upon closing FINDvisor. By default, workspace preferences are saved to the JSON file `[JAR file location]/preferences.json`. There is no need to save manually.
 
-<div markdown="span" class="alert alert-warning">:exclamation: **Caution:**
-If your changes to the data file makes its format invalid, FINDvisor will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</div>
+The workspace preferences includes the following:
+- Position of FINDvisor's main window.
+- Width and height of FINDvisor's main window when minimized.
+- State of FINDvisor's main window, whether it is maximized or minimized.
+- Divider position between **Today's Meeting List** and the other components in FINDvisor's main window.
+
+This allows FINDvisor to restore most of the window settings on the next startup, requiring minimal adjustments for users that have a preferred layout when using FINDvisor.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -378,6 +381,37 @@ Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FINDvisor home folder.
+
+**Q**: Can I edit the JSON data file directly?<br>
+**A**: We do **not support** direct editing of any JSON files.
+
+<div markdown="span" class="alert alert-danger">:exclamation: **Warning:**<br>
+If your changes to the data file makes its format invalid, FINDvisor will discard all data and start with an empty data file at the next run. 
+Furthermore, certain edits can cause the FINDvisor to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range).
+</div>
+
+**Q**: Can I edit the workspace preferences JSON file directly?<br>
+**A**: We do **not support** direct editing of any JSON files.
+
+<div markdown="span" class="alert alert-danger">:exclamation: **Warning:**<br>
+Certain edits can cause the FINDvisor to behave in unexpected ways and possibly not start correctly.
+</div>
+
+**Q**: How can I generate the sample contacts that is shown when I first launched FINDvisor?<br>
+**A**: Sample contacts are generated when JSON file `[JAR file location]/data/addressbook.json` is not found upon starting FINDvisor.
+Delete the corresponding JSON file with FINDvisor is closed. Starting FINDvisor again will generate the sample contacts.
+
+<div markdown="span" class="alert alert-danger">:exclamation: **Warning:**<br>
+Note that deleting the corresponding JSON file will cause all previously saved contact information to be lost. A backup of the JSON file should be made if necessary when regenerating sample contacts for FINDvisor.
+</div>
+
+**Q**: Is it possible to restore the default workspace settings to when I first launched FINDvisor?<br>
+**A**: Default workspace settings are generated when the corresponding JSON file (stated in `[JAR file location]/config.json`) is not found upon starting FINDvisor.
+Delete the corresponding JSON file with FINDvisor closed. Starting FINDvisor again will generate the default workspace settings.
+
+<div markdown="span" class="alert alert-danger">:exclamation: **Warning:**<br>
+Note that deleting the corresponding JSON file will cause all previously saved workspace preferences to be lost. A backup of the JSON file should be made if necessary when regenerating default workspace settings for FINDvisor.
+</div>
 
 --------------------------------------------------------------------------------------------------------------------
 
