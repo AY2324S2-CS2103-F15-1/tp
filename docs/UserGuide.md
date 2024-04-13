@@ -105,7 +105,7 @@ Below is a sample unsuccessful command executed. Note that the command is highli
   * All input values are case-sensitive unless otherwise specified.
 
 * Duplicate contacts:
-* In FINDvisor, contacts are **uniquely identified** using their mobile phone number. Hence, two contacts are considered duplicates if they share the same mobile phone number. 
+  * In FINDvisor, contacts are **uniquely identified** using their mobile phone number. Hence, two contacts are considered duplicates if they share the same mobile phone number.
 
 * `NAME` format:
   * Can only contain alphanumeric characters and spaces.
