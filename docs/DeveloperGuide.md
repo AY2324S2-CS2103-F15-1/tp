@@ -750,8 +750,8 @@ testers are expected to do more *exploratory* testing.
 3. *Command Box* is cleared.
 
 **Alternative Test Cases:**
-- Test case: `list 1`.
-- Test case: `list a`.
+- `list 1`.
+- `list a`.
 
 Alternative test cases should have similar expected results.
 
@@ -770,8 +770,8 @@ Alternative test cases should have similar expected results.
 3. *Command Box* is cleared.
 
 **Alternative Test Cases:**
-1. Test case: `edit 2 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
-2. Test case: `edit 1 n/John Tan`
+1. `edit 2 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
+2. `edit 1 n/John Tan`
 
 Alternative test cases should have similar expected results.
 
@@ -789,10 +789,10 @@ Alternative test cases should have similar expected results.
 3. Input in the *Command Box* remains but turns red.
 
 **Alternative Test Cases:**
-1. Test case: `edit 1 n/`.
-2. Test case: `edit -1`.
-3. Test case: `edit 100000 n/Jane Doe`.
-4. Test case: `edit 1 n/John Doe n/Jane Doe`.
+1. `edit 1 n/`.
+2. `edit -1`.
+3. `edit 100000 n/Jane Doe`.
+4. `edit 1 n/John Doe n/Jane Doe`.
 
 Alternative test cases should have similar expected results.
 
@@ -807,9 +807,9 @@ Alternative test cases should have similar expected results.
 3. *Command Box* is cleared.
 
 **Alternative Test Cases:**
-1. Test case: `find e/johntan`.
-2. Test case: `find r/Online Meeting`.
-3. Test case: `find m/03-10-2024`.
+1. `find e/johntan`.
+2. `find r/Online Meeting`.
+3. `find m/03-10-2024`.
 
 Alternative test cases should have similar expected results.
 
@@ -824,9 +824,9 @@ Alternative test cases should have similar expected results.
 3. Input in the *Command Box* remains but turns red.
 
 **Alternative Test Cases:**
-1. Test case: `find n/`.
-2. Test case: `find m/03/10/2024`.
-3. Test case: `find m/3rd March 2024`.
+1. `find n/`.
+2. `find m/03/10/2024`.
+3. `find m/3rd March 2024`.
 
 Alternative test cases should have similar expected results.
 
