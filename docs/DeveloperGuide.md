@@ -906,6 +906,22 @@ Alternative test cases should have similar expected results.
 
 Alternative test cases should have similar expected results.
 
+### Opening help window
+
+#### Opening help window successfully
+
+**Steps:**
+1. Test case: `help`.
+
+**Expected Result:**
+1. An additional help window is opened on top of FINDvisor.
+2. Help window should have window controls visible (i.e. minimize, maximize and close).
+
+**Alternative Test Cases:**
+- `help 1`.
+- `help a`.
+
+Alternative test cases should have similar expected results.
 
 ### Saving data
 
