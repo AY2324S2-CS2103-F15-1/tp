@@ -741,7 +741,7 @@ testers are expected to do more *exploratory* testing. Hence, the list of altern
 #### Saving workspace settings
 
 **Steps:**
-1. Test Case: Resize the window to a preferred size.
+1. Test case: Resize the window to a preferred size.
 2. Close FINDvisor.
 3. Relaunch FINDvisor through the command terminal as stated in [initial launch](#initial-launch).
 
@@ -763,12 +763,13 @@ Alternative test cases should have similar expected results.
 1. There is no person in the list with the same mobile phone number as the person to be added.
 
 **Steps:**
-1. Test Case: `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+1. Test case: `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
 
 **Expected Result:**
 1. *Person List* shows all contacts in FINDvisor.
 2. *Person List* contains the information of the newly added person as specified.
 3. *Command Result Box* outputs a successful execution message with the newly added person's information.
+4. *Command Box* is cleared.
 
 **Alternative Test Cases:**
 - `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily` (adding a person with tags).
@@ -785,7 +786,7 @@ Alternative test cases should have similar expected results.
 
 **Steps:**
 1. Using the template `add n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
-2. Test Case: Change the name value of the person to `Lim Wei Sheng @ Brendan`.
+2. Test case: Change the name value of the person to `Lim Wei Sheng @ Brendan`.
 
 **Expected Result:**
 1. Person is **not** added to FINDvisor.
