@@ -890,6 +890,22 @@ Alternative test cases should have similar expected results.
 
 Alternative test cases should have similar expected results.
 
+### Exiting FINDvisor through a command
+
+#### Exiting FINDvisor successfully
+
+**Steps:**
+1. Test case: `exit`.
+
+**Expected Result:**
+1. FINDvisor is closed.
+
+**Alternative Test Cases:**
+- `exit 1`.
+- `exit a`.
+
+Alternative test cases should have similar expected results.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
