@@ -375,8 +375,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
@@ -443,7 +441,7 @@ _{more aspects and alternatives to be added}_
 - This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
 
-### 6. Implement an undo feature
+### 6. Allow users to undo and redo command executions
 **Current Implementation**:
 
 - There is no support for an undo command that allows users to undo their previous action.
@@ -451,11 +449,9 @@ _{more aspects and alternatives to be added}_
 
 **Proposed Enhancement**:
 
-- Implement a new command undo that uses the command key word `undo`.
-- `undo` will revert the state of FINDvisor to the state before the last command before `undo` was executed.
-- Calling an `undo` command twice would not revert the last `undo` command.
-- This allows users to easily revert any mistakes made from any command.
-- The `undo` history is cleared whenever FINDvisor exits.
+- Implement an `undo` and `redo` command that performs the undo and redo operation respectively.
+- The two commands are facilitated by the **same mechanism** as described [here](#proposed-undoredo-feature).
+- `redo` allows for users to revert an `undo` that is executed by mistake, providing greater convenience.
 
 --------------------------------------------------------------------------------------------------------------------
 
