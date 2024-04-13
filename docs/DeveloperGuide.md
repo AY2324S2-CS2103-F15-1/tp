@@ -781,6 +781,68 @@ Alternative test cases should have similar expected results.
 
 Alternative test cases should have similar expected results.
 
+### Remarking a person
+
+#### Leaving a remark on a person successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+
+**Steps:**
+1. Test case: `remark 1 r/Birthday on 31 July.`.
+
+**Expected Result:**
+1. The remark of specified person is updated to show the respective remark.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* outputs a successful execution message with new remark.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `remark 3 r/Wants to get into investing. Wants $100,000 in savings by end of year.`.
+
+Alternative test cases should have similar expected results.
+
+#### Removing a remark from a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. First person in the displayed list has an existing remark.
+
+**Steps:**
+1. Test case: `remark 1 r/`.
+
+**Expected Result:**
+1. The remark of specified person is updated to be empty.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* outputs a successful execution message with new remark.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `remark 5 r/`.
+
+Alternative test cases should have similar expected results.
+
+#### Invalid value or command format used for updating remark of a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Steps:**
+1. Test case: `remark 1 r/Birthday on 31/7.`.
+
+**Expected Result:**
+1. Remark is **not updated** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `remark r/`
+- `remark -1 r/Birthday on 31 July.`
+- `remark 100000 r/Birthday on 31 July.`
+- `remark 1 r/Birthday on 31 July r/`
+
+Alternative test cases should have similar expected results.
+
 ### Deleting a tag
 
 1. Deleting a tag while all persons are being shown
