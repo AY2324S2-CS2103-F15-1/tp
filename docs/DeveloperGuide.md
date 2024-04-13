@@ -890,7 +890,7 @@ Alternative test cases should have similar expected results.
 
 Alternative test cases should have similar expected results.
 
-### Exiting FINDvisor through a command
+### Exiting FINDvisor
 
 #### Exiting FINDvisor successfully
 
@@ -905,6 +905,7 @@ Alternative test cases should have similar expected results.
 - `exit a`.
 
 Alternative test cases should have similar expected results.
+
 
 ### Saving data
 
