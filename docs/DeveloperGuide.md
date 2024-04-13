@@ -867,6 +867,29 @@ Alternative test cases should have similar expected results.
    1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
+### Clearing all persons in FINDvisor
+
+#### Clearing all persons successfully
+
+**Prerequisites:**
+1. At least 1 person is in saved in FINDvisor.
+
+**Steps:**
+1. Test case: `clear`.
+
+**Expected Result:**
+1. All persons' information is removed from FINDvisor.
+2. *Person List* is empty.
+3. *Today's Meeting List* is empty.
+4. *Command Result Box* outputs a successful execution message.
+5. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `clear 1`.
+- `clear a`.
+
+Alternative test cases should have similar expected results.
+
 ### Saving data
 
 1. Dealing with missing/corrupted data files
