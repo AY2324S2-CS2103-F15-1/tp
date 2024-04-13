@@ -741,20 +741,45 @@ testers are expected to do more *exploratory* testing.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+#### Deleting a person successfully
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+**Steps:**
+1. Test case: `delete 5`
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+**Expected Result:**
+1. The contact information of the person at index 5 of the list is deleted from FINDvisor.
+2. *Person List* updates the list of contact without the deleted person.
+3. *Command Result Box* outputs a successful execution message with the deleted person's information.
+4. *Command Box* is cleared.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+**Alternative Test Cases:**
+- `delete 3`
+- `delete 1`
 
-1. _{ more test cases …​ }_
+Alternative test cases should have similar expected results.
+
+#### Invalid value or command format used for deleting a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Steps:**
+1. Test case: `delete`
+
+**Expected Result:**
+1. No person in the contact list is deleted.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `delete 0`
+- `delete 100000`
+- `delete1`
+
+Alternative test cases should have similar expected results.
 
 ### Deleting a tag
 
