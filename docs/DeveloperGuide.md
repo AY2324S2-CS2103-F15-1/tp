@@ -663,6 +663,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **Client/Contact/Person**: These terms are used interchangeably to refer to a single person in FINDvisor.
 
 --------------------------------------------------------------------------------------------------------------------
 
