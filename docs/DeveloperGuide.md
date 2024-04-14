@@ -899,7 +899,7 @@ Alternative test cases should have similar expected results.
 
 **Alternative Test Cases:**
 1. `find e/johntan`.
-2. `find r/Online Meeting`.
+2. `find mr/Online Meeting`.
 3. `find m/03-10-2024`.
 
 Alternative test cases should have similar expected results.
