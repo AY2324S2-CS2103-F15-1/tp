@@ -728,26 +728,80 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+testers are expected to do more *exploratory* testing. Alternative test cases with similar expected results are provided for each example test case but are **not exhaustive**.
 
 </div>
 
 ### Launch and shutdown
 
-1. Initial launch
+#### Initial launch
 
-   1. Download the jar file and copy into an empty folder.
+**Prerequisites:**
+1. `Java 11` is installed in the system.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Steps:**
+1. Download the latest `findvisor.jar` file and move it into an empty folder.
+2. Open the command terminal at the folder containing `findvisor.jar`.
+3. Run `java -jar FINDvisor.jar`.
 
-1. Saving window preferences
+**Expected Result:**
+1. FINDvisor GUI appears in a minimized window.
+2. FINDvisor contains a list of sample contacts.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+#### Saving workspace settings
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+**Steps:**
+1. Test case: Resize the window to a preferred size.
+2. Close FINDvisor.
+3. Relaunch FINDvisor through the command terminal as stated in [initial launch](#initial-launch).
 
-1. _{ more test cases …​ }_
+**Expected Result:**
+1. FINDvisor retains the previous window state before it was closed.
+
+**Alternative Test Cases:**
+- Shifting the window to a desired position.
+- Maximizing the window and restoring the window from maximized state.
+- Changing the divider position between *Today's Meeting Panel* and other UI components.
+
+### Adding a person
+
+#### Adding a person successfully
+
+**Prerequisites:**
+1. There is no person in the list with the same mobile phone number as the person to be added.
+
+**Example test case:** `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+**Expected Result:**
+1. *Person List* shows all contacts in FINDvisor.
+2. *Person List* contains the information of the newly added person as specified.
+3. *Command Result Box* outputs a successful execution message with the newly added person's information.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily`.
+- `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily`.
+- `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+#### Invalid value or format used for adding a person
+
+**Prerequisites:**
+1. There are multiple persons stored in FINDvisor data.
+2. There is no person with the mobile phone number `96734294`.
+3. There is a person with the mobile phone number `88812457`.
+
+**Example test case:** `add n/Lim Wei Sheng @ Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+
+**Expected Result:**
+1. Person is **not** added to FINDvisor.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `add n/Devin Leonardo e/devinleo@gmail.com p/88812457 a/Blk 60 Kaki Bukit Place 03-11 Singapore 415979`.
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294`.
+- `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+- `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 ### Deleting a person
 
