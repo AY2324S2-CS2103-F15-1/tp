@@ -728,7 +728,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing. Alternative test cases with similar expected results are provided but are **not exhaustive**.
+testers are expected to do more *exploratory* testing. Alternative test cases with similar expected results are provided for each example test case but are **not exhaustive**.
 
 </div>
 
