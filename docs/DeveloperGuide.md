@@ -718,7 +718,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing. Hence, the list of alternative test cases are **not exhaustive**.
+testers are expected to do more *exploratory* testing. Alternative test cases with similar expected results are provided but are **not exhaustive**.
 
 </div>
 
@@ -753,8 +753,6 @@ testers are expected to do more *exploratory* testing. Hence, the list of altern
 - Maximizing the window and restoring the window from maximized state.
 - Changing the divider position between *Today's Meeting Panel* and other UI components.
 
-Alternative test cases should have similar expected results.
-
 ### Adding a person
 
 #### Adding a person successfully
@@ -776,8 +774,6 @@ Alternative test cases should have similar expected results.
 - `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily` (adding a person in any order of prefixes).
 - `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653` (adding a person with numbers in name).
 
-Alternative test cases should have similar expected results.
-
 #### Invalid value or format used for adding a person
 
 **Prerequisites:**
@@ -798,8 +794,6 @@ Alternative test cases should have similar expected results.
 - `add n/Brendan Lim e/brendanl@gmail.com p/96734294` (adding a person but missing a required field).
 - `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with a blank required field).
 - `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with two name fields).
-
-Alternative test cases should have similar expected results.
 
 ### Deleting a person
 
