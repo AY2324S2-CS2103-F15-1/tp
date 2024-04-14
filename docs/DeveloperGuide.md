@@ -770,7 +770,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. There is no person in the list with the same mobile phone number as the person to be added.
 
-Example test case: `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+**Example test case:** `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
 
 **Expected Result:**
 1. *Person List* shows all contacts in FINDvisor.
@@ -790,7 +790,7 @@ Example test case: `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C
 2. There is no person with the mobile phone number `96734294`.
 3. There is a person with the mobile phone number `88812457`.
 
-Example test case: `add n/Lim Wei Sheng, Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+**Example test case:** `add n/Lim Wei Sheng, Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 **Expected Result:**
 1. Person is **not** added to FINDvisor.
