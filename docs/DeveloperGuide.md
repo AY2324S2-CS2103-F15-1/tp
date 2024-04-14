@@ -376,7 +376,7 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 **Current Implementation**:
 
 - When `clear` command is entered, there is no confirmation prompt before the command is executed.
-- As our command actions are irreversible, this command can be damaging for users who accidentally executed the command without any way to recover the data.
+- As our command actions are irreversible, this command can be damaging if users accidentally execute the command as there is no way to recover lost data.
 
 **Proposed Enhancement**:
 
