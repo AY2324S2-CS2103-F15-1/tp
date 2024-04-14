@@ -928,29 +928,76 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `remark 100000 r/Birthday on 31 July.`.
 - `remark 1 r/Birthday on 31 July r/`.
 
-### Deleting a tag
+### Adding one or more tags to a person
 
-1. Deleting a tag while all persons are being shown
+#### Successful addition of one or more tags to a person
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
 
-   1. Test case: `delete 1 t/validTag`<br>
-      Expected: First contact is selected from the list. Tags of the selected contact will be checked.
-      If validTag exisits in the person's tags, it will be removed. Successful output will be showned in the status message.
-      If validTag does not exisit in the person's tags, failure output will be showned in the status message.
-      Timestamp in the status bar is updated.
+**Example Test Case**: `addtag 1 t/PRUSafe365`.
 
-   1. Test case: `delete 0 t/validTag`<br>
-      Expected: No tag is deleted as 0 is not a valid index for person. Error details shown in the status message. Status bar remains the same.
+**Expected Result:**
+1. `PRUSafe365` is added to the first contact of the list.
+2. *Person List* shows all persons in FINDvisor. 
+3. *Command Result Box* outputs a successful execution message with the details of the contact with the added tags.
+4. *Command Box* is cleared.
 
-   1. Test case: `delete 1 t/invalidTag`<br>
-      Expected: No tag is deleted as the tag is invalid. Error details shown in the status message. Status bar remains the same.
+**Alternative Test Cases:**
+- `addtag 1 t/PRUSafe365 t/PRUGrowth`.
+- `addtag 5 t/PRUActiveCash`.
 
-   1. Test case: `delete 1 t/containedTag t/notContainedTag`<br>
-      Expected: No tag is deleted as one of the targeting tags is not associated with the person. Error details shown in the status message. Status bar remains the same.
+#### Invalid index, tag or command format supplied when adding one or more tags to a person
 
-   1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
+
+**Example Test Case**: `addtag t/PRUSafe365`.
+
+**Expected Result:**
+1. The tag is **not added** to any person in the contact list.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `addtag 100 t/PRUSafe365`.
+- `addtag 3 t/ t/PRUSafe365`.
+
+### Deleting one or more tags from a person
+
+#### Successful deletion of one or more tags to a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. The tags exist on the targeted person.
+
+**Example Test Case**: `deletetag 1 t/PRUSafe365`.
+
+**Expected Result:**
+1. `PRUSafe365` is deleted from the first contact of the list.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* displays the deleted tag(s) and `name` of the specified person.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `deletetag 1 t/PRUSafe365 t/PRUGrowth`.
+- `deletetag 5 t/PRUActiveCash`.
+
+#### Invalid index, tag or command format supplied when deleting one or more tags to a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
+
+**Example Test case**: `deletetag t/PRUSafe365`.
+
+**Expected Result:**
+1. The tag is **not deleted** from any person in the contact list.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `deletetag -1`.
+- `deletetag 3 t/ t/PRUSafe365`.
 
 ### Clearing all persons in FINDvisor
 
