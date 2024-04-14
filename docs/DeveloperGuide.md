@@ -750,7 +750,7 @@ testers are expected to do more *exploratory* testing.
 1. Test case: `delete 5`
 
 **Expected Result:**
-1. The contact information of the person at index 5 of the list is deleted from FINDvisor.
+1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
 2. *Person List* updates the list of contact without the deleted person.
 3. *Command Result Box* outputs a successful execution message with the deleted person's information.
 4. *Command Box* is cleared.
