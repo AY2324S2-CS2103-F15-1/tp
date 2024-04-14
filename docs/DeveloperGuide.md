@@ -418,7 +418,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
 ### 4. Increase flexibility of Date and DateTime formats
-
 **Current Implementation**:
 
 - FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
@@ -430,16 +429,15 @@ The following activity diagram summarizes what happens when a user executes a ne
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
-### 5. Specify error message for reschedule and schedule commands
-
+### 5. Specify error message for parsing invalid DateTime strings in `schedule` and `reschedule` commands
 **Current Implementation**:
 - When users input an invalid `START_DATETIME` or `END_DATETIME`, an invalid command format error message is shown instead of an invalid datetime error message.
 - The error message is not representative of the error and should be more specific about which fields are incorrect.
 
-**Proposed Implementation**:
+**Proposed Enhancement**:
 - The error message should specify which of the given parameters are failing instead of prompting an invalid command format.
 - This can be applied for both reschedule and schedule as they go through the same checks.
-- For examples, `START_DATE 31-02-2024T12:00 is invalid.`, `START_DATE is in invalid format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
+- For examples, `START_DATE 31-02-2024T12:00 is invalid.`, `START_DATE is in invalid format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`, `START_DATE should be before the END_DATE`, `START_DATE should be later than current date time`.
 
 ### 6. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
