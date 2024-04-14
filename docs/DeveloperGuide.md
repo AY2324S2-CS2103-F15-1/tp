@@ -372,7 +372,7 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
 
-### 7. Add confirmation prompt for clear command
+### 7. Add confirmation prompt for `clear` command
 **Current Implementation**:
 
 - When `clear` command is entered, there is no confirmation prompt before the command is executed.
