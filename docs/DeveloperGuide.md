@@ -462,6 +462,18 @@ The following activity diagram summarizes what happens when a user executes a ne
 - The two commands are facilitated by the **same mechanism** as described [here](#proposed-undoredo-feature).
 - `redo` allows for users to revert an `undo` that is executed by mistake, providing greater convenience.
 
+### 8. Notfiy user if data file is invalid
+**Current Implementation**: 
+
+- No error message is displayed to the user when this occurs and users are not informed of the data loss.
+- If new state changing command is made when the data file is invalid, the data file will be overwritten.
+
+**Proposed Enhancement**: 
+
+- Display a message in the *Command Result Box* if the data file cannot be parsed on startup.
+- For example, `Data file (<file_location>) could not be loaded!` will be shown in the *Command Result Box* when the data file is invalid, where `file_location` is the location of the current referenced data file, so the user can modify it accordingly.
+- A new backup file, which is a copy of current invalid data file, will be automatically created.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
