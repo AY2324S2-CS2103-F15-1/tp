@@ -842,7 +842,7 @@ Alternative test cases should have similar expected results.
 ### Editing a person
 #### Editing a person successfully
 **Prerequisites:**
-1. List all persons using the `list` command. At least 5 persons in the list.
+1. List all persons using the `list` command. At least 2 persons in the list.
 2. No person in FINDvisor has the mobile phone number `96734294`.
 
 **Example Test Case:** `edit 1 p/96734294 e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
@@ -857,7 +857,7 @@ Alternative test cases should have similar expected results.
 2. `edit 1 n/John Tan`
 
 #### Editing a person who has a meeting scheduled today successfully
-1. List all persons using the `list` command. At least 5 persons is displayed in the *Person List*.
+1. List all persons using the `list` command. At least 2 persons is displayed in the list.
 3. The first person in the list is also has a meeting scheduled today.
 
 **Example Test Case:** `edit 1 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665`.
