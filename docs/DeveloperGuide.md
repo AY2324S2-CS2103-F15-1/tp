@@ -433,15 +433,15 @@ The following activity diagram summarizes what happens when a user executes a ne
 ### 5. Notfiy user if data file is invalid
 **Current Implementation**: 
 
-- If the data file cannot be parsed due to invalid fields, FINDvisor will discard all data and start with an empty data file at the next run.
 - No error message is displayed to the user when this occurs and users are not informed of the data loss.
+- If new state changing command is made when the data file is invalid, the data file will be overwritten.
 
 **Proposed Enhancement**: 
 
 - Display a message in the Command Result Box if the data file cannot be parsed on startup.
 - For example, `Data file (<file_location>) could not be loaded!` will be shown when the data file is invalid, where `file_location` is the location of the current referenced data file.
 - Specific error message about what is the error will be shown at the command result box. The user can check the data file and modify it accordingly.
-- If new state changing command is made when the data file is invalid, the data file will be overwritten.
+- A new backup file, which is a copy of current invalid date file, will be automatically created.
 
 ### 6. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
