@@ -960,7 +960,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 3. Error details are stated in the *Command Result Box*.
 
 **Alternative Test Cases:**
-- `addtag 100000 t/PRUSafe365`.
+- `addtag 100 t/PRUSafe365`.
 - `addtag 3 t/ t/PRUSafe365`.
 
 ### Deleting one or more tags from a person
