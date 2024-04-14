@@ -780,9 +780,9 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 4. *Command Box* is cleared.
 
 **Alternative Test Cases:**
-- `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily` (adding a person with tags).
-- `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily` (adding a person in any order of prefixes).
-- `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653` (adding a person with numbers in name).
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily`.
+- `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily`.
+- `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
 
 #### Invalid value or format used for adding a person
 
@@ -792,7 +792,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 3. There is a person with the mobile phone number `88812457`.
 
 **Steps:**
-1. Test case: `add n/Lim Wei Sheng, Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with invalid name value).
+1. Test case: `add n/Lim Wei Sheng, Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 **Expected Result:**
 1. Person is **not** added to FINDvisor.
@@ -800,10 +800,10 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 3. Error details are stated in the *Command Result Box*.
 
 **Alternative Test Cases:**
-- `add n/Devin Leonardo e/devinleo@gmail.com p/88812457 a/Blk 60 Kaki Bukit Place 03-11 Singapore 415979` (adding a person with duplicate phone number).
-- `add n/Brendan Lim e/brendanl@gmail.com p/96734294` (adding a person but missing a required field).
-- `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with a blank required field).
-- `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth` (adding a person with two name fields).
+- `add n/Devin Leonardo e/devinleo@gmail.com p/88812457 a/Blk 60 Kaki Bukit Place 03-11 Singapore 415979`.
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294`.
+- `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+- `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 ### Deleting a person
 
