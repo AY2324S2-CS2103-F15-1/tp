@@ -757,7 +757,7 @@ testers are expected to do more *exploratory* testing.
 1. List all persons using the `list` command. At least 5 persons are in the list.
 
 **Steps:**
-1. Test case: `delete 5`
+1. Test case: `delete 5`.
 
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
@@ -766,10 +766,24 @@ testers are expected to do more *exploratory* testing.
 4. *Command Box* is cleared.
 
 **Alternative Test Cases:**
-- `delete 3`
-- `delete 1`
+- `delete 3`.
+- `delete 1`.
 
-Alternative test cases should have similar expected results.
+#### Deleting a person with a scheduled meeting today successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. The first person in the list has a scheduled meeting today.
+
+**Steps:**
+1. Test case: `delete 1`.
+
+**Expected Result:**
+1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
+2. *Person List* updates the list of contact without the deleted person.
+3. *Today's Meeting List* updates the list of today's meetings without the deleted person.
+4. *Command Result Box* outputs a successful execution message with the deleted person's information.
+5. *Command Box* is cleared.
 
 #### Invalid value or command format used for deleting a person
 
@@ -777,7 +791,7 @@ Alternative test cases should have similar expected results.
 1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
 
 **Steps:**
-1. Test case: `delete`
+1. Test case: `delete`.
 
 **Expected Result:**
 1. No person in the contact list is deleted.
@@ -785,11 +799,9 @@ Alternative test cases should have similar expected results.
 3. Error details are stated in the *Command Result Box*.
 
 **Alternative Test Cases:**
-- `delete 0`
-- `delete 100000`
-- `delete1`
-
-Alternative test cases should have similar expected results.
+- `delete 0`.
+- `delete 100000`.
+- `delete1`.
 
 ### Remarking a person
 
@@ -810,8 +822,6 @@ Alternative test cases should have similar expected results.
 **Alternative Test Cases:**
 - `remark 3 r/Wants to get into investing. Wants $100,000 in savings by end of year.`.
 
-Alternative test cases should have similar expected results.
-
 #### Removing a remark from a person
 
 **Prerequisites:**
@@ -830,8 +840,6 @@ Alternative test cases should have similar expected results.
 **Alternative Test Cases:**
 - `remark 5 r/`.
 
-Alternative test cases should have similar expected results.
-
 #### Invalid value or command format used for updating remark of a person
 
 **Prerequisites:**
@@ -846,12 +854,10 @@ Alternative test cases should have similar expected results.
 3. Error details are stated in the *Command Result Box*.
 
 **Alternative Test Cases:**
-- `remark r/`
-- `remark -1 r/Birthday on 31 July.`
-- `remark 100000 r/Birthday on 31 July.`
-- `remark 1 r/Birthday on 31 July r/`
-
-Alternative test cases should have similar expected results.
+- `remark r/`.
+- `remark -1 r/Birthday on 31 July.`.
+- `remark 100000 r/Birthday on 31 July.`.
+- `remark 1 r/Birthday on 31 July r/`.
 
 ### Deleting a tag
 
@@ -898,8 +904,6 @@ Alternative test cases should have similar expected results.
 - `clear 1`.
 - `clear a`.
 
-Alternative test cases should have similar expected results.
-
 ### Exiting FINDvisor
 
 #### Exiting FINDvisor successfully
@@ -913,8 +917,6 @@ Alternative test cases should have similar expected results.
 **Alternative Test Cases:**
 - `exit 1`.
 - `exit a`.
-
-Alternative test cases should have similar expected results.
 
 ### Opening help window
 
@@ -930,8 +932,6 @@ Alternative test cases should have similar expected results.
 **Alternative Test Cases:**
 - `help 1`.
 - `help a`.
-
-Alternative test cases should have similar expected results.
 
 ### Saving data
 
