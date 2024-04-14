@@ -756,8 +756,7 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 
-**Steps:**
-1. Test case: `delete 5`.
+**Example test case:** `delete 5`.
 
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
@@ -775,8 +774,7 @@ testers are expected to do more *exploratory* testing.
 1. List all persons using the `list` command. At least 1 person is in the list.
 2. The first person in the list has a scheduled meeting today.
 
-**Steps:**
-1. Test case: `delete 1`.
+**Example test case:** `delete 1`.
 
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
@@ -790,8 +788,7 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites:**
 1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
 
-**Steps:**
-1. Test case: `delete`.
+**Example test case:** `delete`.
 
 **Expected Result:**
 1. No person in the contact list is deleted.
@@ -810,8 +807,7 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 
-**Steps:**
-1. Test case: `remark 1 r/Birthday on 31 July.`.
+**Example test case:** `remark 1 r/Birthday on 31 July.`.
 
 **Expected Result:**
 1. The remark of specified person is updated to show the respective remark.
@@ -828,8 +824,7 @@ testers are expected to do more *exploratory* testing.
 1. List all persons using the `list` command. At least 5 persons are in the list.
 2. First person in the displayed list has an existing remark.
 
-**Steps:**
-1. Test case: `remark 1 r/`.
+**Example test case:** `remark 1 r/`.
 
 **Expected Result:**
 1. The remark of specified person is updated to be empty.
@@ -845,8 +840,7 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites:**
 1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
 
-**Steps:**
-1. Test case: `remark 1 r/Birthday on 31/7.`.
+**Example test case:** `remark 1 r/Birthday on 31/7.`.
 
 **Expected Result:**
 1. Remark is **not updated** for any person.
@@ -890,8 +884,7 @@ testers are expected to do more *exploratory* testing.
 **Prerequisites:**
 1. At least 1 person is in saved in FINDvisor.
 
-**Steps:**
-1. Test case: `clear`.
+**Example test case:** `clear`.
 
 **Expected Result:**
 1. All persons' information is removed from FINDvisor.
@@ -908,8 +901,7 @@ testers are expected to do more *exploratory* testing.
 
 #### Exiting FINDvisor successfully
 
-**Steps:**
-1. Test case: `exit`.
+**Example test case:** Test case: `exit`.
 
 **Expected Result:**
 1. FINDvisor is closed.
@@ -922,8 +914,7 @@ testers are expected to do more *exploratory* testing.
 
 #### Opening help window successfully
 
-**Steps:**
-1. Test case: `help`.
+**Example test case:** `help`.
 
 **Expected Result:**
 1. An additional help window is opened on top of FINDvisor.
@@ -932,11 +923,3 @@ testers are expected to do more *exploratory* testing.
 **Alternative Test Cases:**
 - `help 1`.
 - `help a`.
-
-### Saving data
-
-1. Dealing with missing/corrupted data files
-
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
-
-1. _{ more test cases …​ }_
