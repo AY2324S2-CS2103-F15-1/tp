@@ -826,20 +826,107 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+#### Deleting a person successfully
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+**Example test case:** `delete 5`.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+**Expected Result:**
+1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
+2. *Person List* updates the list of contact without the deleted person.
+3. *Command Result Box* outputs a successful execution message with the deleted person's information.
+4. *Command Box* is cleared.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+**Alternative Test Cases:**
+- `delete 3`.
+- `delete 1`.
 
-1. _{ more test cases …​ }_
+#### Deleting a person with a scheduled meeting today successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. The first person in the list has a scheduled meeting today.
+
+**Example test case:** `delete 1`.
+
+**Expected Result:**
+1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
+2. *Person List* updates the list of contact without the deleted person.
+3. *Today's Meeting List* updates the list of today's meetings without the deleted person.
+4. *Command Result Box* outputs a successful execution message with the deleted person's information.
+5. *Command Box* is cleared.
+
+#### Invalid value or command format used for deleting a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Example test case:** `delete`.
+
+**Expected Result:**
+1. No person in the contact list is deleted.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `delete 0`.
+- `delete 100000`.
+- `delete1`.
+
+### Remarking a person
+
+#### Leaving a remark on a person successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+
+**Example test case:** `remark 1 r/Birthday on 31 July.`.
+
+**Expected Result:**
+1. The remark of specified person is updated to show the respective remark.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* outputs a successful execution message with new remark.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `remark 3 r/Wants to get into investing. Wants $100,000 in savings by end of year.`.
+
+#### Removing a remark from a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. First person in the displayed list has an existing remark.
+
+**Example test case:** `remark 1 r/`.
+
+**Expected Result:**
+1. The remark of specified person is updated to be empty.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* outputs a successful execution message with new remark.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `remark 5 r/`.
+
+#### Invalid value or command format used for updating remark of a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Example test case:** `remark 1 r/Birthday on 31/7.`.
+
+**Expected Result:**
+1. Remark is **not updated** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `remark r/`.
+- `remark -1 r/Birthday on 31 July.`.
+- `remark 100000 r/Birthday on 31 July.`.
+- `remark 1 r/Birthday on 31 July r/`.
 
 ### Deleting a tag
 
@@ -865,10 +952,49 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
    1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-### Saving data
+### Clearing all persons in FINDvisor
 
-1. Dealing with missing/corrupted data files
+#### Clearing all persons successfully
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+**Prerequisites:**
+1. At least 1 person is saved in FINDvisor.
 
-1. _{ more test cases …​ }_
+**Example test case:** `clear`.
+
+**Expected Result:**
+1. All persons' information is removed from FINDvisor.
+2. *Person List* is empty.
+3. *Today's Meeting List* is empty.
+4. *Command Result Box* outputs a successful execution message.
+5. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `clear 1`.
+- `clear a`.
+
+### Exiting FINDvisor
+
+#### Exiting FINDvisor successfully
+
+**Example test case:** Test case: `exit`.
+
+**Expected Result:**
+1. FINDvisor is closed.
+
+**Alternative Test Cases:**
+- `exit 1`.
+- `exit a`.
+
+### Opening help window
+
+#### Opening help window successfully
+
+**Example test case:** `help`.
+
+**Expected Result:**
+1. An additional help window is opened on top of FINDvisor.
+2. Help window should have window controls visible (i.e. minimize, maximize and close).
+
+**Alternative Test Cases:**
+- `help 1`.
+- `help a`.
