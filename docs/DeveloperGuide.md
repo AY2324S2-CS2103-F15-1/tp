@@ -882,7 +882,7 @@ testers are expected to do more *exploratory* testing.
 #### Clearing all persons successfully
 
 **Prerequisites:**
-1. At least 1 person is in saved in FINDvisor.
+1. At least 1 person is saved in FINDvisor.
 
 **Example test case:** `clear`.
 
