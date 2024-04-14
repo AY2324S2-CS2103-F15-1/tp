@@ -384,6 +384,18 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - The confirmation prompt would require users to key in a **case-sensitive** `Y` into the *Command Box* for the command to be executed.
 - Any other given value would cause the `clear` command to be cancelled and would be stated in the *Command Result Box* and prevents accidental deletion of the entire data.
 
+### 8. Notfiy user if data file is invalid
+**Current Implementation**: 
+
+- No error message is displayed to the user when this occurs and users are not informed of the data loss.
+- If new state changing command is made when the data file is invalid, the data file will be overwritten.
+
+**Proposed Enhancement**: 
+
+- Display a message in the *Command Result Box* if the data file cannot be parsed on startup.
+- For example, `Data file (<file_location>) could not be loaded!` will be shown in the *Command Result Box* when the data file is invalid, where `file_location` is the location of the current referenced data file, so the user can modify it accordingly.
+- A new backup file, which is a copy of current invalid data file, will be automatically created.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
