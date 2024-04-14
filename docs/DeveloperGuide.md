@@ -886,6 +886,59 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `delete 100000`.
 - `delete1`.
 
+### Rescheduling a meeting
+
+#### Rescheduling a meeting successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. First three person in the displayed list has scheduled meetings.
+
+**Example test case:** `reschedule 1 s/01-12-2024T09:30 e/01-12-2024T12:30`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
+3. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `reschedule 2 s/20-06-2024T09:30 e/20-06-2024T12:30`.
+- `reschedule 3 s/15-09-2024T10:00 e/15-09-2024T11:00`.
+
+#### Invalid value or command format used for rescheduling a meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. First person in the displayed list has a scheduled meeting.
+
+**Example test case:** `reschedule 1 s/01-01-2024`.
+
+**Expected Result:**
+1. Meeting is **not rescheduled** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `reschedule 0 d/01-01-2024T09:30`.
+- `reschedule 1 s/01-01-2000T09:30 e/01-01-2000T12:30`.
+- `reschedule 1 s/01-01-2024T09:30 e/01-01-2023T12:30`.
+
+#### Specified person does not have a scheduled meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. First person in the displayed list does not have a scheduled meeting.
+
+**Example Test Case:** `reschedule 1 s/01-01-2024T09:30 e/01-01-2024T12:30`.
+
+**Expected Result:**
+1. Meeting is **not rescheduled** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `reschedule 1 s/01-01-2024T09:30 e/01-01-2024T12:30 mr/Offline Meeting`.
+
 ### Remarking a person
 
 #### Leaving a remark on a person successfully
