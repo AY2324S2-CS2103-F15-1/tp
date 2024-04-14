@@ -790,7 +790,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. There is no person with the mobile phone number `96734294`.
 3. There is a person with the mobile phone number `88812457`.
 
-**Example test case:** `add n/Lim Wei Sheng, Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+**Example test case:** `add n/Lim Wei Sheng @ Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 **Expected Result:**
 1. Person is **not** added to FINDvisor.
