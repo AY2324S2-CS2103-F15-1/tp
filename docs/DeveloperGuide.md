@@ -418,7 +418,6 @@ The following activity diagram summarizes what happens when a user executes a ne
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
 ### 4. Increase flexibility of Date and DateTime formats
-
 **Current Implementation**:
 
 - FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
@@ -430,18 +429,15 @@ The following activity diagram summarizes what happens when a user executes a ne
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
-### 5. Notfiy user if data file is invalid
-**Current Implementation**: 
+### 5. Specify error message for parsing invalid DateTime strings in `schedule` and `reschedule` commands
+**Current Implementation**:
+- When users input an invalid `START_DATETIME` or `END_DATETIME`, an invalid command format error message is shown instead of an invalid datetime error message.
+- The error message is not representative of the error and should be more specific about which fields are incorrect.
 
-- No error message is displayed to the user when this occurs and users are not informed of the data loss.
-- If new state changing command is made when the data file is invalid, the data file will be overwritten.
-
-**Proposed Enhancement**: 
-
-- Display a message in the Command Result Box if the data file cannot be parsed on startup.
-- For example, `Data file (<file_location>) could not be loaded!` will be shown when the data file is invalid, where `file_location` is the location of the current referenced data file.
-- Specific error message about what is the error will be shown at the command result box. The user can check the data file and modify it accordingly.
-- A new backup file, which is a copy of current invalid date file, will be automatically created.
+**Proposed Enhancement**:
+- The error message should specify which of the given parameters are failing instead of prompting an invalid command format.
+- This can be applied for both reschedule and schedule as they go through the same checks.
+- For example, `The START_DATETIME parameter is invalid or has wrong format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
 
 ### 6. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
@@ -454,7 +450,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 - This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
 
-### 6. Allow users to undo and redo command executions
+### 7. Allow users to undo and redo command executions
 **Current Implementation**:
 
 - There is no support for an undo command that allows users to undo their previous action.
@@ -465,6 +461,18 @@ The following activity diagram summarizes what happens when a user executes a ne
 - Implement an `undo` and `redo` command that performs the undo and redo operation respectively.
 - The two commands are facilitated by the **same mechanism** as described [here](#proposed-undoredo-feature).
 - `redo` allows for users to revert an `undo` that is executed by mistake, providing greater convenience.
+
+### 8. Notfiy user if data file is invalid
+**Current Implementation**: 
+
+- No error message is displayed to the user when this occurs and users are not informed of the data loss.
+- If new state changing command is made when the data file is invalid, the data file will be overwritten.
+
+**Proposed Enhancement**: 
+
+- Display a message in the *Command Result Box* if the data file cannot be parsed on startup.
+- For example, `Data file (<file_location>) could not be loaded!` will be shown in the *Command Result Box* when the data file is invalid, where `file_location` is the location of the current referenced data file, so the user can modify it accordingly.
+- A new backup file, which is a copy of current invalid date file, will be automatically created.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -741,26 +749,80 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+testers are expected to do more *exploratory* testing. Alternative test cases with similar expected results are provided for each example test case but are **not exhaustive**.
 
 </div>
 
 ### Launch and shutdown
 
-1. Initial launch
+#### Initial launch
 
-   1. Download the jar file and copy into an empty folder.
+**Prerequisites:**
+1. `Java 11` is installed in the system.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Steps:**
+1. Download the latest `findvisor.jar` file and move it into an empty folder.
+2. Open the command terminal at the folder containing `findvisor.jar`.
+3. Run `java -jar FINDvisor.jar`.
 
-1. Saving window preferences
+**Expected Result:**
+1. FINDvisor GUI appears in a minimized window.
+2. FINDvisor contains a list of sample contacts.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+#### Saving workspace settings
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+**Steps:**
+1. Test case: Resize the window to a preferred size.
+2. Close FINDvisor.
+3. Relaunch FINDvisor through the command terminal as stated in [initial launch](#initial-launch).
 
-1. _{ more test cases …​ }_
+**Expected Result:**
+1. FINDvisor retains the previous window state before it was closed.
+
+**Alternative Test Cases:**
+- Shifting the window to a desired position.
+- Maximizing the window and restoring the window from maximized state.
+- Changing the divider position between *Today's Meeting Panel* and other UI components.
+
+### Adding a person
+
+#### Adding a person successfully
+
+**Prerequisites:**
+1. There is no person in the list with the same mobile phone number as the person to be added.
+
+**Example test case:** `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+**Expected Result:**
+1. *Person List* shows all contacts in FINDvisor.
+2. *Person List* contains the information of the newly added person as specified.
+3. *Command Result Box* outputs a successful execution message with the newly added person's information.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily`.
+- `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily`.
+- `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+#### Invalid value or format used for adding a person
+
+**Prerequisites:**
+1. There are multiple persons stored in FINDvisor data.
+2. There is no person with the mobile phone number `96734294`.
+3. There is a person with the mobile phone number `88812457`.
+
+**Example test case:** `add n/Lim Wei Sheng @ Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+
+**Expected Result:**
+1. Person is **not** added to FINDvisor.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `add n/Devin Leonardo e/devinleo@gmail.com p/88812457 a/Blk 60 Kaki Bukit Place 03-11 Singapore 415979`.
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294`.
+- `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+- `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 ### Deleting a person
 
