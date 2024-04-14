@@ -48,10 +48,10 @@ FINDvisor enables financial advisors to quickly save and retrieve the following 
 The components of FINDvisor's user interface are shown below:<br>
 
 ![Ui-Annotated](images/Ui-Annotated.png)
-1. **Command Box**: Commands are entered in this box and executed when the user presses the Enter key. The command entered will be cleared when a command is executed successfully.
-2. **Command Result Box**: The feedback for command will be displayed, indicating if command executed was successful. An error message will be displayed if the command was unsuccessful.
-3. **Person List**: The list of persons stored in FINDvisor. Note that this list will be display the latest list when a command to update the list is **executed successfully**.
-4. **Today's Meeting List**: The list of persons who have a meeting on the current date of your computer when running the application (if any).
+1. *Command Box*: Commands are entered in this box and executed when the user presses the Enter key. The command entered will be cleared when a command is executed successfully.
+2. *Command Result Box*: The feedback for command will be displayed, indicating if command executed was successful. An error message will be displayed if the command was unsuccessful.
+3. *Person List*: The list of persons stored in FINDvisor. Note that this list will display the latest list when a command to update the list is **executed successfully**.
+4. *Today's Meeting List*: The list of persons who have a meeting on the current date of your computer when running the application (if any). This list is updated accordingly to match the latest persons' information in *Person List*.
 
 ### On Command Success
 Below is a sample command that is executed successfully. Note that the feedback is displayed in the **Command Result Box** and the **Person List** displays the newly added person.<br>
