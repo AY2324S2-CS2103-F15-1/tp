@@ -938,7 +938,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Example Test Case**: `addtag 1 t/PRUSafe365`.
 
 **Expected Result:**
-1. `PRUSafe365` is added to the first contact on the list.
+1. `PRUSafe365` is added to the first contact of the list.
 2. *Person List* shows all persons in FINDvisor. 
 3. *Command Result Box* outputs a successful execution message with the details of the contact with the added tags.
 4. *Command Box* is cleared.
@@ -950,7 +950,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 #### Invalid index, tag or command format supplied when adding one or more tags to a person
 
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 
 **Example Test Case**: `addtag t/PRUSafe365`.
 
@@ -974,7 +974,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Example Test Case**: `deletetag 1 t/PRUSafe365`.
 
 **Expected Result:**
-1. `PRUSafe365` is deleted from the first contact.
+1. `PRUSafe365` is deleted from the first contact of the list.
 2. *Person List* shows all persons in FINDvisor.
 3. *Command Result Box* displays the deleted tag(s) and `name` of the specified person.
 4. *Command Box* is cleared.
@@ -986,7 +986,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 #### Invalid index, tag or command format supplied when deleting one or more tags to a person
 
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 
 **Example Test case**: `deletetag t/PRUSafe365`.
 
