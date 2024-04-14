@@ -39,7 +39,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -71,13 +71,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.svg)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `MeetingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -88,7 +88,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -115,7 +115,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
@@ -129,7 +129,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -375,8 +375,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
@@ -427,7 +425,7 @@ _{more aspects and alternatives to be added}_
 - This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
 - For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
 
-**Proposed Implementation**:
+**Proposed Enhancement**:
 
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
@@ -454,6 +452,18 @@ _{more aspects and alternatives to be added}_
 - This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
 
+### 7. Allow users to undo and redo command executions
+**Current Implementation**:
+
+- There is no support for an undo command that allows users to undo their previous action.
+- This can cause inconveniences when commands such as `clear` are executed where there is no confirmation for the execution of the command and the action is irreversible.
+
+**Proposed Enhancement**:
+
+- Implement an `undo` and `redo` command that performs the undo and redo operation respectively.
+- The two commands are facilitated by the **same mechanism** as described [here](#proposed-undoredo-feature).
+- `redo` allows for users to revert an `undo` that is executed by mistake, providing greater convenience.
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -472,14 +482,14 @@ _{more aspects and alternatives to be added}_
 
 **Target user profile**:
 
-* financial advisors based in Singapore and deals with Singaporean clients
-* has a need of scheduling meetings with a significant number of clients
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-* has English as his first language
+* Financial advisors based in Singapore
+* Has a need of managing clients who have Singapore mobile phone numbers
+* Has a need of scheduling meetings with a significant number of clients
+* Prefers typing over mouse interactions and types fast
+* Is reasonably comfortable using CLI apps
+* Has English as his first language
 
-**Value proposition**: FINDvisor aims to streamline client management for financial advisors with a tool that organizes contact information. Furthermore, it aims to simplify organising meetings, and tracks client goals for better timeline planning—all in one clutter-free interface.
+**Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve the following contact’s information such as name, mobile phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
 
 
 ### User stories
@@ -497,7 +507,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | Financial Advisor | find a client's contact based on what I remember about the client's contact information  | do not have to search through the whole list to find a specific client        |
 | `* * *`  | Financial Advisor | filter contact list by categories                                                        | easily find clients based on category                                         |
 | `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                             |
-| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | so that I can update my schedule in the event of a cancelled meeting          |
+| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | update my schedule in the event of a cancelled meeting                        |
 | `* * *`  | Financial Advisor | categorize my clients into different categories such as financial plans or relationships |                                                                               |
 | `* *`    | Financial Advisor | view all my meetings for today                                                           | be prepared for my meetings of today                                          |
 | `* *`    | Financial Advisor | filter contact list by meeting date                                                      | find out who I'm meeting on a specific date                                   |
@@ -674,7 +684,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-#### Use case: Delete a tag
+#### Use case: Deleting tags from a person
 
 **MSS**
 
