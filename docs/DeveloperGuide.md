@@ -950,7 +950,7 @@ Alternative test cases should have similar expected results.
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
 2. *Person List* shows the list of contact without the deleted person.
-3. *Today's Meeting List* updates the list of today's meetings without the deleted person.
+3. *Today's Meeting List* shows the list of today's meetings without the deleted person.
 4. *Command Result Box* outputs a successful execution message with the deleted person's information.
 5. *Command Box* is cleared.
 
