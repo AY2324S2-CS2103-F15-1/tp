@@ -870,7 +870,7 @@ Alternative test cases should have similar expected results.
 
 #### Invalid value or command format used for editing a person
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (Less than 100).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 2. The first existing person in the *Person List* has the mobile phone number `96734294`.
 
 **Example Test Case:** `edit 2 p/96734294`
