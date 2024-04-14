@@ -375,8 +375,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
@@ -427,7 +425,7 @@ _{more aspects and alternatives to be added}_
 - This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
 - For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
 
-**Proposed Implementation**:
+**Proposed Enhancement**:
 
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
@@ -442,6 +440,18 @@ _{more aspects and alternatives to be added}_
 - When a new meeting is being scheduled or a previous meeting is being rescheduled, the input meeting date and times will be checked against all existing meetings, if there is an overlap, a warning message will be shown to the user.
 - This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
+
+### 6. Allow users to undo and redo command executions
+**Current Implementation**:
+
+- There is no support for an undo command that allows users to undo their previous action.
+- This can cause inconveniences when commands such as `clear` are executed where there is no confirmation for the execution of the command and the action is irreversible.
+
+**Proposed Enhancement**:
+
+- Implement an `undo` and `redo` command that performs the undo and redo operation respectively.
+- The two commands are facilitated by the **same mechanism** as described [here](#proposed-undoredo-feature).
+- `redo` allows for users to revert an `undo` that is executed by mistake, providing greater convenience.
 
 --------------------------------------------------------------------------------------------------------------------
 
