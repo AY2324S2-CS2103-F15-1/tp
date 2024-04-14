@@ -384,7 +384,7 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - The confirmation prompt would require users to key in a **case-sensitive** `Y` into the *Command Box* for the command to be executed.
 - Any other given value would cause the `clear` command to be cancelled and would be stated in the *Command Result Box* and prevents accidental deletion of the entire data.
 
-### 8. Notfiy user if data file is invalid
+### 8. Notify user if data file is invalid
 **Current Implementation**: 
 
 - No error message is displayed to the user when this occurs and users are not informed of the data loss.
