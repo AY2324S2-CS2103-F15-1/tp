@@ -379,7 +379,7 @@ This allows FINDvisor to restore most of the window settings on the next startup
 
 ## FAQ
 **Q**: What is the difference between a person and a contact in the user guide?<br>
-**A**: These two terms are used interchangeably, i.e. a contact is a person stored in FINDvisor vice versa. 
+**A**: These two terms are used interchangeably, i.e. a contact is a person stored in FINDvisor and vice versa. 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FINDvisor home folder.
