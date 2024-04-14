@@ -2,7 +2,10 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
+## Table of Contents
+{:.no_toc}
+
+* ToC
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
