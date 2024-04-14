@@ -837,8 +837,6 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `list 1`.
 - `list a`.
 
-Alternative test cases should have similar expected results.
-
 ### Editing a person
 #### Editing a person successfully
 **Prerequisites:**
@@ -886,8 +884,6 @@ Alternative test cases should have similar expected results.
 3. `edit 100000 n/Jane Doe`.
 4. `edit 1 n/John Doe n/Jane Doe`.
 
-Alternative test cases should have similar expected results.
-
 ### Searching for persons
 #### Searching for persons successfully
 **Example Test Case:** `find n/Alex`.
@@ -902,8 +898,6 @@ Alternative test cases should have similar expected results.
 2. `find mr/Online Meeting`.
 3. `find m/03-10-2024`.
 
-Alternative test cases should have similar expected results.
-
 #### Invalid value or command format used for searching persons
 
 **Example Test Case:** `find m/40-15-2024`
@@ -917,8 +911,6 @@ Alternative test cases should have similar expected results.
 1. `find n/`.
 2. `find m/03/10/2024`.
 3. `find m/3rd March 2024`.
-
-Alternative test cases should have similar expected results.
 
 ### Deleting a person
 
