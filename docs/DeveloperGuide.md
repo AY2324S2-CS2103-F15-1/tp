@@ -773,7 +773,18 @@ Alternative test cases should have similar expected results.
 1. `edit 2 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
 2. `edit 1 n/John Tan`
 
-Alternative test cases should have similar expected results.
+#### Editing a person who has a meeting scheduled today successfully
+1. List all persons using the `list` command. At least 5 persons is displayed in the *Person List*.
+3. The first person in the list is also has a meeting scheduled today.
+
+**Steps:**
+1. Test case: `edit 1 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665`.
+
+**Expected Result:**
+1. *Today's Meeting List* shows updated person's fields (name and phone number only) based on the specified values supplied in the command.
+2. *Person List* shows all persons in FINDvisor. The respective person's fields will be overwritten with the specified values supplied in the command.
+3. *Command Result Box* outputs a successful execution message with the edited person's details.
+4. *Command Box* is cleared.
 
 #### Invalid value or command format used for editing a person
 **Prerequisites:**
