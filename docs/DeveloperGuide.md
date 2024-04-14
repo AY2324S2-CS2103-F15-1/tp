@@ -437,7 +437,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Proposed Enhancement**:
 - The error message should specify which of the given parameters are failing instead of prompting an invalid command format.
 - This can be applied for both reschedule and schedule as they go through the same checks.
-- For examples, `START_DATE 31-02-2024T12:00 is invalid.`, `START_DATE is in invalid format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`, `START_DATE should be before the END_DATE`, `START_DATE should be later than current date time`.
+- For examples, `The START_DATETIME parameter is invalid or has wrong format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
 
 ### 6. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
