@@ -39,7 +39,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -71,13 +71,13 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/ui/Ui.java)
 
 ![Structure of the UI Component](images/UiClassDiagram.svg)
 
 The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `PersonListPanel`, `MeetingListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/resources/view/MainWindow.fxml)
 
 The `UI` component,
 
@@ -88,7 +88,7 @@ The `UI` component,
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -115,7 +115,7 @@ How the parsing works:
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/model/Model.java)
 
 <img src="images/ModelClassDiagram.png" width="450" />
 
@@ -129,7 +129,7 @@ The `Model` component,
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/storage/Storage.java)
 
 <img src="images/StorageClassDiagram.png" width="550" />
 
@@ -375,8 +375,6 @@ The following activity diagram summarizes what happens when a user executes a ne
   * Pros: Will use less memory (e.g. for `delete`, just save the person being deleted).
   * Cons: We must ensure that the implementation of each individual command are correct.
 
-_{more aspects and alternatives to be added}_
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Planned Enhancements**
@@ -420,19 +418,28 @@ _{more aspects and alternatives to be added}_
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
 ### 4. Increase flexibility of Date and DateTime formats
-
 **Current Implementation**:
 
 - FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
 - This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
 - For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
 
-**Proposed Implementation**:
+**Proposed Enhancement**:
 
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
 - This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
 
-### 5. Show warning to user when scheduling an overlapping meeting
+### 5. Specify error message for parsing invalid DateTime strings in `schedule` and `reschedule` commands
+**Current Implementation**:
+- When users input an invalid `START_DATETIME` or `END_DATETIME`, an invalid command format error message is shown instead of an invalid datetime error message.
+- The error message is not representative of the error and should be more specific about which fields are incorrect.
+
+**Proposed Enhancement**:
+- The error message should specify which of the given parameters are failing instead of prompting an invalid command format.
+- This can be applied for both reschedule and schedule as they go through the same checks.
+- For example, `The START_DATETIME parameter is invalid or has wrong format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
+
+### 6. Show warning to user when scheduling an overlapping meeting
 **Current Implementation**:
 
 - No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people that can overlap with each other with no warnings.
@@ -442,6 +449,30 @@ _{more aspects and alternatives to be added}_
 - When a new meeting is being scheduled or a previous meeting is being rescheduled, the input meeting date and times will be checked against all existing meetings, if there is an overlap, a warning message will be shown to the user.
 - This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
+
+### 7. Allow users to undo and redo command executions
+**Current Implementation**:
+
+- There is no support for an undo command that allows users to undo their previous action.
+- This can cause inconveniences when commands such as `clear` are executed where there is no confirmation for the execution of the command and the action is irreversible.
+
+**Proposed Enhancement**:
+
+- Implement an `undo` and `redo` command that performs the undo and redo operation respectively.
+- The two commands are facilitated by the **same mechanism** as described [here](#proposed-undoredo-feature).
+- `redo` allows for users to revert an `undo` that is executed by mistake, providing greater convenience.
+
+### 8. Notfiy user if data file is invalid
+**Current Implementation**: 
+
+- No error message is displayed to the user when this occurs and users are not informed of the data loss.
+- If new state changing command is made when the data file is invalid, the data file will be overwritten.
+
+**Proposed Enhancement**: 
+
+- Display a message in the *Command Result Box* if the data file cannot be parsed on startup.
+- For example, `Data file (<file_location>) could not be loaded!` will be shown in the *Command Result Box* when the data file is invalid, where `file_location` is the location of the current referenced data file, so the user can modify it accordingly.
+- A new backup file, which is a copy of current invalid data file, will be automatically created.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -461,14 +492,14 @@ _{more aspects and alternatives to be added}_
 
 **Target user profile**:
 
-* financial advisors based in Singapore and deals with Singaporean clients
-* has a need of scheduling meetings with a significant number of clients
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-* has English as his first language
+* Financial advisors based in Singapore
+* Has a need of managing clients who have Singapore mobile phone numbers
+* Has a need of scheduling meetings with a significant number of clients
+* Prefers typing over mouse interactions and types fast
+* Is reasonably comfortable using CLI apps
+* Has English as his first language
 
-**Value proposition**: FINDvisor aims to streamline client management for financial advisors with a tool that organizes contact information. Furthermore, it aims to simplify organising meetings, and tracks client goals for better timeline planning—all in one clutter-free interface.
+**Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve the following contact’s information such as name, mobile phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
 
 
 ### User stories
@@ -718,26 +749,80 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 Given below are instructions to test the app manually.
 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** These instructions only provide a starting point for testers to work on;
-testers are expected to do more *exploratory* testing.
+testers are expected to do more *exploratory* testing. Alternative test cases with similar expected results are provided for each example test case but are **not exhaustive**.
 
 </div>
 
 ### Launch and shutdown
 
-1. Initial launch
+#### Initial launch
 
-   1. Download the jar file and copy into an empty folder.
+**Prerequisites:**
+1. `Java 11` is installed in the system.
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+**Steps:**
+1. Download the latest `findvisor.jar` file and move it into an empty folder.
+2. Open the command terminal at the folder containing `findvisor.jar`.
+3. Run `java -jar FINDvisor.jar`.
 
-1. Saving window preferences
+**Expected Result:**
+1. FINDvisor GUI appears in a minimized window.
+2. FINDvisor contains a list of sample contacts.
 
-   1. Resize the window to an optimum size. Move the window to a different location. Close the window.
+#### Saving workspace settings
 
-   1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+**Steps:**
+1. Test case: Resize the window to a preferred size.
+2. Close FINDvisor.
+3. Relaunch FINDvisor through the command terminal as stated in [initial launch](#initial-launch).
 
-1. _{ more test cases …​ }_
+**Expected Result:**
+1. FINDvisor retains the previous window state before it was closed.
+
+**Alternative Test Cases:**
+- Shifting the window to a desired position.
+- Maximizing the window and restoring the window from maximized state.
+- Changing the divider position between *Today's Meeting Panel* and other UI components.
+
+### Adding a person
+
+#### Adding a person successfully
+
+**Prerequisites:**
+1. There is no person in the list with the same mobile phone number as the person to be added.
+
+**Example test case:** `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+**Expected Result:**
+1. *Person List* shows all contacts in FINDvisor.
+2. *Person List* contains the information of the newly added person as specified.
+3. *Command Result Box* outputs a successful execution message with the newly added person's information.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth t/LimFamily`.
+- `add p/96734294 n/Brendan Lim e/brendanl@gmail.com t/PRUGrowth a/Blk 653C Jurong West Street 61 Singapore 643653 t/LimFamily`.
+- `add n/Brendan Lim the 3rd e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+
+#### Invalid value or format used for adding a person
+
+**Prerequisites:**
+1. There are multiple persons stored in FINDvisor data.
+2. There is no person with the mobile phone number `96734294`.
+3. There is a person with the mobile phone number `88812457`.
+
+**Example test case:** `add n/Lim Wei Sheng @ Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+
+**Expected Result:**
+1. Person is **not** added to FINDvisor.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `add n/Devin Leonardo e/devinleo@gmail.com p/88812457 a/Blk 60 Kaki Bukit Place 03-11 Singapore 415979`.
+- `add n/Brendan Lim e/brendanl@gmail.com p/96734294`.
+- `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+- `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 ### Viewing all persons
 #### Viewing all persons successfully
@@ -843,20 +928,107 @@ Alternative test cases should have similar expected results.
 
 ### Deleting a person
 
-1. Deleting a person while all persons are being shown
+#### Deleting a person successfully
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+**Example test case:** `delete 5`.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+**Expected Result:**
+1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
+2. *Person List* updates the list of contact without the deleted person.
+3. *Command Result Box* outputs a successful execution message with the deleted person's information.
+4. *Command Box* is cleared.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+**Alternative Test Cases:**
+- `delete 3`.
+- `delete 1`.
 
-1. _{ more test cases …​ }_
+#### Deleting a person with a scheduled meeting today successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. The first person in the list has a scheduled meeting today.
+
+**Example test case:** `delete 1`.
+
+**Expected Result:**
+1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
+2. *Person List* updates the list of contact without the deleted person.
+3. *Today's Meeting List* updates the list of today's meetings without the deleted person.
+4. *Command Result Box* outputs a successful execution message with the deleted person's information.
+5. *Command Box* is cleared.
+
+#### Invalid value or command format used for deleting a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Example test case:** `delete`.
+
+**Expected Result:**
+1. No person in the contact list is deleted.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `delete 0`.
+- `delete 100000`.
+- `delete1`.
+
+### Remarking a person
+
+#### Leaving a remark on a person successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+
+**Example test case:** `remark 1 r/Birthday on 31 July.`.
+
+**Expected Result:**
+1. The remark of specified person is updated to show the respective remark.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* outputs a successful execution message with new remark.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `remark 3 r/Wants to get into investing. Wants $100,000 in savings by end of year.`.
+
+#### Removing a remark from a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. First person in the displayed list has an existing remark.
+
+**Example test case:** `remark 1 r/`.
+
+**Expected Result:**
+1. The remark of specified person is updated to be empty.
+2. *Person List* shows all persons in FINDvisor.
+3. *Command Result Box* outputs a successful execution message with new remark.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `remark 5 r/`.
+
+#### Invalid value or command format used for updating remark of a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Example test case:** `remark 1 r/Birthday on 31/7.`.
+
+**Expected Result:**
+1. Remark is **not updated** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `remark r/`.
+- `remark -1 r/Birthday on 31 July.`.
+- `remark 100000 r/Birthday on 31 July.`.
+- `remark 1 r/Birthday on 31 July r/`.
 
 ### Deleting a tag
 
@@ -882,10 +1054,49 @@ Alternative test cases should have similar expected results.
    1. Other incorrect delete commands to try: `deletetag`, `deletetag x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-### Saving data
+### Clearing all persons in FINDvisor
 
-1. Dealing with missing/corrupted data files
+#### Clearing all persons successfully
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+**Prerequisites:**
+1. At least 1 person is saved in FINDvisor.
 
-1. _{ more test cases …​ }_
+**Example test case:** `clear`.
+
+**Expected Result:**
+1. All persons' information is removed from FINDvisor.
+2. *Person List* is empty.
+3. *Today's Meeting List* is empty.
+4. *Command Result Box* outputs a successful execution message.
+5. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `clear 1`.
+- `clear a`.
+
+### Exiting FINDvisor
+
+#### Exiting FINDvisor successfully
+
+**Example test case:** Test case: `exit`.
+
+**Expected Result:**
+1. FINDvisor is closed.
+
+**Alternative Test Cases:**
+- `exit 1`.
+- `exit a`.
+
+### Opening help window
+
+#### Opening help window successfully
+
+**Example test case:** `help`.
+
+**Expected Result:**
+1. An additional help window is opened on top of FINDvisor.
+2. Help window should have window controls visible (i.e. minimize, maximize and close).
+
+**Alternative Test Cases:**
+- `help 1`.
+- `help a`.
