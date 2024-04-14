@@ -472,7 +472,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 - Display a message in the *Command Result Box* if the data file cannot be parsed on startup.
 - For example, `Data file (<file_location>) could not be loaded!` will be shown in the *Command Result Box* when the data file is invalid, where `file_location` is the location of the current referenced data file, so the user can modify it accordingly.
-- A new backup file, which is a copy of current invalid date file, will be automatically created.
+- A new backup file, which is a copy of current invalid data file, will be automatically created.
 
 --------------------------------------------------------------------------------------------------------------------
 
