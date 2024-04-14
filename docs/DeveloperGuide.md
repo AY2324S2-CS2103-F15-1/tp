@@ -756,26 +756,78 @@ testers are expected to do more *exploratory* testing.
 
 1. _{ more test cases …​ }_
 
-### Adding one or more tags
+### Adding one or more tags to a person
 
-1. Successful run when the entire contact list is displayed.
-   1. Prerequisite: Ensure the contact list has enough people.
-   2. Single valid tag test case: `addtag 1 t/PRUActiveCash`.<br>
-      Expected: `PRUActiveCash` added to the first contact. Details of the contact with the added tags shown in the status message.
-   3. Multiple valid tags test case: `addtag 3 t/PRUSaver t/PRUHealth`.<br>
-      Expected: `PRUSaver` and `PRUHealth` added to the third contact on the filtered list. Details of the contact with the added tags shown in status message.
+#### Successful addition of one or more tags to a person
 
-2. Unsuccessful runs when the entire contact list is displayed.
-   1. Invalid index test case: `addtag 0 t/PRUActiveCash`.<br>
-      Expected: Tag is not added to the contact. Invalid command format error details shown in the status message.
-   2. Missing tag prefix test case: `addtag 1`.<br>
-      Expected: Tag is not added to the contact. Same display as 1.
-   3. Invalid tag provided test case: `addtag 1 t/ t/PRUSaver`.<br>
-      Expected: Tag is not added to the contact. Tag error details shown in the status message.
-   4. Index exceeds contact list test case: `addtag 3 t/ t/PRUSaver` after `find` displays only 2 contacts.<br>
-      Expected: Tag is not added to the contact. Invalid index error details shown in the status message.
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
 
-### Deleting a tag
+**Steps:**
+1. Test case: `addtag 1 t/PRUSafe365`.
+
+**Expected Result:**
+1. `PRUSafe365` is added to the first contact. 
+2. *Command Result Box* displays details of the contact with the added tags.
+3. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `addtag 1 t/PRUSafe365 t/PRUGrowth`.
+- `addtag 5 t/PRUActiveCash`.
+
+#### Invalid index, tag or command format supplied when adding one or more tags to a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. For this section, consider the case where the list has exactly 10 people.
+
+**Steps:**
+1. Test case: `addtag 20 t/PRUSafe365`.
+
+**Expected Result:**
+1. The tag is not added to any person in the contact list.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `addtag 0`.
+- `addtag 3 t/ t/PRUSafe365`.
+
+### Deleting one or more tags from a person
+
+#### Successful deletion of one or more tags to a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list and the tags exist on the targeted person.
+
+**Steps:**
+1. Test case: `deletetag 1 t/PRUSafe365`.
+
+**Expected Result:**
+1. `PRUSafe365` is deleted from the first contact.
+2. *Command Result Box* displays details of the contact with the deleted tags.
+3. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `deletetag 1 t/PRUSafe365 t/PRUGrowth`.
+- `deletetag 5 t/PRUActiveCash`.
+
+#### Invalid index, tag or command format supplied when deleting one or more tags to a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. For this section, consider the case where the list has exactly 10 people.
+
+**Steps:**
+1. Test case: `deletetag 20 t/PRUSafe365`.
+
+**Expected Result:**
+1. The tag is not added to any person in the contact list.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `deletetag -1`.
+- `deletetag 3 t/ t/PRUSafe365`.
+
 
 1. Deleting a tag while all persons are being shown
 
