@@ -957,7 +957,7 @@ Alternative test cases should have similar expected results.
 #### Invalid value or command format used for deleting a person
 
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 
 **Example Test Case:** `delete`.
 
@@ -1009,7 +1009,7 @@ Alternative test cases should have similar expected results.
 #### Invalid value or command format used for updating remark of a person
 
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 
 **Example Test Case:** `remark 1 r/Birthday on 31/7.`.
 
