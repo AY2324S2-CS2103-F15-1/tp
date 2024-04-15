@@ -111,8 +111,8 @@ The sequence diagram below illustrates the interactions within the `Logic` compo
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g., `DeleteCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g., `DeleteCommand`) which is executed by the `LogicManager`.
+1. When `Logic` is called upon to execute a command, it is passed to an `AddressBookParser` object which in turn creates a parser that matches the command (e.g. `DeleteCommandParser`) and uses it to parse the command.
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g. `DeleteCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a person).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
 1. The result of the command execution is encapsulated as a `CommandResult` object which is returned back from `Logic`.
@@ -122,8 +122,8 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <img src="images/ParserClasses.png" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and creates an `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g., during testing.
+* When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g. `AddCommandParser`) which uses the other classes shown above to parse the user command and creates an `XYZCommand` object (e.g. `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
+* All `XYZCommandParser` classes (e.g. `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g. during testing.
 
 <div style="page-break-after: always;"></div>
 
@@ -136,7 +136,7 @@ How the parsing works:
 The `Model` component
 
 * stores the address book data i.e., all `Person` objects (which are contained in a `UniquePersonList` object).
-* stores the currently 'selected' `Person` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' `Person` objects (e.g. results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Person>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
@@ -283,7 +283,7 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 
 For search queries based on a person's meeting date, the user input will be first validated in `FindCommandParser` to check if it matches the date format specified in FINDvisor. This validation is facilitated by `ParserUtil#parseMeetingDate(String)`. Afterwards, `FindCommandParser` will create a new `PersonMeetingDatePredicate(LocalDate)` with the parsed user input if it is valid. 
 
-The sequence diagram below shows `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
+The sequence diagram below shows how `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
 - `find`: `find m/25-04-2024`
 - `argument`: `m/25-04-2024`
 - `value`: `25-04-2024`
@@ -318,7 +318,7 @@ This feature allows users to delete multiple `Tag`s from a `Person` within the c
 The feature is implemented through the `DeleteTagCommand` and the `DeleteTagCommandParser` which extends `Command` and `Parser` respectively.
 
 The `DeleteTagCommandParser` takes in an `INDEX` and the `TAG`s to delete from a person. If both are supplied and valid, they are passed into the `DeleteTagCommand`,  if not it will throw an exception according to the error.
-Note that all `TAG`s supplied must be found on the specified `person` to be considered valid.
+Note that all `TAG`s supplied must be found on the specified `Person` to be considered valid.
 
 The following sequence diagram shows how `DeleteTagCommand` interacts with `Logic`.
 
