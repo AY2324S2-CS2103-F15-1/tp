@@ -138,11 +138,11 @@ Below is a sample unsuccessful command executed. Note that the command is highli
 
 * `DATETIME` format:
   * Applies to all parameters with `DATETIME` postfix (i.e. `START_DATETIME` and `END_DATETIME`).
-  * Must follow the format `dd-MM-yyyy`T`HH:mm` (i.e. `23-02-2024T14:00`).
+  * Must follow the format `dd-MM-yyyy`T`HH:mm` (i.e. `23-06-2024T14:00`).
 
 * `DATE` format:
   * Applies to all parameters with `DATE` postfix (i.e.`MEETING_DATE`).
-  * Must follow the format `dd-MM-yyyy` (i.e. `23-02-2024`).
+  * Must follow the format `dd-MM-yyyy` (i.e. `23-06-2024`).
 
 * `REMARK` format:
     * Can only consist of alphanumeric characters, whitespace, and the following set of characters: ``!@#$%^&*()_+-{}[]:;'\"<>?.,|~`\``.
@@ -189,6 +189,8 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…�
 * When editing tags, **existing tags will be overwritten** with the new tags given.
 * You can remove all the person’s tags by typing `t/` without specifying any tags after it.
 * This command will check for duplicate mobile phone numbers before the `edit` command is executed. If the new mobile phone number is used by another person, the command will not be executed.
+
+<div style="page-break-after: always;"></div>
 
 Examples:
 * `edit 3 n/Bobby Tay e/bobbytay@u.nus.edu` edits contact displayed at index 3 and changes the name of the contact to `Bobby Tay` and email to `bobbytay@u.nus.edu` respectively.
@@ -248,8 +250,8 @@ Format: `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`
 
 Examples:
 
-* `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00 with the remark `online meeting`.
-* `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` schedules a meeting with the person at index 1 from 23-02-2024 16:00 to 23-02-2024 17:00.
+* `schedule 1 s/23-06-2024T16:00 e/23-06-2024T17:00 mr/online meeting` schedules a meeting with the person at index 1 from 23-06-2024 16:00 to 23-06-2024 17:00 with the remark `online meeting`.
+* `schedule 1 s/23-06-2024T16:00 e/23-06-2024T17:00` schedules a meeting with the person at index 1 from 23-06-2024 16:00 to 23-06-2024 17:00.
 
 <div style="page-break-after: always;"></div>
 
@@ -283,7 +285,7 @@ Format: `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK
 * If `MEETING_REMARK` is empty or consists entirely of whitespace characters, the command will **remove the existing meeting remark**.
 
 Examples:
-* `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00` reschedules the meeting with the person at index 1 to start at 23-02-2024 16:00 and end at 23-02-2024 17:00.
+* `reschedule 1 s/23-06-2024T16:00 e/23-06-2024T17:00` reschedules the meeting with the person at index 1 to start at 23-06-2024 16:00 and end at 23-06-2024 17:00.
 * `reschedule 1 mr/online meeting` changes the meeting remark of the meeting with the person at index 1 to `online meeting`.
 
 <div style="page-break-after: always;"></div>
@@ -450,9 +452,9 @@ Action | Format, Examples
 **Edit** | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.`edit 2 n/James Lee e/jameslee@example.com`
 **Find** | `find n/NAME|e/EMAIL|p/PHONE_NUMBER|a/ADDRESS|r/REMARK`<br>`|m/MEETING_DATE|mr/MEETING_REMARK|t/TAG…`<br> e.g. `find n/Alice Tan`
 **Delete** | `delete INDEX`<br> e.g. `delete 3`
-**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g. `schedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00 mr/online meeting`
+**Schedule** | `schedule INDEX s/START_DATETIME e/END_DATETIME [mr/MEETING_REMARK]`<br> e.g. `schedule 1 s/23-06-2024T16:00 e/23-06-2024T17:00 mr/online meeting`
 **Unschedule** | `unschedule INDEX`<br> e.g. `unschedule 1`
-**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g. `reschedule 1 s/23-02-2024T16:00 e/23-02-2024T17:00`
+**Reschedule** | `reschedule INDEX [s/START_DATETIME] [e/END_DATETIME] [mr/MEETING_REMARK]`<br> e.g. `reschedule 1 s/23-06-2024T16:00 e/23-06-2024T17:00`
 **Remark** | `remark INDEX r/[REMARK]`<br> e.g. `remark 1 r/Plans to own a house by age 35`
 **Add Tag** | `addtag INDEX t/TAG...`<br> e.g. `addtag 1 t/PRUSafe365` <br> `addtag 1 t/PRUSafe365 t/PRUGrowth`
 **Delete Tag** | `deletetag INDEX t/TAG...`<br> e.g. `deletetag 1 t/friends t/family`
