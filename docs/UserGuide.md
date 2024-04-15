@@ -194,7 +194,7 @@ Format: `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]â€¦â€
 
 Examples:
 * `edit 3 n/Bobby Tay e/bobbytay@u.nus.edu` edits contact displayed at index 3 and changes the name of the contact to `Bobby Tay` and email to `bobbytay@u.nus.edu` respectively.
-* `edit 1 t/PRUActiveSaverIII t/PRUActiveCash` edits contact displayed at index 1 to change its tags to only `PRUActiveSaverIII` and `PRUActiveCash`. It will remove all other previous tags that are previously associated with the contact.
+* `edit 1 t/PRUActiveSaverIII t/PRUActiveCash` edits contact displayed at index 1 to change its tags to only `PRUActiveSaverIII` and `PRUActiveCash`. It will remove **all** other tags that were previously associated with the contact.
 
 ### Searching persons by person's information: `find`
 
