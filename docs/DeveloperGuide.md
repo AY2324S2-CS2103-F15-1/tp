@@ -466,7 +466,7 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 * Is reasonably comfortable using CLI apps
 * Has English as his first language
 
-**Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve the following contact’s information such as name, mobile phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed while offering the capability to manage their meeting details with their contacts.
+**Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve their contacts’ information such as name, phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
 
 
 ### User stories
