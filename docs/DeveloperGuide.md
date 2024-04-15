@@ -904,6 +904,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Alternative Test Cases:**
 - `reschedule 2 s/20-06-2024T09:30 e/20-06-2024T12:30`.
 - `reschedule 3 s/15-09-2024T10:00 e/15-09-2024T11:00`.
+
 #### Rescheduling a meeting today to another day successfully 
 
 **Prerequisites:**
