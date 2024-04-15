@@ -888,6 +888,11 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 ### Rescheduling a meeting
 
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The following test
+    cases are based on the assumption that the current system datetime is before 20th June 2024.
+    If the current system datetime is after 20th June 2024, the year of the input datetime must be set to a future year.
+</div>
+
 #### Rescheduling a meeting successfully
 
 **Prerequisites:**
