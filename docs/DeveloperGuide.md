@@ -690,7 +690,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Steps:**
 1. Download the latest `findvisor.jar` file and move it into an empty folder.
-2. Open the command terminal at the folder containing `findvisor.jar`.
+2. Open the command terminal in the folder containing `findvisor.jar`.
 3. Run `java -jar FINDvisor.jar`.
 
 **Expected Result:**
@@ -780,11 +780,11 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Alternative Test Cases:**
 1. `edit 2 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
-2. `edit 1 n/John Tan`
+2. `edit 1 n/John Tan`.
 
 #### Editing a person who has a meeting scheduled today successfully
-1. List all persons using the `list` command. At least 2 persons is displayed in the list.
-3. The first person in the list is also has a meeting scheduled today.
+1. List all persons using the `list` command. At least 2 persons are displayed in the list.
+2. The first person in the list also has a meeting scheduled today.
 
 **Example Test Case:** `edit 1 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665`.
 
@@ -799,7 +799,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 2. The first existing person in the *Person List* has the mobile phone number `96734294`.
 
-**Example Test Case:** `edit 2 p/96734294`
+**Example Test Case:** `edit 2 p/96734294`.
 
 **Expected Result:**
 1. *Person List* shows all persons in FINDvisor. No person's fields will be edited.
@@ -828,7 +828,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 #### Invalid value or command format used for searching persons
 
-**Example Test Case:** `find m/40-15-2024`
+**Example Test Case:** `find m/40-15-2024`.
 
 **Expected Result:**
 1. *Person List* will not be updated.
@@ -851,7 +851,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
-2. *Person List* shows the list of contact without the deleted person.
+2. *Person List* shows the list of contacts without the deleted person.
 3. *Command Result Box* outputs a successful execution message with the deleted person's information.
 4. *Command Box* is cleared.
 
@@ -906,8 +906,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Example Test Case**: `schedule 1 s/12-12-2024T16:00 e/12-12-2024T17:00 mr/Online Meeting`.
 
 **Expected Result:**
-1. The meeting details of the specified person is updated with the provided meeting date and time.
-2. *Person List* updates the list of contact with the person with details of the meeting.
+1. The meeting details of the specified person are updated with the provided meeting date and time.
+2. *Person List* updates the list of contacts with the person with details of the meeting.
 3. *Command Result Box* outputs a successful execution message with the details of the meeting with the specified person.
 4. *Command Box* is cleared.
 
@@ -915,17 +915,17 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `schedule 2 s/12-12-2024T16:00 e/12-12-2024T17:00`.
 - `schedule 3 s/12-12-2024T16:00 e/12-12-2024T17:00 mr/Meeting @ House`.
 
-#### Scheduling a meeting with a person which starts today successfully
+#### Scheduling a meeting that starts today with a person successfully
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 2. No person in the list has any scheduled meeting.
-3. **The provided meeting start date must be the same as the system's current date**
+3. **The provided meeting start date must be the same as the system's current date**.
 
 **Example test case:** `schedule 1 s/12-12-2024T12:00 e/12-12-2024T14:00`.
 
 **Expected Result:**
-1. The meeting details of the specified person is updated with the provided meeting date and time.
+1. The meeting details of the specified person are updated with the provided meeting date and time.
 2. *Person List* updates the list of contact with the person with details of the meeting.
 3. *Today’s Meeting List* shows the list of today’s meetings with the specified person.
 4. *Command Result Box* outputs a successful execution message with the details of the meeting with the specified person.
@@ -984,7 +984,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 2. All persons in the list have a scheduled meeting.
-3. **The scheduled meeting date of this test case must be the same as system's current date**
+3. **The scheduled meeting date of this test case must be the same as the system's current date**
 
 **Example test case:** `unschedule 1`.
 
@@ -999,7 +999,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. No persons in the list has any scheduled meeting.
+2. No persons in the list have any scheduled meeting.
 
 **Example test case:** `unschedule 5`.
 
@@ -1036,14 +1036,14 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. First three persons in the displayed list have scheduled meetings.
+2. The first three persons in the displayed list have scheduled meetings.
 
 **Example test case:** `reschedule 1 s/01-12-2024T09:30 e/01-12-2024T12:30`.
 
 **Expected Result:**
 1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
 2. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
-4. *Command Box* is cleared.
+3. *Command Box* is cleared.
 
 **Alternative Test Cases:**
 - `reschedule 2 s/20-06-2024T09:30 e/20-06-2024T12:30`.
@@ -1067,7 +1067,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 1 person is in the list.
-2. First person in the displayed list has a scheduled meeting.
+2. The first person in the displayed list has a scheduled meeting.
 
 **Example test case:** `reschedule 1 s/01-01-2024`.
 
@@ -1081,11 +1081,11 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `reschedule 1 s/01-01-2000T09:30 e/01-01-2000T12:30`.
 - `reschedule 1 s/01-01-2024T09:30 e/01-01-2023T12:30`.
 
-#### Specified person does not have a scheduled meeting
+#### Rescheduling a non-existent meeting
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 1 person is in the list.
-2. First person in the displayed list does not have a scheduled meeting.
+2. The first person in the displayed list does not have a scheduled meeting.
 
 **Example Test Case:** `reschedule 1 s/01-01-2024T09:30 e/01-01-2024T12:30`.
 
@@ -1107,9 +1107,9 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Example Test Case:** `remark 1 r/Birthday on 31 July.`.
 
 **Expected Result:**
-1. The remark of specified person is updated to show the respective remark.
+1. The remark of the specified person is updated to show the respective remark.
 2. *Person List* shows all persons in FINDvisor.
-3. *Command Result Box* outputs a successful execution message with new remark.
+3. *Command Result Box* outputs a successful execution message with the new remark.
 4. *Command Box* is cleared.
 
 **Alternative Test Cases:**
@@ -1119,14 +1119,14 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. First person in the displayed list has an existing remark.
+2. The first person in the displayed list has an existing remark.
 
 **Example Test Case:** `remark 1 r/`.
 
 **Expected Result:**
-1. The remark of specified person is updated to be empty.
+1. The remark of the specified person is updated to be empty.
 2. *Person List* shows all persons in FINDvisor.
-3. *Command Result Box* outputs a successful execution message with new remark.
+3. *Command Result Box* outputs a successful execution message with the new remark.
 4. *Command Box* is cleared.
 
 **Alternative Test Cases:**
@@ -1254,15 +1254,15 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `exit 1`.
 - `exit a`.
 
-### Opening help window
+### Opening the help window
 
-#### Opening help window successfully
+#### Opening the help window successfully
 
 **Example Test Case:** `help`.
 
 **Expected Result:**
 1. An additional help window is opened on top of FINDvisor.
-2. Help window should have window controls visible (i.e. minimize, maximize and close).
+2. The help window should have window controls visible (i.e. minimize, maximize and close).
 
 **Alternative Test Cases:**
 - `help 1`.
