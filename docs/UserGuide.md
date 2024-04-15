@@ -2,7 +2,7 @@
 layout: page
 title: User Guide
 ---
-## Table of Contents
+## **Table of Contents**
 {:.no_toc}
 
 * ToC
@@ -11,14 +11,14 @@ title: User Guide
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## About FINDvisor
+## **About FINDvisor**
 FINDvisor is a desktop app for **Singapore-based** financial advisors who are **comfortable using CLI applications** and have to manage contacts with **Singapore-based mobile phone numbers**. If you **frequently schedule meetings and require quick access to your contacts' details**, then FINDvisor is the tool for you. It is optimized for typists, enabling individuals who type fast to perform contact management and meeting scheduling tasks efficiently.
 
 FINDvisor enables financial advisors to **quickly save and retrieve their contacts' information** such as name, phone number, email, and physical address. It also allows financial advisors to **add a remark and tags to specific contacts where needed** while offering the capability to **manage their meeting details with their contacts**.
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Quick start
+## **Quick start**
 1. Ensure you have Java `11` or above installed on your Computer.
 
 2. Download the latest `findvisor.jar` from [here](https://github.com/AY2324S2-CS2103-F15-1/tp/releases).
@@ -48,7 +48,7 @@ FINDvisor enables financial advisors to **quickly save and retrieve their contac
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## Interacting with FINDvisor
+## **Interacting with FINDvisor**
 
 The components of FINDvisor's user interface are shown below:<br>
 
@@ -75,7 +75,7 @@ Below is a sample unsuccessful command executed. Note that the command is highli
 --------------------------------------------------------------------------------------------------------------------
 <div style="page-break-after: always;"></div>
 
-## Features
+## **Features**
 
 <div markdown="block" class="alert alert-info">
 
@@ -394,7 +394,7 @@ This allows FINDvisor to restore most of the window settings on the next startup
 
 --------------------------------------------------------------------------------------------------------------------
 
-## FAQ
+## **FAQ**
 **Q**: What is the difference between a person and a contact in the user guide?<br>
 **A**: These two terms are used interchangeably, i.e. a contact is a person stored in FINDvisor and vice versa. 
 
@@ -436,14 +436,14 @@ Note that deleting the corresponding JSON file will cause all previously saved w
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Known issues
+## **Known issues**
 
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **When adding a tag with many characters**, the text for the tag does not wrap and will go off-screen. While FINDvisor does not impose a character length limit, for the optimal experience, it is recommended to use tags of short character lengths. 
 
 --------------------------------------------------------------------------------------------------------------------
 
-## Command summary
+## **Command summary**
 
 Action | Format, Examples
 --------|------------------
