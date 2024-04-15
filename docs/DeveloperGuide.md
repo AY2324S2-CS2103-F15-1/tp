@@ -857,7 +857,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 2. Assume the time for now is 14-04-2024T12:00.
-3. Assume no scheduled meeting with any person currently.
+3. No person in the list has any scheduled meeting.
 
 **Example Test Case**: `schedule 1 s/23-04-2024T16:00 e/23-04-2024T17:00`.
 
@@ -876,7 +876,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 2. Assume the time for now is 14-04-2024T12:00.
-3. Assume there is a scheduled meeting with all person currently.
+3. All person in the list has a scheduled meeting.
 
 **Example Test Case**: `schedule 1 s/23-04-2024T16:00 e/23-04-2024T17:00`.
 
@@ -914,7 +914,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. Assume there is a scheduled meeting with all person currently.
+2. All person in the list has a scheduled meeting.
 
 **Example test case:** `unschedule 5`.
 
@@ -928,7 +928,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. Assume no scheduled meeting with any person currently.
+2. No person in the list has any scheduled meeting.
 
 **Example test case:** `unschedule 5`.
 
@@ -937,7 +937,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. Input in the *Command Box* remains and turns red.
 3. Error details are stated in the *Command Result Box*.
 
-#### Invalid value or command format used for deleting a person
+#### Invalid value or command format used for unscheduling a meeting
 
 **Prerequisites:**
 1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
