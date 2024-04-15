@@ -935,7 +935,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-3. All persons in the list has a scheduled meeting.
+2. All persons in the list have a scheduled meeting.
 
 **Example Test Case**: `schedule 1 s/23-04-2024T16:00 e/23-04-2024T17:00`.
 
@@ -969,7 +969,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. All persons in the list has a scheduled meeting.
+2. All persons in the list have a scheduled meeting.
 
 **Example test case:** `unschedule 5`.
 
@@ -983,7 +983,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. All person in the list has a scheduled meeting.
+2. All person in the list have a scheduled meeting.
 3. **The scheduled meeting date of this test case must be the same as system's current date**
 
 **Example test case:** `unschedule 1`.
