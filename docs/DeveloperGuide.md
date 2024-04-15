@@ -225,6 +225,8 @@ The following sequence diagram shows how the remark value is parsed through the 
 <div markdown="span" class="alert alert-info">:information_source: **Note:** The activation bar for `LogicManager` does not end after the `RemarkCommand` is returned. The above diagram is only meant to highlight the parsing for `Remark` which is why the sequence diagram ends here.
 </div>
 
+Note that `parseRemark(value)` will also check if `value` adheres to the constraints of `REMARK` as it is possible for users to input characters that would hinder the operations of FINDvisor. If `value` does not comply with the constraints, a `ParseException` is thrown and FINDvisor will output an error message that informs the user why the operation was unsuccessful.
+
 ### Searching persons by person's information feature
 
 This feature allows users to find a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` which extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
