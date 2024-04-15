@@ -898,7 +898,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Expected Result:**
 1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
-3. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
+2. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
 4. *Command Box* is cleared.
 
 **Alternative Test Cases:**
