@@ -30,7 +30,7 @@ FINDvisor enables financial advisors to **quickly save and retrieve their contac
    
     ![Ui](images/Ui.png)
 
-5. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+5. Type the command in the command box and press Enter to execute it. e.g. typing `help` and pressing Enter will open the help window.<br>
    Some example commands you can try:
 
    * `list` : Lists all contacts.
@@ -388,7 +388,7 @@ The workspace preferences include the following:
 - Position of FINDvisor's main window.
 - Width and height of FINDvisor's main window when it is not maximized.
 - State of FINDvisor's main window, whether it is maximized or not.
-- Divider position between **Today's Meeting List** and the other components in FINDvisor's main window.
+- Divider position between *Today's Meeting List* and the other components in FINDvisor's main window.
 
 This allows FINDvisor to restore most of the window settings on the next startup, requiring minimal adjustments for users that have a preferred layout when using FINDvisor.
 
