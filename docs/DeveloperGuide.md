@@ -904,7 +904,19 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Alternative Test Cases:**
 - `reschedule 2 s/20-06-2024T09:30 e/20-06-2024T12:30`.
 - `reschedule 3 s/15-09-2024T10:00 e/15-09-2024T11:00`.
+#### Rescheduling a meeting today to another day successfully 
 
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. The first person in the list has a scheduled meeting today.
+
+**Example test case:** `reschedule 1 s/01-12-2024T09:30 e/01-12-2024T12:30`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
+2. *Today’s Meeting List* shows the list of today’s meetings without the person with the rescheduled meeting.
+3. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
+4. *Command Box* is cleared.
 #### Invalid value or command format used for rescheduling a meeting
 
 **Prerequisites:**
