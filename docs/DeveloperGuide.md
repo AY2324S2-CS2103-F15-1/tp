@@ -1002,7 +1002,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. Input in the *Command Box* remains and turns red.
 3. Error details are stated in the *Command Result Box*.
 
-#### Invalid value or command format used for updating remark of a person
+#### Invalid value or command format used for scheduling a meeting
 
 **Prerequisites:**
 1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
