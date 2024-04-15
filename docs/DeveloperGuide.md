@@ -891,6 +891,78 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `delete 100000`.
 - `delete1`.
 
+### Rescheduling a meeting
+
+<div markdown="span" class="alert alert-info">:information_source: **Note:** The following test
+    cases are based on the assumption that the current system datetime is before 20th June 2024.
+    If the current system datetime is after 20th June 2024, the year of the input datetimes must be set to a future year.
+</div>
+
+#### Rescheduling a meeting successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. First three person in the displayed list has scheduled meetings.
+
+**Example test case:** `reschedule 1 s/01-12-2024T09:30 e/01-12-2024T12:30`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
+2. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
+4. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `reschedule 2 s/20-06-2024T09:30 e/20-06-2024T12:30`.
+- `reschedule 3 s/15-09-2024T10:00 e/15-09-2024T11:00`.
+
+#### Rescheduling a meeting today to another day successfully 
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. The first person in the list has a scheduled meeting today.
+
+**Example test case:** `reschedule 1 s/01-12-2024T09:30 e/01-12-2024T12:30`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
+2. *Today’s Meeting List* shows the list of today’s meetings without the person with the rescheduled meeting.
+3. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
+4. *Command Box* is cleared.
+
+#### Invalid value or command format used for rescheduling a meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. First person in the displayed list has a scheduled meeting.
+
+**Example test case:** `reschedule 1 s/01-01-2024`.
+
+**Expected Result:**
+1. Meeting is **not rescheduled** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `reschedule 0 d/01-01-2024T09:30`.
+- `reschedule 1 s/01-01-2000T09:30 e/01-01-2000T12:30`.
+- `reschedule 1 s/01-01-2024T09:30 e/01-01-2023T12:30`.
+
+#### Specified person does not have a scheduled meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 1 person is in the list.
+2. First person in the displayed list does not have a scheduled meeting.
+
+**Example Test Case:** `reschedule 1 s/01-01-2024T09:30 e/01-01-2024T12:30`.
+
+**Expected Result:**
+1. Meeting is **not rescheduled** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `reschedule 1 s/01-01-2024T09:30 e/01-01-2024T12:30 mr/Offline Meeting`.
+
 ### Remarking a person
 
 #### Leaving a remark on a person successfully
@@ -943,6 +1015,138 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `remark -1 r/Birthday on 31 July.`.
 - `remark 100000 r/Birthday on 31 July.`.
 - `remark 1 r/Birthday on 31 July r/`.
+
+### Scheduling a meeting with a person
+
+#### Scheduling a meeting with a person successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. No person in the list has any scheduled meeting.
+3. **The provided datetimes must be after system's current datetime.**
+
+**Example Test Case**: `schedule 1 s/23-04-2025T16:00 e/23-04-2025T17:00`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided meeting date and time.
+2. *Person List* updates the list of contact with the person with details of the meeting.
+3. *Command Result Box* outputs a successful execution message with the details of the meeting with the specified person.
+4. *Command Box* is cleared.
+
+#### Scheduling a meeting today successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. No person in the list has any scheduled meeting.
+3. **The time of this test must be before 23:00 of system's current date**
+
+**Example test case:** `schedule 1 s/CUREENT_DATET23:00 e/CURRENT_DATET23:30`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided meeting date and time.
+2. *Person List* updates the list of contact with the person with details of the meeting.
+3. *Today’s Meeting List* shows the list of today’s meetings with the specified person.
+4. *Command Result Box* outputs a successful execution message with the details of the meeting with the specified person.
+5. *Command Box* is cleared.
+
+#### Target person already have a scheduled meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. Assume the time for now is 14-04-2024T12:00.
+3. All person in the list has a scheduled meeting.
+
+**Example Test Case**: `schedule 1 s/23-04-2024T16:00 e/23-04-2024T17:00`.
+
+**Expected Result:**
+1. Meeting is **not scheduled** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `schedule 3 s/23-04-2024T00:00 e/23-04-2025T10:00`.
+- `schedule 5 s/23-04-2024T12:00 e/30-04-2024T20:00`.
+
+#### Invalid value or command format used for updating remark of a person
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Example Test Case**: `schedule 100001 s/23-04-2024T16:00 e/23-04-2024T17:00`.
+
+**Expected Result:**
+1. Meeting is **not scheduled** for any person.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `schedule 1 s/23-04-2024T00:00`.
+- `schedule 5`.
+- `schedule 1 s/23-04-2024T00:00 s/23-04-2024T10:00`.
+- `schedule 1 s/23-04-2024 e/23-04-2024`.
+- `schedule 1 s/31-04-2024T16:00 e/31-04-2024T17:00`.
+
+### Unscheduling a meeting with a person
+
+#### Unscheduling a meeting with a person successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. All person in the list has a scheduled meeting.
+
+**Example test case:** `unschedule 5`.
+
+**Expected Result:**
+1. The meeting detail is deleted for the specified person.
+2. *Person List* updates the list of contact with the person with no meeting.
+3. *Command Result Box* outputs a successful execution message with the name of the specified person.
+4. *Command Box* is cleared.
+
+#### Unscheduling a meeting today successfully
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. All person in the list has a scheduled meeting.
+3. **The scheduled meeting date of this test must be the same as system's current date**
+
+**Example test case:** `unschedule 1`.
+
+**Expected Result:**
+1. The meeting detail is deleted for the specified person.
+2. *Person List* updates the list of contact with the person with no meeting.
+3. *Today’s Meeting List* shows the list of today’s meetings without the specified person.
+4. *Command Result Box* outputs a successful execution message with the name of the specified person.
+5. *Command Box* is cleared.
+
+#### Unschedule for a person without meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. No person in the list has any scheduled meeting.
+
+**Example test case:** `unschedule 5`.
+
+**Expected Result:**
+1. No person in the contact list is modified.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+#### Invalid value or command format used for unscheduling a meeting
+
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+
+**Example test case:** `unschedule`.
+
+**Expected Result:**
+1. No person in the contact list is modified.
+2. Input in the *Command Box* remains and turns red.
+3. Error details are stated in the *Command Result Box*.
+
+**Alternative Test Cases:**
+- `unschedule 0`.
+- `unschedule 100000`.
+- `unschedule1`.
 
 ### Adding one or more tags to a person
 
