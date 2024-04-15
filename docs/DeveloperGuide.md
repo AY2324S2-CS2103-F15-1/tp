@@ -258,7 +258,7 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 
 For search queries based on a person's meeting date, the user input will be first validated in `FindCommandParser` to check if it matches the date format specified in FINDvisor. This validation is facilitated by `ParserUtil#parseMeetingDate(String)`. Afterwards, `FindCommandParser` will create a new `PersonMeetingDatePredicate(LocalDate)` with the parsed user input if it is valid. 
 
-The following sequence diagram below shows `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
+The sequence diagram below shows `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
 - `find`: `find m/25-04-2024`
 - `argument`: `m/25-04-2024`
 - `value`: `25-04-2024`
@@ -266,44 +266,45 @@ The following sequence diagram below shows `Model` and `LogicManger` components 
 ![FindMeetingDateSequenceDiagram](images/FindMeetingDateSequenceDiagram.svg)
 
 ### Add Tag Feature
-This feature allows users to add `tags` to a `person` within the contact list, without the need to use the `edit` command.
+This feature allows users to add multiple `Tag`s to a `Person` within the contact list, without the need to use the `edit` command.
 
 This feature is implemented through the `AddTagCommand` and the `AddTagCommandParser` which extends `Command` and `Parser` respectively.
 
-The `AddTagCommandParser` takes in an `index` and the `tags` to add to a person. If both are supplied and valid, they are passed into the `AddTagCommand`, if not it will throw an exception according to the error.
+The `AddTagCommandParser` takes in an `INDEX` and the `TAG`s to add to a person. If both are supplied and valid, they are passed into the `AddTagCommand`, if not it will throw an exception according to the error.
 
 The following sequence diagram shows how `AddTag` interacts with `Logic`.
 
 ![AddTagSequenceDiagram-Model](images/AddTagSequenceDiagram.svg)
 
-1. The user keys in `addtags 1 t/validTag1 t/validTag2` to add 2 valid tags to the `person` at the first `index`.
-2. The `AddTagCommandParser` validates `index` and `tags`, then returns a new `AddTagCommand` with the corresponding index and set of tags.
+1. The user keys in `addtags 1 t/validTag1 t/validTag2` to add 2 valid tags to the `Person` at the first `index`.
+2. The `AddTagCommandParser` first validates the `INDEX` and `TAG`s before it returns a new `AddTagCommand` with the corresponding `INDEX` and set of `Tag`s.
 3. The `LogicManager` then executes the `AddTagCommand`.
-4. The `AddTagCommand` finds the `Person` to add tags to using `Index` and creates a new `Person` with the added tags.
+4. The `AddTagCommand` finds the `Person` to add the `Tag`s to using `INDEX` and creates a new `Person` with the added `Tag`s.
 5. `AddTagCommand` then calls the `setPerson(person, personWithAddedTags)` method to set the old `Person` to the newly created `Person`.
-6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the person with the newly added `Tags`.
+6. `AddTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update the `UI` to display the person with the newly added `Tag`s.
 7. `CommandResult` is then returned to `LogicManager`.
 
 ### Delete Tag Feature
 
-This section aims to show the logic behind delete tag command and the consideration behind the scene.
+This feature allows users to delete multiple `Tag`s from a `Person` within the contact list, without the need to use the `edit` command.
 
-Delete Tag Command is a new featured added for user to delete one specific tag associated with a specific person located by index of the current list. This command is called by `deletetag` followed by the index of the targeted person, then by one target tag `tag` object. In case of the targeting tag is not associated with the person, an error message suggesting missing targeted tag will be returned.
+The feature is implemented through the `DeleteTagCommand` and the `DeleteTagCommandParser` which extends `Command` and `Parser` respectively.
 
-The delete tag mechanism is facilitated by `DeleteTagCommand` and `DeleteTagCommandParser` that extends `Command` and `Parser` respectively. The `DeleteTagCommandParser` takes in an `index` and the `tag` to delete from a person. If both are supplied and valid, they are passed into the `DeleteTagCommand`.
+The `DeleteTagCommandParser` takes in an `INDEX` and the `TAG`s to delete from a person. If both are supplied and valid, they are passed into the `DeleteTagCommand`,  if not it will throw an exception according to the error.
+Note that all `TAG`s supplied must be found on the specified `person` to be considered valid.
 
 The following sequence diagram shows how `DeleteTagCommand` interacts with `Logic`.
 
 ![DeleteTagSequenceDiagram](images/DeleteTagSequenceDiagram.svg)
 
-1. The user keys in `deletetag 1 t/validTag` to delete `validTag` associated with the `person` at the first `index`.
-2. The `DeleteTagCommandParser` checks that the `index` and `tag` are valid, then returns a new `DeleteTagCommand` with the corresponding index and the target tag.
+1. The user keys in `deletetag 1 t/validTag` to delete `validTag` associated with the `Person` at the first `INDEX`.
+2. The `DeleteTagCommandParser` checks that the `index` and `tags` are valid before it returns a new `DeleteTagCommand` with the corresponding `INDEX` and the target `TAG`s.
 3. The `LogicManager` then executes the `DeleteTagCommand`.
-4. The `DeleteTagCommand` finds the `Person` using `Index` and check whether the target tag exists for the `Person`.
-5. If targeted `tag` is found with the targeted `Person`, then the command creates a new `Person` with the all other tags except the targeted tag.
-6. If targeted `tag` is not found with the targeted `Person`, then the command will return an error message indicating the `Person` does not have the targeted `validTag`.
+4. The `DeleteTagCommand` finds the `Person` using `INDEX` and checks whether the target `Tag`s exist for the `Person`.
+5. If all target `Tag`s are found with the targeted `Person`, the command creates a new `Person` with all other `Tag`s excluding the specified `Tag`s.
+6. If any target `Tag`s are not found with the targeted `Person`, the command will return an error message indicating the missing specified `Tag`s.
 7. `DeleteTagCommand` then calls the `setPerson(person, editedPerson)` method to set the old `Person` to the newly created `Person`.
-8. `DeleteTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update `UI` to display the newly updated person list in Findvisor.
+8. `DeleteTagCommand` then calls `updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS)` to update the `UI` to display the newly updated person list in FINDvisor.
 9. `CommandResult` is then returned to `LogicManager`.
 
 --------------------------------------------------------------------------------------------------------------------
@@ -315,50 +316,50 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 ### 1. Allow users to enter more special characters for Remark and Meeting Remark fields
 **Current Implementation**: 
 
-- `REMARK` and `MEETING_REMARK` fields uses **the same pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- `REMARK` and `MEETING_REMARK` fields use **the same predefined set of allowed characters** to prevent issues with command parsing. User inputs that contain any characters **not included** in the pre-defined set will be treated as invalid and result in an error message.
 - For example, if the user wishes to add a remark titled "Birthday on 23/02/2024" for an existing Person at index 1, the command `remark 1 r/Birthday on 23/02/2024` will be invalid.
 
 **Proposed Enhancement**: 
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- Modify the predefined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
 - With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
 - These changes allow for flexibility since all special characters will be accepted for the `REMARK` field.
 
-### 2. Allow users to enter more special characters for Address field
+### 2. Allow users to enter more special characters for the Address field
 **Current Implementation**: 
 
-- Similar to Planned Enhancement 1, the `ADDRESS` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- Similar to Planned Enhancement 1, the `ADDRESS` field uses a **predefined set of allowed characters** to prevent issues with command parsing. User inputs that contain any characters **not included** in the pre-defined set will be treated as invalid and result in an error message.
 - For example, if the user wishes to edit an existing Person's address at index 1 with the value "Pinnacle@Duxton", the command `edit 1 a/Pinnacle@Duxton` will be invalid.
 
 **Proposed Enhancement**: 
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- Modify the predefined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
 - For addresses containing `/` characters, the user **must** use the `\` character to escape each `/` character similar to the example in Planned Enhancement 1.
 - These changes allow for flexibility since all special characters will be accepted for the `ADDRESS` field.
 
-### 3. Allow users to enter more special characters for Name field
+### 3. Allow users to enter more special characters for the Name field
 **Current Implementation**:
 
-- The `NAME` field uses a **pre-defined set of allowed characters** to prevent issues with command parsing. User inputs that contains any characters **not included** in the pre-defined set will be treated as invalid and results with an error message.
+- The `NAME` field uses a **predefined set of allowed characters** to prevent issues with command parsing. User inputs that contain any characters **not included** in the pre-defined set will be treated as invalid and result in an error message.
 - For example, if the user wishes to edit a contact's name to "Samintharaj Kumar s/o A. Nair" for an existing Person at index 1, the command `edit 1 n/Samintharaj Kumar s/o A. Nair` will be invalid as `/` and `.` are not allowed.
 
 **Proposed Enhancement**:
 
-- Modify the pre-defined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
+- Modify the predefined set of allowed characters to **capture any character instead**. However, the characters `\` and `/` **must** be escaped with `\` in order for them to be recognized as an input to the field as these characters may hinder some operations of FINDvior.
 - With reference to the previous `edit` command, the person at index 1 will have their name successfully edited when the user enters `edit 1 n/Samintharaj Kumar s\/o A. Nair`.
 - These changes allow for flexibility since all special characters will be accepted for the `NAME` field.
 
-### 4. Increase flexibility of Date and DateTime formats
+### 4. Increase the flexibility of Date and DateTime formats
 **Current Implementation**:
 
 - FINDvisor only strictly accepts `DATE` of the format `dd-MM-yyyy` and `DATETIME` of the format `dd-MM-yyyy`T`HH:mm`.
-- This requires single digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
-- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid datetime `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
+- This requires single-digit day and month values to be padded with a zero to be accepted by FINDvisor, hindering the ease of use of the function.
+- For example, if the user wishes to schedule a meeting to a `START_DATETIME` of `1/1/2024T9:30`, which is equivalent to a valid date time `01/01/2024T09:30`, FINDvisor will recognize the `START_DATETIME` value as invalid as it does not comply to our specified format.
 
 **Proposed Enhancement**:
 
 - Modify the format of `DATE` to be `d-M-yyyy` and `DATETIME` to be `d-M-yyyy`T`H:mm` instead.
-- This allows FINDvisor to accept both single and double-digits day, month and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single digit values with a leading zero.
+- This allows FINDvisor to accept both single-digit and double-digit day, month, and hour values as valid `DATE` and `DATETIME` values and would not require users to pad these single-digit values with a leading zero.
 
 ### 5. Specify error message for parsing invalid DateTime strings in `schedule` and `reschedule` commands
 **Current Implementation**:
@@ -368,17 +369,17 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 **Proposed Enhancement**:
 - The error message should specify which of the given parameters are failing instead of prompting an invalid command format.
 - This can be applied for both reschedule and schedule as they go through the same checks.
-- For example, `The START_DATETIME parameter is invalid or has wrong format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
+- For example, `The START_DATETIME parameter is invalid or has the wrong format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
 
-### 6. Show warning to user when scheduling an overlapping meeting
+### 6. Warn users when scheduling an overlapping meeting
 **Current Implementation**:
 
-- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people that can overlap with each other with no warnings.
+- No checks for conflicting meetings are done when scheduling a new meeting. The user is able to schedule a meeting with multiple people who can overlap with each other with no warnings.
 
 **Proposed Enhancement**:
 
 - When a new meeting is being scheduled or a previous meeting is being rescheduled, the input meeting date and times will be checked against all existing meetings, if there is an overlap, a warning message will be shown to the user.
-- This can be achieved by iterating through all existing persons, and if the person have a non-empty meeting field, check if the new meeting date times overlaps with the existing meeting date times.
+- This can be achieved by iterating through all existing persons, and if the person has a non-empty meeting field, check if the new meeting date times overlap with the existing meeting date times.
 - Two meetings **overlap** when the start time of the one meeting is strictly between the start and end date time of another meeting, or when the end time of the one meeting is strictly between the start and end date time of another meeting.
 
 ### 7. Add confirmation prompt for `clear` command
@@ -393,17 +394,17 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - The confirmation prompt would require users to key in a **case-sensitive** `Y` into the *Command Box* for the command to be executed.
 - Any other given value would cause the `clear` command to be cancelled and would be stated in the *Command Result Box* and prevents accidental deletion of the entire data.
 
-### 8. Notify user if data file is invalid
+### 8. Notify the user if the data file is invalid
 **Current Implementation**: 
 
 - No error message is displayed to the user when this occurs and users are not informed of the data loss.
-- If new state changing command is made when the data file is invalid, the data file will be overwritten.
+- If a command is executed when the data file is invalid, the data file will be overwritten.
 
 **Proposed Enhancement**: 
 
 - Display a message in the *Command Result Box* if the data file cannot be parsed on startup.
 - For example, `Data file (<file_location>) could not be loaded!` will be shown in the *Command Result Box* when the data file is invalid, where `file_location` is the location of the current referenced data file, so the user can modify it accordingly.
-- A new backup file, which is a copy of current invalid data file, will be automatically created.
+- A new backup file, which is a copy of the current invalid data file, will be automatically created.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -424,52 +425,52 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 **Target user profile**:
 
 * Financial advisors based in Singapore
-* Has a need of managing clients who have Singapore mobile phone numbers
-* Has a need of scheduling meetings with a significant number of clients
+* Has a need to manage clients who have Singapore mobile phone numbers
+* Has a need to schedule meetings with a significant number of clients
 * Prefers typing over mouse interactions and types fast
 * Is reasonably comfortable using CLI apps
 * Has English as his first language
 
-**Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve the following contact’s information such as name, mobile phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
+**Value proposition**: FINDvisor enables financial advisors to quickly save and retrieve the following contact’s information such as name, mobile phone number, email, and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed while offering the capability to manage their meeting details with their contacts.
 
 
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​           | I want to …​                                                                             | So that I can…​                                                               |
-|----------|-------------------|------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
-| `* * *`  | New user          | easily download and launch FINDvisor                                                     | quickly start managing my client information                                  |
-| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor                               |                                                                               |
-| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor within the app                | learn how to use FINDvisor without heavily referencing external documentation |
-| `* * *`  | Financial Advisor | add contacts of my clients                                                               | keep a record of my clients' contact information                              |
-| `* * *`  | Financial Advisor | delete a client's contact                                                                | reduce clutter in contact list with clients I no longer need contact with     |
-| `* * *`  | Financial Advisor | update client's contact information                                                      |                                                                               |
-| `* * *`  | Financial Advisor | find a client's contact based on what I remember about the client's contact information  | do not have to search through the whole list to find a specific client        |
-| `* * *`  | Financial Advisor | filter contact list by categories                                                        | easily find clients based on category                                         |
-| `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                             |
-| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | update my schedule in the event of a cancelled meeting                        |
-| `* * *`  | Financial Advisor | categorize my clients into different categories such as financial plans or relationships |                                                                               |
-| `* *`    | Financial Advisor | view all my meetings for today                                                           | be prepared for my meetings of today                                          |
-| `* *`    | Financial Advisor | filter contact list by meeting date                                                      | find out who I'm meeting on a specific date                                   |
-| `* *`    | Financial Advisor | modify a scheduled meeting's date and time                                               | update a meeting's schedule accordingly                                       |
-| `* *`    | Financial Advisor | re-categorize my clients into different categories                                       | reorganize my client's categories when needed                                 |
-| `*`      | New user          | import contact information in bulk to FINDvisor                                          | easily transfer all my client's contact into FINDvisor                        |
-| `* *`    | Financial Advisor | add a remark about a client                                                              | take note of additional information about a client as required                |
-| `*`      | Financial Advisor | add a note about each meeting                                                            | know what the meeting is about                                                |
-| `*`      | Financial Advisor | edit a note about each meeting                                                           | update what the meeting is about                                              |
-| `*`      | Financial Advisor | schedule recurring meeting plans                                                         | save the effort manually scheduling the meeting each time                     |
-| `*`      | Experienced User  | remove past meeting information that is no longer needed in bulk                         | easily keep my contact list and meeting information up to date.               |
-| `*`      | Experienced User  | use shorthand commands                                                                   | speed up my workflow                                                          |
-| `*`      | Experienced User  | set up shortcuts that I can run                                                          | speed up my workflow                                                          |
-| `*`      | Experienced User  | export my data                                                                           | backup my data                                                                |
-| `*`      | Experienced User  | import my data                                                                           | restore my data from backup                                                   |
-| `*`      | Experienced User  | archive contact data that are not in use, but I still want to keep                       | reduce clutter in the application                                             |
-| `*`      | Experienced User  | archive past meeting data that are not in use, but I still want to keep                  | reduce clutter in the application                                             |
+| Priority | As a …​           | I want to …​                                                                             | So that I can…​                                                                         |
+|----------|-------------------|------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| `* * *`  | New user          | easily download and launch FINDvisor                                                     | quickly start managing my client information                                            |
+| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor                               |                                                                                         |
+| `* * *`  | New user          | know how to operate the basic functionalities of FINDvisor within the app                | learn how to use FINDvisor without heavily referencing external documentation           |
+| `* * *`  | Financial Advisor | add contacts of my clients                                                               | keep a record of my clients' contact information                                        |
+| `* * *`  | Financial Advisor | delete a client's contact                                                                | reduce clutter in contact list with clients I no longer need contact with               |
+| `* * *`  | Financial Advisor | update client's contact information                                                      |                                                                                         |
+| `* * *`  | Financial Advisor | filter contact list by partial contact information of a client                           | find a specific client based on what I remember about the client's contact information  |
+| `* * *`  | Financial Advisor | filter contact list by categories                                                        | easily find clients based on category                                                   |
+| `* * *`  | Financial Advisor | attach a meeting date and time to my client contact                                      | know the next meeting plan with a specific client                                       |
+| `* * *`  | Financial Advisor | delete a scheduled meeting                                                               | update my schedule in the event of a cancelled meeting                                  |
+| `* * *`  | Financial Advisor | categorize my clients into different categories such as financial plans or relationships |                                                                                         |
+| `* *`    | Financial Advisor | view all my meetings for today                                                           | be prepared for my meetings of today                                                    |
+| `* *`    | Financial Advisor | filter contact list by meeting date                                                      | find out who I'm meeting on a specific date                                             |
+| `* *`    | Financial Advisor | modify a scheduled meeting's date and time                                               | update a meeting's schedule accordingly                                                 |
+| `* *`    | Financial Advisor | re-categorize my clients into different categories                                       | reorganize my client's categories when needed                                           |
+| `*`      | New user          | import contact information in bulk to FINDvisor                                          | easily transfer all my client's contact into FINDvisor                                  |
+| `* *`    | Financial Advisor | add a remark about a client                                                              | take note of additional information about a client as required                          |
+| `*`      | Financial Advisor | add a note about each meeting                                                            | know what the meeting is about                                                          |
+| `*`      | Financial Advisor | edit a note about each meeting                                                           | update what the meeting is about                                                        |
+| `*`      | Financial Advisor | schedule recurring meeting plans                                                         | save the effort manually scheduling the meeting each time                               |
+| `*`      | Experienced User  | remove past meeting information that is no longer needed in bulk                         | easily keep my contact list and meeting information up to date.                         |
+| `*`      | Experienced User  | use shorthand commands                                                                   | speed up my workflow                                                                    |
+| `*`      | Experienced User  | set up shortcuts that I can run                                                          | speed up my workflow                                                                    |
+| `*`      | Experienced User  | export my data                                                                           | backup my data                                                                          |
+| `*`      | Experienced User  | import my data                                                                           | restore my data from backup                                                             |
+| `*`      | Experienced User  | archive contact data that are not in use, but I still want to keep                       | reduce clutter in the application                                                       |
+| `*`      | Experienced User  | archive past meeting data that are not in use, but I still want to keep                  | reduce clutter in the application                                                       |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `FINDvisor` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `FINDvisor` and the **Actor** is the `user` unless specified otherwise)
 
 #### Use case: Edit a person
 
@@ -478,7 +479,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to list persons.
 2. FINDvisor shows a list of persons.
 3. User requests to edit a specific field(s) of a specified person in the list.
-4. FINDvisor edits respective fields of the person.
+4. FINDvisor edits the respective fields of the person.
 
     Use case ends.
 
@@ -497,8 +498,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to find persons based on the entered the search category and keywords.
-2. FINDvisor displays all persons that contains specified keywords for the specified search category.
+1. User requests to find persons based on the entered search category and keywords.
+2. FINDvisor displays all persons that contain specified keywords for the specified search category.
 
     Use case ends.
 
@@ -526,7 +527,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 1.  User requests to list persons.
 2.  FINDvisor shows a list of persons.
-3.  User requests to delete a specific person in the list.
+3.  User requests to delete a specific person from the list.
 4.  FINDvisor deletes the person.
 
     Use case ends.
@@ -546,11 +547,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User adds new person to FINDvisor.
+1. User adds a new person to FINDvisor.
 2. User requests to list persons.
 3. FINDvisor shows a list of persons.
-4. User requests to schedule a meeting with a specific person in the list.
-5. Meeting is scheduled.
+4. User requests to schedule a meeting with a specific person on the list.
+5. A meeting is scheduled.
 
     Use case ends.
 
@@ -662,9 +663,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4.  Should be below the size limit of 100MB for FINDvisor and 15MB for Docs.
 5.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 6.  Should not depend on a remote server.
-7.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-8.  Should not cause any resolution-related inconveniences to user.
-9.  Should store data locally in a human editable text file without the use of DBMS.
+7.  A user with above-average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+8.  Should not cause any resolution-related inconveniences to the user.
+9.  Should store data locally in a human-editable text file without the use of DBMS.
 10. Should be used by a single user.
 11. Command names should be representative of their actions.
 
