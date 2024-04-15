@@ -31,7 +31,7 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 :bulb: **Tip:** The `.puml` files used to create diagrams in this document `docs/diagrams` folder. Refer to the [_PlantUML Tutorial_ at se-edu/guides](https://se-education.org/guides/tutorials/plantUml.html) to learn how to create and edit diagrams.
 </div>
 
-<div markdown="span" class="alert alert-info">:information_source: **Note:** For all sequence diagrams, note that the lifeline for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
+<div markdown="span" class="alert alert-info">:information_source: **Note:** For all sequence diagrams, note that the lifeline for objects should end at the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues until the end of the diagram.
 </div>
 
 ### Architecture
@@ -40,13 +40,13 @@ Refer to the guide [_Setting up and getting started_](SettingUp.md).
 
 The ***Architecture Diagram*** given above explains the high-level design of the App.
 
-Given below is a quick overview of main components and how they interact with each other.
+Below is a quick overview of the main components and how they interact with each other.
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/MainApp.java)) is in charge of the app launch and shut down.
-* At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
-* At shut down, it shuts down the other components and invokes cleanup methods where necessary.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/MainApp.java)) is in charge of the app launch and shutdown.
+* At app launch, it initializes the other components in the correct sequence and connects them up with each other.
+* At shutdown, it shuts down the other components and invokes cleanup methods where necessary.
 
 The bulk of the app's work is done by the following four components:
 
@@ -68,7 +68,7 @@ Each of the four main components (also shown in the diagram above),
 * defines its *API* in an `interface` with the same name as the Component.
 * implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
-For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside components from being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
 
 <img src="images/ComponentManagers.png" width="300" />
 
@@ -159,11 +159,11 @@ The section aims to show how the different components interact with each other w
 
 The `edit` command will be used as an example to demonstrate the interactions.
 
-The following sequence diagram shows the interaction within `Logic` component when executing `EditCommand`.
+The following sequence diagram shows the interaction within the `Logic` component when executing `EditCommand`.
 
 ![EditSequenceDiagram-Logic](images/EditSequenceDiagram-Logic.svg)
 
-The following sequence diagram shows the interactions within `Model` component when executing `EditCommand`.
+The following sequence diagram shows the interactions within the `Model` component when executing `EditCommand`.
 
 ![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.svg)
 
@@ -191,15 +191,17 @@ The following sequence diagram shows how a schedule meeting operation goes throu
 
 The `reschedule` command is designed to provide users with the capability to update the meeting details of a previously scheduled meeting. The primary action is the creation of a new `Meeting` object with the specified changes, that will replace the current `Meeting` object of the specified person in the Model.
 
-The execution flow of the `reschedule` command follows a sequence of interactions similar to the `edit` Command, with the main difference being `RescheduleCommand` takes a `EditMeetingDescriptor` instead of `EditPersonDescriptor`.
+The execution flow of the `reschedule` command follows a sequence of interactions similar to the `edit` Command, with the main difference being that `RescheduleCommand` takes an `EditMeetingDescriptor` instead of `EditPersonDescriptor`.
 
 #### Unschedule Command
+
 The `unschedule` command is designed to provide users with the capability to remove previously scheduled meetings. The primary action is the removal of the Meeting object from the specified person's record in the Model.
 
-The execution flow of the `unschedule` command is similar to the one shown for `schedule` command (refer to the sequence diagram for `ScheduleCommand` shown above), with the main difference being the `personToEdit` will have their meeting field set to `Optional.empty()`.
+The execution flow of the `unschedule` command is similar to the one shown for the `schedule` command (refer to the sequence diagram for `ScheduleCommand` shown above), with the main difference being the `personToEdit` will have their meeting field set to `Optional.empty()`.
 
 #### Design Choice
-The implementation of the `schedule` and `unschedule` command are in this manner to maintain consistency with the existing command structure.
+
+The implementation of the `schedule` and `unschedule` commands are in this manner to maintain consistency with the existing command structure.
 
 For the schedule command, in the case where a person already has a meeting scheduled, the schedule command will result in an error, instead of overwriting the existing meeting details. This behavior is chosen over the alternative of overwriting the existing meeting details to guard against accidental data loss.
 
@@ -207,7 +209,7 @@ For the schedule command, in the case where a person already has a meeting sched
 
 Users are able to add a `Remark` to a `Person` in FINDvisor to note down some information about a `Person`.
 
-The remark feature is implemented through creating a `RemarkCommand`, which updates the `Remark` of a `Person`.
+The remark feature is implemented by creating a `RemarkCommand`, which updates the `Remark` of a `Person`.
 A separate command is used to support the remark feature to separate the logic of the personal particulars of a `Person` from the `Remark`.
 
 `Remark` is implemented with the use of the `Optional` generic class (i.e. `Optional<Remark>`) as it is an optional attribute of a `Person`.
@@ -224,9 +226,10 @@ The following sequence diagram shows how the remark value is parsed through the 
 </div>
 
 ### Searching persons by person's information feature
-This feature allows users to find for a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` that extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
 
-The current supported `Person` fields that can be searched are:
+This feature allows users to find a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` which extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
+
+The currently supported `Person` fields that can be searched are:
 - Name
 - Email
 - Phone Number
@@ -245,16 +248,17 @@ The following sequence diagram below shows how `Model` and `LogicManger` compone
 
 1. The user executes `find n/John` to find all `Person` with `Name` containing `John`.
 2. The `FindCommandParser` checks that only one parameter is present in the user input. This parameter is used to indicate which `Person` field to search for.
-3. When called upon to parse the value of the parameter specified by the user, the `FindCommandParser` creates an `PersonXYZPredicate` that encapsulates the user search string e.g. `John` (`XYZ` is a placeholder for the specific `Person` field e.g. `PersonNamePredicate`).
-4. All `PersonXYZPredicate` classes (e.g.`PersonNamePredicate`, `PersonEmailPredicate`) inherit from `PersonPredicate` interface so that they can be treated similarly where possible e.g, during testing.
+3. When called upon to parse the value of the parameter specified by the user, the `FindCommandParser` creates a `PersonXYZPredicate` that encapsulates the user search string e.g. `John` (`XYZ` is a placeholder for the specific `Person` field e.g. `PersonNamePredicate`).
+4. All `PersonXYZPredicate` classes (e.g.`PersonNamePredicate`, `PersonEmailPredicate`) inherit from the `PersonPredicate` interface so that they can be treated similarly where possible e.g. during testing.
 5. A new `FindCommand` instance is created by `FindCommandParser` and is executed by `LogicManger`.
-6. `FindCommand` will call `Model#updateFilteredPersonList(PersonPredicate)` to update the `UI` and display all `Person` that has `Name` containing `John`.
+6. `FindCommand` will call `Model#updateFilteredPersonList(PersonPredicate)` to update the `UI` and display all `Person` that has a `Name` containing `John`.
 7. The result of the command execution is encapsulated as a `CommandResult` object which is returned back to `LogicManager`.
 
 #### Search persons by person's meeting date sub-feature
-For search queries based on person's meeting date, the user input will be first validated in `FindCommandParser` to check if it matches the date format specified in FINDvisor. This validation is facilitated by `ParserUtil#parseMeetingDate(String)`. Afterwards, `FindCommandParser` will create a new `PersonMeetingDatePredicate(LocalDate)` with the parsed user input if it is valid. 
 
-The following sequence diagram below show `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
+For search queries based on a person's meeting date, the user input will be first validated in `FindCommandParser` to check if it matches the date format specified in FINDvisor. This validation is facilitated by `ParserUtil#parseMeetingDate(String)`. Afterwards, `FindCommandParser` will create a new `PersonMeetingDatePredicate(LocalDate)` with the parsed user input if it is valid. 
+
+The following sequence diagram below shows `Model` and `LogicManger` components interact with the find by person's meeting date sub-feature. Below are the definitions used in the sequence diagram:
 - `find`: `find m/25-04-2024`
 - `argument`: `m/25-04-2024`
 - `value`: `25-04-2024`
