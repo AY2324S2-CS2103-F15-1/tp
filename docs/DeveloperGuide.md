@@ -784,7 +784,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 #### Editing a person who has a meeting scheduled today successfully
 1. List all persons using the `list` command. At least 2 persons are displayed in the list.
-3. The first person in the list also has a meeting scheduled today.
+2. The first person in the list also has a meeting scheduled today.
 
 **Example Test Case:** `edit 1 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665`.
 
@@ -1043,7 +1043,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Expected Result:**
 1. The meeting details of the specified person is updated with the provided rescheduled meeting date and time.
 2. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
-4. *Command Box* is cleared.
+3. *Command Box* is cleared.
 
 **Alternative Test Cases:**
 - `reschedule 2 s/20-06-2024T09:30 e/20-06-2024T12:30`.
