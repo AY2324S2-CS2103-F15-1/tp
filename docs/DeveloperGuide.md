@@ -947,23 +947,35 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 ### Scheduling a meeting with a person
 
 #### Scheduling a meeting with a person successfully
+##### The time input of this test must be after current date time.
 
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
-2. Assume the time for now is 14-04-2024T12:00.
-3. No person in the list has any scheduled meeting.
+2. No person in the list has any scheduled meeting.
 
-**Example Test Case**: `schedule 1 s/23-04-2024T16:00 e/23-04-2024T17:00`.
+**Example Test Case**: `schedule 1 s/23-04-2025T16:00 e/23-04-2025T17:00`.
 
 **Expected Result:**
-1. A meeting from 23-02-2024 16:00 to 23-02-2024 17:00 is attached to the specified person.
-2. *Person List* shows all persons in FINDvisor. 
-3. *Command Result Box* outputs a successful execution message with the details of the meeting with the person.
+1. The meeting details of the specified person is updated with the provided meeting date and time.
+2. *Person List* updates the list of contact with the person with details of the meeting.
+3. *Command Result Box* outputs a successful execution message with the details of the meeting with the specified person.
 4. *Command Box* is cleared.
 
-**Alternative Test Cases:**
-- `schedule 3 s/23-04-2024T00:00 e/23-04-2025T10:00`.
-- `schedule 5 s/23-04-2024T12:00 e/30-04-2024T20:00`.
+#### Scheduling a meeting today successfully
+##### The time of this test must be before 23:00 of the current date
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. No person in the list has any scheduled meeting.
+
+**Example test case:** `schedule 1 s/CUREENT_DATET23:00 e/CURRENT_DATET23:30`.
+
+**Expected Result:**
+1. The meeting details of the specified person is updated with the provided meeting date and time.
+2. *Person List* updates the list of contact with the person with details of the meeting.
+3. *Today’s Meeting List* shows the list of today’s meetings with the specified person.
+4. *Command Result Box* outputs a successful execution message with the details of the meeting with the specified person.
+5. *Command Box* is cleared.
 
 #### Target person already have a scheduled meeting
 
@@ -1013,10 +1025,26 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Example test case:** `unschedule 5`.
 
 **Expected Result:**
-1. The meeting detail is deleted for the person at the specified index.
+1. The meeting detail is deleted for the specified person.
 2. *Person List* updates the list of contact with the person with no meeting.
-3. *Command Result Box* outputs a successful execution message with the name of the modified person.
+3. *Command Result Box* outputs a successful execution message with the name of the specified person.
 4. *Command Box* is cleared.
+
+#### Unscheduling a meeting today successfully
+##### The time of this test must be before 23:00 of the current date
+
+**Prerequisites:**
+1. List all persons using the `list` command. At least 5 persons are in the list.
+2. All person in the list has a scheduled meeting.
+
+**Example test case:** `unschedule 1`.
+
+**Expected Result:**
+1. The meeting detail is deleted for the specified person.
+2. *Person List* updates the list of contact with the person with no meeting.
+3. *Today’s Meeting List* shows the list of today’s meetings without the specified person.
+4. *Command Result Box* outputs a successful execution message with the name of the specified person.
+5. *Command Box* is cleared.
 
 #### Unschedule for a person without meeting
 
