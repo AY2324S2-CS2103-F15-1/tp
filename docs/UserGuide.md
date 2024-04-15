@@ -13,9 +13,9 @@ title: User Guide
 <div style="page-break-after: always;"></div>
 
 ## About FINDvisor
-FINDvisor is a desktop app for **Singapore-based** financial advisors to manage contacts with **Singapore-based mobile phone numbers**. If you **frequently schedule meetings and require quick access to your contacts' details**, then FINDvisor is the tool for you. It is optimized for typists, enabling individuals who type fast to perform contact management and meeting scheduling tasks efficiently.
+FINDvisor is a desktop app for **Singapore-based** financial advisors who are **comfortable using CLI applications**, and have to manage contacts with **Singapore-based mobile phone numbers**. If you **frequently schedule meetings and require quick access to your contacts' details**, then FINDvisor is the tool for you. It is optimized for typists, enabling individuals who type fast to perform contact management and meeting scheduling tasks efficiently.
 
-FINDvisor enables financial advisors to quickly save and retrieve the following contact's information such as name, phone number, email and physical address. It also allows financial advisors to add a remark and tags to specific contacts where needed, while offering the capability to manage their meeting details with their contacts.
+FINDvisor enables financial advisors to **quickly save and retrieve their contacts' information** such as name, phone number, email and physical address. It also allows financial advisors to **add a remark and tags to specific contacts where needed**, while offering the capability to **manage their meeting details with their contacts**.
 
 ## Quick start
 1. Ensure you have Java `11` or above installed in your Computer.
@@ -48,10 +48,10 @@ FINDvisor enables financial advisors to quickly save and retrieve the following 
 The components of FINDvisor's user interface are shown below:<br>
 
 ![Ui-Annotated](images/Ui-Annotated.png)
-1. **Command Box**: Commands are entered in this box and executed when the user presses the Enter key. The command entered will be cleared when a command is executed successfully.
-2. **Command Result Box**: The feedback for command will be displayed, indicating if command executed was successful. An error message will be displayed if the command was unsuccessful.
-3. **Person List**: The list of persons stored in FINDvisor. Note that this list will be display the latest list when a command to update the list is **executed successfully**.
-4. **Today's Meeting List**: The list of persons who have a meeting on the current date of your computer when running the application (if any).
+1. *Command Box*: Commands are entered in this box and executed when the user presses the Enter key. The command entered will be cleared when a command is executed successfully.
+2. *Command Result Box*: The feedback for command will be displayed, indicating if command executed was successful. An error message will be displayed if the command was unsuccessful.
+3. *Person List*: The list of persons stored in FINDvisor. Note that this list will display the latest list when a command to update the list is **executed successfully**.
+4. *Today's Meeting List*: The list of persons who have a meeting on the current date of your computer when running the application (if any). This list is updated accordingly to match the latest persons' information in *Person List*.
 
 ### On Command Success
 Below is a sample command that is executed successfully. Note that the feedback is displayed in the **Command Result Box** and the **Person List** displays the newly added person.<br>
@@ -378,6 +378,8 @@ This allows FINDvisor to restore most of the window settings on the next startup
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
+**Q**: What is the difference between a person and a contact in the user guide?<br>
+**A**: These two terms are used interchangeably, i.e. a contact is a person stored in FINDvisor and vice versa. 
 
 **Q**: How do I transfer my data to another Computer?<br>
 **A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous FINDvisor home folder.

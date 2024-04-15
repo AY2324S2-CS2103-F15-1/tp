@@ -2,14 +2,19 @@
 layout: page
 title: Developer Guide
 ---
-* Table of Contents
+## Table of Contents
+{:.no_toc}
+
+* ToC
 {:toc}
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Acknowledgements**
 
-* {list here sources of all reused/adapted ideas, code, documentation, and third-party libraries -- include links to the original source as well}
+* This project is based on the AddressBook-Level3 project created by the [SE-EDU initiative](https://se-education.org).
+* App icon and favicon: <a href="https://www.flaticon.com/free-icons/search" title="search icons">Search icons created by Maxim Basinski Premium - Flaticon</a>
+* Libraries used: [JavaFX](https://openjfx.io/), [Jackson](https://github.com/FasterXML/jackson), [JUnit5](https://github.com/junit-team/junit5)
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -663,6 +668,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 * **Private contact detail**: A contact detail that is not meant to be shared with others.
+* **Client/Contact/Person**: These terms are used interchangeably to refer to a single person in FINDvisor.
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -713,7 +719,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. There is no person in the list with the same mobile phone number as the person to be added.
 
-**Example test case:** `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
+**Example Test Case:** `add n/Brendan Lim e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653`.
 
 **Expected Result:**
 1. *Person List* shows all contacts in FINDvisor.
@@ -733,7 +739,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. There is no person with the mobile phone number `96734294`.
 3. There is a person with the mobile phone number `88812457`.
 
-**Example test case:** `add n/Lim Wei Sheng @ Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
+**Example Test Case:** `add n/Lim Wei Sheng @ Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
 **Expected Result:**
 1. Person is **not** added to FINDvisor.
@@ -746,6 +752,94 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `add n/ e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 - `add n/Brendan Lim n/Lim Wei Sheng Brendan e/brendanl@gmail.com p/96734294 a/Blk 653C Jurong West Street 61 Singapore 643653 t/PRUGrowth`.
 
+### Viewing all persons
+#### Viewing all persons successfully
+**Example Test Case:** `list`.
+
+**Expected Result:**
+1. *Person List* shows all persons in FINDvisor.
+2. *Command Result Box* outputs a successful execution message.
+3. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+- `list 1`.
+- `list a`.
+
+### Editing a person
+#### Editing a person successfully
+**Prerequisites:**
+1. List all persons using the `list` command. At least 2 persons in the list.
+2. No person in FINDvisor has the mobile phone number `96734294`.
+
+**Example Test Case:** `edit 1 p/96734294 e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
+
+**Expected Result:**
+1. *Person List* shows all persons in FINDvisor. The respective person's fields will be overwritten with the specified values supplied in the command.
+2. *Command Result Box* outputs a successful execution message with the edited person's details.
+3. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+1. `edit 2 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
+2. `edit 1 n/John Tan`
+
+#### Editing a person who has a meeting scheduled today successfully
+1. List all persons using the `list` command. At least 2 persons is displayed in the list.
+3. The first person in the list is also has a meeting scheduled today.
+
+**Example Test Case:** `edit 1 n/James Lee e/jameslee@example.com a/123, Clementi Rd, 1234665`.
+
+**Expected Result:**
+1. *Today's Meeting List* shows updated person's fields (name and phone number only) based on the specified values supplied in the command.
+2. *Person List* shows all persons in FINDvisor. The respective person's fields will be overwritten with the specified values supplied in the command.
+3. *Command Result Box* outputs a successful execution message with the edited person's details.
+4. *Command Box* is cleared.
+
+#### Invalid value or command format used for editing a person
+**Prerequisites:**
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
+2. The first existing person in the *Person List* has the mobile phone number `96734294`.
+
+**Example Test Case:** `edit 2 p/96734294`
+
+**Expected Result:**
+1. *Person List* shows all persons in FINDvisor. No person's fields will be edited.
+2. *Command Result Box* will display error details.
+3. Input in the *Command Box* remains but turns red.
+
+**Alternative Test Cases:**
+1. `edit 1 n/`.
+2. `edit -1`.
+3. `edit 100000 n/Jane Doe`.
+4. `edit 1 n/John Doe n/Jane Doe`.
+
+### Searching for persons
+#### Searching for persons successfully
+**Example Test Case:** `find n/Alex`.
+
+**Expected Result:**
+1. *Person List* shows all persons in FINDvisor satisfying the search criteria.
+2. *Command Result Box* outputs a successful execution message with the number of persons found, the specified search string and category is also displayed.
+3. *Command Box* is cleared.
+
+**Alternative Test Cases:**
+1. `find e/johntan`.
+2. `find mr/Online Meeting`.
+3. `find m/03-10-2024`.
+
+#### Invalid value or command format used for searching persons
+
+**Example Test Case:** `find m/40-15-2024`
+
+**Expected Result:**
+1. *Person List* will not be updated.
+2. *Command Result Box* will display error details.
+3. Input in the *Command Box* remains but turns red.
+
+**Alternative Test Cases:**
+1. `find n/`.
+2. `find m/03/10/2024`.
+3. `find m/3rd March 2024`.
+
 ### Deleting a person
 
 #### Deleting a person successfully
@@ -753,11 +847,11 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 
-**Example test case:** `delete 5`.
+**Example Test Case:** `delete 5`.
 
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
-2. *Person List* updates the list of contact without the deleted person.
+2. *Person List* shows the list of contact without the deleted person.
 3. *Command Result Box* outputs a successful execution message with the deleted person's information.
 4. *Command Box* is cleared.
 
@@ -771,21 +865,21 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 1. List all persons using the `list` command. At least 1 person is in the list.
 2. The first person in the list has a scheduled meeting today.
 
-**Example test case:** `delete 1`.
+**Example Test Case:** `delete 1`.
 
 **Expected Result:**
 1. The contact information of the person at the specified index of the list is deleted from FINDvisor.
-2. *Person List* updates the list of contact without the deleted person.
-3. *Today's Meeting List* updates the list of today's meetings without the deleted person.
+2. *Person List* shows the list of contact without the deleted person.
+3. *Today's Meeting List* shows the list of today's meetings without the deleted person.
 4. *Command Result Box* outputs a successful execution message with the deleted person's information.
 5. *Command Box* is cleared.
 
 #### Invalid value or command format used for deleting a person
 
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 
-**Example test case:** `delete`.
+**Example Test Case:** `delete`.
 
 **Expected Result:**
 1. No person in the contact list is deleted.
@@ -804,7 +898,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. List all persons using the `list` command. At least 5 persons are in the list.
 
-**Example test case:** `remark 1 r/Birthday on 31 July.`.
+**Example Test Case:** `remark 1 r/Birthday on 31 July.`.
 
 **Expected Result:**
 1. The remark of specified person is updated to show the respective remark.
@@ -821,7 +915,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 1. List all persons using the `list` command. At least 5 persons are in the list.
 2. First person in the displayed list has an existing remark.
 
-**Example test case:** `remark 1 r/`.
+**Example Test Case:** `remark 1 r/`.
 
 **Expected Result:**
 1. The remark of specified person is updated to be empty.
@@ -835,9 +929,9 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 #### Invalid value or command format used for updating remark of a person
 
 **Prerequisites:**
-1. List all persons using the `list` command. Multiple persons are in the list (less than 100000).
+1. List all persons using the `list` command. Multiple persons are in the list (less than 100).
 
-**Example test case:** `remark 1 r/Birthday on 31/7.`.
+**Example Test Case:** `remark 1 r/Birthday on 31/7.`.
 
 **Expected Result:**
 1. Remark is **not updated** for any person.
@@ -1032,7 +1126,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Prerequisites:**
 1. At least 1 person is saved in FINDvisor.
 
-**Example test case:** `clear`.
+**Example Test Case:** `clear`.
 
 **Expected Result:**
 1. All persons' information is removed from FINDvisor.
@@ -1049,7 +1143,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 #### Exiting FINDvisor successfully
 
-**Example test case:** Test case: `exit`.
+**Example Test Case:** Test case: `exit`.
 
 **Expected Result:**
 1. FINDvisor is closed.
@@ -1062,7 +1156,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 #### Opening help window successfully
 
-**Example test case:** `help`.
+**Example Test Case:** `help`.
 
 **Expected Result:**
 1. An additional help window is opened on top of FINDvisor.
