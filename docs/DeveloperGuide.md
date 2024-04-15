@@ -917,6 +917,7 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. *Today’s Meeting List* shows the list of today’s meetings without the person with the rescheduled meeting.
 3. *Command Result Box* outputs a successful execution message with the rescheduled meeting information.
 4. *Command Box* is cleared.
+
 #### Invalid value or command format used for rescheduling a meeting
 
 **Prerequisites:**
