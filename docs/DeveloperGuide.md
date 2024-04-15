@@ -42,6 +42,8 @@ The ***Architecture Diagram*** given above explains the high-level design of the
 
 Below is a quick overview of the main components and how they interact with each other.
 
+<div style="page-break-after: always;"></div>
+
 **Main components of the architecture**
 
 **`Main`** (consisting of classes [`Main`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/Main.java) and [`MainApp`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/MainApp.java)) is in charge of the app launch and shutdown.
@@ -74,6 +76,8 @@ For example, the `Logic` component defines its API in the `Logic.java` interface
 
 The sections below give more details of each component.
 
+<div style="page-break-after: always;"></div>
+
 ### UI component
 
 The **API** of this component is specified in [`Ui.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/ui/Ui.java)
@@ -90,6 +94,8 @@ The `UI` component
 * listens for changes to `Model` data so that the UI can be updated with the modified data.
 * keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
 * depends on some classes in the `Model` component, as it displays the `Person` object residing in the `Model`.
+
+<div style="page-break-after: always;"></div>
 
 ### Logic component
 
@@ -119,6 +125,8 @@ How the parsing works:
 * When called upon to parse a user command, the `AddressBookParser` class creates an `XYZCommandParser` (`XYZ` is a placeholder for the specific command name e.g., `AddCommandParser`) which uses the other classes shown above to parse the user command and creates an `XYZCommand` object (e.g., `AddCommand`) which the `AddressBookParser` returns back as a `Command` object.
 * All `XYZCommandParser` classes (e.g., `AddCommandParser`, `DeleteCommandParser`, ...) inherit from the `Parser` interface so that they can be treated similarly where possible e.g., during testing.
 
+<div style="page-break-after: always;"></div>
+
 ### Model component
 **API**: [`Model.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/model/Model.java)
 
@@ -132,6 +140,8 @@ The `Model` component
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` object.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
+<div style="page-break-after: always;"></div>
+
 ### Storage component
 
 **API**: [`Storage.java`](https://github.com/AY2324S2-CS2103-F15-1/tp/blob/master/src/main/java/seedu/findvisor/storage/Storage.java)
@@ -143,6 +153,8 @@ The `Storage` component
 * can save both address book data and user preference data in JSON format, and read them back into corresponding objects.
 * inherits from both `AddressBookStorage` and `UserPrefStorage`, which means it can be treated as either one (if only the functionality of only one is needed).
 * depends on some classes in the `Model` component (because the `Storage` component's job is to save/retrieve objects that belong to the `Model`)
+
+<div style="page-break-after: always;"></div>
 
 ### Common classes
 
@@ -164,6 +176,8 @@ The following sequence diagram shows the interaction within the `Logic` componen
 
 ![EditSequenceDiagram-Logic](images/EditSequenceDiagram-Logic.svg)
 
+<div style="page-break-after: always;"></div>
+
 The following sequence diagram shows the interactions within the `Model` component when executing `EditCommand`.
 
 ![EditSequenceDiagram-Model](images/EditSequenceDiagram-Model.svg)
@@ -181,6 +195,8 @@ The supported meeting details are:
 - End date time
 - Remarks
 
+<div style="page-break-after: always;"></div>
+
 #### Schedule Command
 
 The `schedule` command is implemented to allow users to schedule meetings within the application. The command follows a sequence of interactions similar to the other commands. The part to highlight is `ScheduleCommandParser#parse(String)`  creates a `Meeting` object containing the parsed meeting details and it is then passed to `ScheduleCommand`.
@@ -193,6 +209,8 @@ The following sequence diagram shows how a schedule meeting operation goes throu
 The `reschedule` command is designed to provide users with the capability to update the meeting details of a previously scheduled meeting. The primary action is the creation of a new `Meeting` object with the specified changes, that will replace the current `Meeting` object of the specified person in the Model.
 
 The execution flow of the `reschedule` command follows a sequence of interactions similar to the `edit` Command, with the main difference being that `RescheduleCommand` takes an `EditMeetingDescriptor` instead of `EditPersonDescriptor`.
+
+<div style="page-break-after: always;"></div>
 
 #### Unschedule Command
 
@@ -219,6 +237,8 @@ While it is possible to determine an empty `Remark` through its value, the `Opti
 When a user passes a parameter that is either empty or consists exclusively of whitespace, the `Remark` attribute of a `Person` would be updated to `Optional.empty()`.
 This is equivalent to a user removing the previous `Remark` of a `Person`.
 
+<div style="page-break-after: always;"></div>
+
 The following sequence diagram shows how the remark value is parsed through the `Logic` component:
 
 ![RemarkSequenceDiagram-Logic](images/RemarkSequenceDiagram-Logic.svg)
@@ -231,6 +251,8 @@ Note that `parseRemark(value)` will also check if `value` adheres to the constra
 ### Searching persons by person's information feature
 
 This feature allows users to find a specific `Person` field based on the user-supplied string, all `Person` that contains the specified search string in the specified field will be displayed to the user. The find mechanism is facilitated by `FindCommand` and `FindCommandParser` which extends `Command` and `Parser` respectively. Note that `FindCommandParser` implements `FindCommand#parse(String)` which checks if there is only one parameter supplied by the user which corresponds to the `Person` field to be searched.
+
+<div style="page-break-after: always;"></div>
 
 The currently supported `Person` fields that can be searched are:
 - Name
@@ -267,6 +289,8 @@ The sequence diagram below shows `Model` and `LogicManger` components interact w
 - `value`: `25-04-2024`
 
 ![FindMeetingDateSequenceDiagram](images/FindMeetingDateSequenceDiagram.svg)
+
+<div style="page-break-after: always;"></div>
 
 ### Add Tag Feature
 This feature allows users to add multiple `Tag`s to a `Person` within the contact list, without the need to use the `edit` command.
@@ -328,6 +352,8 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - With reference to the previous `remark` command, the remark will be successfully saved when the user enters `remark 1 r/Birthday on 23\/02\/2024`.
 - These changes allow for flexibility since all special characters will be accepted for the `REMARK` field.
 
+<div style="page-break-after: always;"></div>
+
 ### 2. Allow users to enter more special characters for the Address field
 **Current Implementation**: 
 
@@ -374,6 +400,8 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - This can be applied for both reschedule and schedule as they go through the same checks.
 - For example, `The START_DATETIME parameter is invalid or has the wrong format. Please use the following format: dd-MM-yyyy'T'HH:mm, e.g. 02-02-2024T22:00.`
 
+<div style="page-break-after: always;"></div>
+
 ### 6. Warn users when scheduling an overlapping meeting
 **Current Implementation**:
 
@@ -396,6 +424,8 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 - A confirmation prompt warning the user that all data will be deleted will be shown in the *Command Result Box*.
 - The confirmation prompt would require users to key in a **case-sensitive** `Y` into the *Command Box* for the command to be executed.
 - Any other given value would cause the `clear` command to be cancelled and would be stated in the *Command Result Box* and prevents accidental deletion of the entire data.
+
+<div style="page-break-after: always;"></div>
 
 ### 8. Notify the user if the data file is invalid
 **Current Implementation**: 
@@ -420,6 +450,8 @@ The following sequence diagram shows how `DeleteTagCommand` interacts with `Logi
 * [DevOps guide](DevOps.md)
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 ## **Appendix: Requirements**
 
@@ -471,6 +503,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `*`      | Experienced User  | archive contact data that are not in use, but I still want to keep                       | reduce clutter in the application                                                       |
 | `*`      | Experienced User  | archive past meeting data that are not in use, but I still want to keep                  | reduce clutter in the application                                                       |
 
+<div style="page-break-after: always;"></div>
+
 ### Use cases
 
 (For all use cases below, the **System** is the `FINDvisor` and the **Actor** is the `user` unless specified otherwise)
@@ -512,6 +546,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   * 1a1. FINDvisor displays an empty list.
 
     Use case ends.
+
+<div style="page-break-after: always;"></div>
 
 * 1b. FINDvisor detects an error in specified keywords.
   * 1b1. FINDvisor shows an error message and requests for valid keywords from the user.
@@ -557,6 +593,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 5. A meeting is scheduled.
 
     Use case ends.
+
+<div style="page-break-after: always;"></div>
 
 **Extensions**
 
@@ -689,6 +727,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 </div>
 
+<div style="page-break-after: always;"></div>
+
 ### Launch and shutdown
 
 #### Initial launch
@@ -719,6 +759,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - Shifting the window to a desired position.
 - Maximizing the window and restoring the window from maximized state.
 - Changing the divider position between *Today's Meeting Panel* and other UI components.
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a person
 
@@ -780,6 +822,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. No person in FINDvisor has the mobile phone number `96734294`.
 
 **Example Test Case:** `edit 1 p/96734294 e/jameslee@example.com a/123, Clementi Rd, 1234665 t/PRUGrowth`.
+
+<div style="page-break-after: always;"></div>
 
 **Expected Result:**
 1. *Person List* shows all persons in FINDvisor. The respective person's fields will be overwritten with the specified values supplied in the command.
@@ -882,6 +926,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 4. *Command Result Box* outputs a successful execution message with the deleted person's information.
 5. *Command Box* is cleared.
 
+<div style="page-break-after: always;"></div>
+
 #### Invalid value or command format used for deleting a person
 
 **Prerequisites:**
@@ -912,6 +958,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. No person in the list has any scheduled meeting.
 
 **Example Test Case**: `schedule 1 s/12-12-2024T16:00 e/12-12-2024T17:00 mr/Online Meeting`.
+
+<div style="page-break-after: always;"></div>
 
 **Expected Result:**
 1. The meeting details of the specified person is updated with the provided meeting date and time.
@@ -947,6 +995,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Example Test Case**: `schedule 1 s/23-04-2024T16:00 e/23-04-2024T17:00`.
 
+<div style="page-break-after: always;"></div>
+
 **Expected Result:**
 1. Meeting is **not scheduled** for any person.
 2. Input in the *Command Box* remains and turns red.
@@ -980,6 +1030,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 2. All persons in the list have a scheduled meeting.
 
 **Example test case:** `unschedule 5`.
+
+<div style="page-break-after: always;"></div>
 
 **Expected Result:**
 1. The meeting detail is deleted for the specified person.
@@ -1015,6 +1067,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 1. No person in the contact list is modified.
 2. Input in the *Command Box* remains and turns red.
 3. Error details are stated in the *Command Result Box*.
+
+<div style="page-break-after: always;"></div>
 
 #### Invalid value or command format used for unscheduling a meeting
 
@@ -1089,6 +1143,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `reschedule 1 s/01-01-2000T09:30 e/01-01-2000T12:30`.
 - `reschedule 1 s/01-01-2024T09:30 e/01-01-2023T12:30`.
 
+<div style="page-break-after: always;"></div>
+
 #### Specified person does not have a scheduled meeting
 
 **Prerequisites:**
@@ -1122,6 +1178,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 
 **Alternative Test Cases:**
 - `remark 3 r/Wants to get into investing. Wants $100,000 in savings by end of year.`.
+
+<div style="page-break-after: always;"></div>
 
 #### Removing a remark from a person
 
@@ -1157,6 +1215,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `remark -1 r/Birthday on 31 July.`.
 - `remark 100000 r/Birthday on 31 July.`.
 - `remark 1 r/Birthday on 31 July r/`.
+
+<div style="page-break-after: always;"></div>
 
 ### Adding one or more tags to a person
 
@@ -1229,6 +1289,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 - `deletetag -1`.
 - `deletetag 3 t/ t/PRUSafe365`.
 
+<div style="page-break-after: always;"></div>
+
 ### Clearing all persons in FINDvisor
 
 #### Clearing all persons successfully
@@ -1261,6 +1323,8 @@ testers are expected to do more *exploratory* testing. Alternative test cases wi
 **Alternative Test Cases:**
 - `exit 1`.
 - `exit a`.
+
+<div style="page-break-after: always;"></div>
 
 ### Opening help window
 
